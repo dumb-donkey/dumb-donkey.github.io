@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TypeRight — Week 2 (1:1)</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root { --u:4px; }
+
+body {
+  background:#111;
+  width:100vw; height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  font-family:Impact,'Arial Black',Arial,sans-serif;
+  overflow:hidden;
+}
+
+#stage {
+  position:relative;
+  display:grid;
+  grid-template-rows: 11% 44% 16% 18% 11%;
+  grid-template-columns: 1fr 1fr 1fr;
+  background:#000;
+  overflow:hidden;
+}
+
+.panel {
+  border:calc(.8*var(--u)) solid #000;
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ════ HEADER ════ */
+#hdr {
+  grid-column:1/4; grid-row:1;
+  background:#FFE600;
+  flex-direction:row; justify-content:space-between;
+  padding:0 calc(4*var(--u));
+  background-image:radial-gradient(circle,rgba(0,0,0,.08) 1px,transparent 1px);
+  background-size:calc(1.8*var(--u)) calc(1.8*var(--u));
+}
+.hdr-logo { font-size:calc(7*var(--u)); color:#000; letter-spacing:-.02em; text-transform:uppercase; text-shadow:calc(.5*var(--u)) calc(.5*var(--u)) 0 rgba(0,0,0,.2); line-height:1; }
+.hdr-logo span { color:#FF2020; }
+.hdr-tag { font-size:calc(2*var(--u)); color:#000; font-family:'Arial Black',Arial,sans-serif; font-weight:900; letter-spacing:.05em; text-align:right; line-height:1.3; max-width:40%; opacity:.7; }
+.free-badge { background:#FF2020; color:#fff; font-size:calc(1.8*var(--u)); padding:calc(.5*var(--u)) calc(1.5*var(--u)); border-radius:calc(.5*var(--u)); border:calc(.3*var(--u)) solid #000; animation:badgeBounce 1.2s ease-in-out infinite; flex-shrink:0; }
+@keyframes badgeBounce { 0%,100%{transform:rotate(-3deg) scale(1)} 50%{transform:rotate(3deg) scale(1.07)} }
+
+/* ════ BIG HERO — full width ════ */
+#hero {
+  grid-column:1/4; grid-row:2;
+  background:#FF2020;
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:calc(1.2*var(--u));
+  padding:calc(2.5*var(--u));
+  background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px);
+  background-size:calc(2*var(--u)) calc(2*var(--u));
+}
+
+/* Floating corner stars */
+.hstar { position:absolute; pointer-events:none; animation:hstarFloat 3s ease-in-out infinite; }
+.hs1{top:6%;left:5%;font-size:calc(4.5*var(--u));color:#FFE600;animation-delay:0s}
+.hs2{top:8%;right:6%;font-size:calc(3*var(--u));color:#fff;animation-delay:.7s}
+.hs3{bottom:8%;left:6%;font-size:calc(2.5*var(--u));color:#FFE600;animation-delay:1.4s}
+.hs4{bottom:6%;right:5%;font-size:calc(4*var(--u));color:#fff;animation-delay:.3s}
+@keyframes hstarFloat { 0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:.8} 50%{transform:translateY(calc(-2.5*var(--u))) rotate(25deg) scale(1.5);opacity:1} }
+
+.hero-stat {
+  font-size:calc(20*var(--u)); color:#FFE600; line-height:.85;
+  text-shadow:
+    calc(.6*var(--u)) calc(.6*var(--u)) 0 rgba(0,0,0,.35),
+    0 0 calc(4*var(--u)) rgba(255,230,0,.4);
+  animation:statPulse 2s ease-in-out infinite;
+  letter-spacing:-.02em;
+}
+@keyframes statPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+.hero-label1 {
+  font-size:calc(4*var(--u)); color:#fff;
+  text-transform:uppercase; line-height:1;
+  text-shadow:calc(.4*var(--u)) calc(.4*var(--u)) 0 rgba(0,0,0,.3);
+  letter-spacing:.04em;
+}
+.hero-label2 {
+  font-size:calc(2.6*var(--u)); color:rgba(255,255,255,.85);
+  text-transform:uppercase; line-height:1;
+  font-family:'Arial Black',Arial,sans-serif; font-weight:900;
+  letter-spacing:.06em; text-align:center;
+}
+
+/* Key comparison */
+.key-compare {
+  display:flex; align-items:flex-end; gap:calc(2.5*var(--u));
+  margin-top:calc(.5*var(--u));
+}
+.key-box {
+  display:flex; flex-direction:column; align-items:center; gap:calc(.5*var(--u));
+}
+.key-cap {
+  background:#fff; border:calc(.4*var(--u)) solid #000;
+  border-radius:calc(.8*var(--u));
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:calc(.4*var(--u)) calc(.4*var(--u)) 0 #000;
+  font-family:'Arial Black',Arial,sans-serif;
+}
+.key-gboard { width:calc(6*var(--u)); height:calc(6*var(--u)); }
+.key-gboard .key-letter { font-size:calc(3*var(--u)); color:#555; }
+.key-typeright { width:calc(9.5*var(--u)); height:calc(8*var(--u)); animation:keyGrow 2s ease-in-out infinite; }
+.key-typeright .key-letter { font-size:calc(5*var(--u)); color:#FF2020; }
+@keyframes keyGrow { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+.key-lbl { font-size:calc(1.3*var(--u)); color:rgba(255,255,255,.8); font-family:'Arial Black',Arial,sans-serif; text-transform:uppercase; letter-spacing:.04em; }
+.key-lbl.dim { opacity:.55; }
+.compare-arrow {
+  font-size:calc(4.5*var(--u)); color:#FFE600;
+  animation:arrowBounce 1s ease-in-out infinite;
+  align-self:center;
+}
+@keyframes arrowBounce { 0%,100%{transform:translateX(0)} 50%{transform:translateX(calc(1*var(--u)))} }
+
+/* ════ 3 KEY STAT PANELS ════ */
+#ekey {
+  grid-column:1; grid-row:3;
+  background:#0055FF; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:calc(.4*var(--u));
+  background-image:radial-gradient(circle,rgba(255,255,255,.1) 1px,transparent 1px);
+  background-size:calc(2*var(--u)) calc(2*var(--u));
+}
+#tkey {
+  grid-column:2; grid-row:3;
+  background:#FF8C00; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:calc(.4*var(--u));
+  background-image:radial-gradient(circle,rgba(0,0,0,.07) 1px,transparent 1px);
+  background-size:calc(2*var(--u)) calc(2*var(--u));
+}
+#okey {
+  grid-column:3; grid-row:3;
+  background:#00CC44; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:calc(.4*var(--u));
+  background-image:radial-gradient(circle,rgba(0,0,0,.07) 1px,transparent 1px);
+  background-size:calc(2*var(--u)) calc(2*var(--u));
+}
+.key-letter-big {
+  font-size:calc(8*var(--u)); color:#fff; line-height:1;
+  text-shadow:calc(.4*var(--u)) calc(.4*var(--u)) 0 rgba(0,0,0,.25);
+  animation:letterPop 2.2s ease-in-out infinite;
+}
+#tkey .key-letter-big { animation-delay:.4s; }
+#okey .key-letter-big { animation-delay:.8s; }
+@keyframes letterPop { 0%,100%{transform:scale(1) rotate(-2deg)} 50%{transform:scale(1.12) rotate(2deg)} }
+.key-stat {
+  font-size:calc(2.5*var(--u)); color:#FFE600;
+  text-transform:uppercase; line-height:1;
+  text-shadow:calc(.3*var(--u)) calc(.3*var(--u)) 0 rgba(0,0,0,.3);
+}
+#tkey .key-stat { color:#fff; }
+#okey .key-stat { color:#fff; }
+.key-desc {
+  font-size:calc(1.4*var(--u)); color:rgba(255,255,255,.85);
+  font-family:'Arial Black',Arial,sans-serif; font-weight:900;
+  text-transform:uppercase; letter-spacing:.04em;
+}
+
+/* ════ RAIL STRIP ════ */
+#railstrip {
+  grid-column:1/4; grid-row:4;
+  background:#FFE600;
+  flex-direction:column; align-items:center; justify-content:center;
+  gap:calc(.5*var(--u));
+  padding:0 calc(4*var(--u));
+  background-image:radial-gradient(circle,rgba(0,0,0,.06) 1px,transparent 1px);
+  background-size:calc(2*var(--u)) calc(2*var(--u));
+}
+.rail-headline {
+  font-size:calc(2.6*var(--u)); color:#000;
+  text-transform:uppercase; line-height:1; letter-spacing:.02em;
+  text-align:center;
+}
+.rail-headline em { color:#FF2020; font-style:normal; }
+.rail-keys {
+  display:flex; gap:calc(.8*var(--u)); align-items:center;
+}
+.rkey {
+  background:#000; color:#FFE600;
+  font-size:calc(2*var(--u));
+  width:calc(4*var(--u)); height:calc(4*var(--u));
+  border-radius:calc(.6*var(--u));
+  display:flex; align-items:center; justify-content:center;
+  border:calc(.3*var(--u)) solid #000;
+  box-shadow:calc(.3*var(--u)) calc(.3*var(--u)) 0 rgba(0,0,0,.4);
+  animation:rkeyBop 2s ease-in-out infinite;
+}
+.rkey:nth-child(1){animation-delay:0s}
+.rkey:nth-child(2){animation-delay:.18s}
+.rkey:nth-child(3){animation-delay:.36s}
+.rkey:nth-child(4){animation-delay:.54s}
+.rkey:nth-child(5){animation-delay:.72s}
+.rkey:nth-child(6){animation-delay:.9s}
+@keyframes rkeyBop { 0%,100%{transform:translateY(0)} 50%{transform:translateY(calc(-.7*var(--u)))} }
+.rail-sub {
+  font-size:calc(1.5*var(--u)); color:rgba(0,0,0,.6);
+  font-family:'Arial Black',Arial,sans-serif; font-weight:900;
+  text-transform:uppercase; letter-spacing:.06em; text-align:center;
+}
+
+/* ════ CTA ════ */
+#ctapanel {
+  grid-column:1/4; grid-row:5;
+  background:#FF2020; flex-direction:row; justify-content:space-between;
+  padding:0 calc(4*var(--u));
+  background-image:radial-gradient(circle,rgba(255,255,255,.1) 1px,transparent 1px);
+  background-size:calc(1.8*var(--u)) calc(1.8*var(--u));
+}
+.cta-words { font-size:calc(4*var(--u)); color:#fff; letter-spacing:.02em; }
+.cta-words em { color:#FFE600; font-style:normal; }
+.cta-play-btn {
+  display:flex; align-items:center; gap:calc(1.5*var(--u));
+  background:#FFE600; border:calc(.4*var(--u)) solid #000;
+  border-radius:calc(1*var(--u)); padding:calc(1*var(--u)) calc(2.5*var(--u));
+  box-shadow:calc(.4*var(--u)) calc(.4*var(--u)) 0 #000;
+  animation:ctaBounce 1.8s ease-in-out infinite;
+}
+@keyframes ctaBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.cta-arrow { font-size:calc(4*var(--u)); color:#000; }
+.cta-btn-text { font-size:calc(2.5*var(--u)); color:#000; line-height:1.2; }
+.cta-btn-sub  { font-size:calc(1.5*var(--u)); color:rgba(0,0,0,.5); font-family:Arial,sans-serif; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- HEADER -->
+  <div class="panel" id="hdr">
+    <div class="hdr-logo">Type<span>Right</span></div>
+    <div class="free-badge">FREE</div>
+    <div class="hdr-tag">THE KEYBOARD<br>THAT FITS HOW<br>YOU ACTUALLY TYPE</div>
+  </div>
+
+  <!-- BIG HERO -->
+  <div class="panel" id="hero">
+    <span class="hstar hs1">★</span>
+    <span class="hstar hs2">✦</span>
+    <span class="hstar hs3">✦</span>
+    <span class="hstar hs4">★</span>
+
+    <div class="hero-stat">60%</div>
+    <div class="hero-label1">MORE SPACE</div>
+    <div class="hero-label2">ON THE KEYS YOU TYPE MOST</div>
+
+    <div class="key-compare">
+      <div class="key-box">
+        <div class="key-cap key-gboard"><span class="key-letter">e</span></div>
+        <div class="key-lbl dim">GBOARD</div>
+      </div>
+      <div class="compare-arrow">→</div>
+      <div class="key-box">
+        <div class="key-cap key-typeright"><span class="key-letter">E</span></div>
+        <div class="key-lbl">TYPERIGHT</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- E KEY -->
+  <div class="panel" id="ekey">
+    <div class="key-letter-big">E</div>
+    <div class="key-stat">60% WIDER</div>
+    <div class="key-desc">#1 MOST TYPED</div>
+  </div>
+
+  <!-- T KEY -->
+  <div class="panel" id="tkey">
+    <div class="key-letter-big">T</div>
+    <div class="key-stat">60% WIDER</div>
+    <div class="key-desc">#2 MOST TYPED</div>
+  </div>
+
+  <!-- O KEY -->
+  <div class="panel" id="okey">
+    <div class="key-letter-big">O</div>
+    <div class="key-stat">58% WIDER</div>
+    <div class="key-desc">TOP 5 KEY</div>
+  </div>
+
+  <!-- RAIL STRIP -->
+  <div class="panel" id="railstrip">
+    <div class="rail-headline">THE <em>6 RAREST</em> LETTERS MOVE TO THEIR OWN STRIP</div>
+    <div class="rail-keys">
+      <div class="rkey">Z</div>
+      <div class="rkey">Q</div>
+      <div class="rkey">X</div>
+      <div class="rkey">J</div>
+      <div class="rkey">K</div>
+      <div class="rkey">V</div>
+    </div>
+    <div class="rail-sub">SO YOUR TOP KEYS GET THE ROOM THEY DESERVE</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="panel" id="ctapanel">
+    <div class="cta-words">FREE ON<br><em>GOOGLE PLAY</em></div>
+    <div class="cta-play-btn">
+      <div class="cta-arrow">▶</div>
+      <div>
+        <div class="cta-btn-text">GET IT NOW</div>
+        <div class="cta-btn-sub">No subscription ever</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+function resize() {
+  const s = document.getElementById('stage');
+  const W = window.innerWidth, H = window.innerHeight;
+  const sz = Math.min(W, H);
+  s.style.width = sz+'px';
+  s.style.height = sz+'px';
+  document.documentElement.style.setProperty('--u',(sz/100)+'px');
+}
+resize();
+window.addEventListener('resize', resize);
+</script>
+</body>
+</html>

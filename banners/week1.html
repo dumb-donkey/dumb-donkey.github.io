@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TypeRight — Week 1 (1:1)</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root { --u:4px; }
+
+body {
+  background:#111;
+  width:100vw; height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  font-family:Impact,'Arial Black',Arial,sans-serif;
+  overflow:hidden;
+}
+
+#stage {
+  position:relative;
+  display:grid;
+  grid-template-rows: 11% 38% 17% 23% 11%;
+  grid-template-columns: 1fr 1fr;
+  background:#000;
+  overflow:hidden;
+}
+
+.panel {
+  border:calc(.8*var(--u)) solid #000;
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ════ HEADER ════ */
+#hdr {
+  grid-column:1/3; grid-row:1;
+  background:#FFE600;
+  flex-direction:row; justify-content:space-between;
+  padding:0 calc(3*var(--u));
+  background-image:radial-gradient(circle,rgba(0,0,0,.08) 1px,transparent 1px);
+  background-size:calc(1.8*var(--u)) calc(1.8*var(--u));
+}
+.hdr-logo { font-size:calc(6*var(--u)); color:#000; letter-spacing:-.02em; text-transform:uppercase; text-shadow:calc(.5*var(--u)) calc(.5*var(--u)) 0 rgba(0,0,0,.2); line-height:1; }
+.hdr-logo span { color:#FF2020; }
+.hdr-tag { font-size:calc(1.7*var(--u)); color:#000; font-family:'Arial Black',Arial,sans-serif; font-weight:900; letter-spacing:.05em; text-align:right; line-height:1.3; max-width:40%; opacity:.7; }
+.free-badge { position:absolute; top:calc(1.2*var(--u)); right:calc(2*var(--u)); background:#FF2020; color:#fff; font-size:calc(1.6*var(--u)); padding:calc(.4*var(--u)) calc(1.2*var(--u)); border-radius:calc(.5*var(--u)); border:calc(.3*var(--u)) solid #000; animation:badgeBounce 1.2s ease-in-out infinite; }
+@keyframes badgeBounce { 0%,100%{transform:rotate(-3deg) scale(1)} 50%{transform:rotate(3deg) scale(1.07)} }
+
+/* ════ NPUT HERO ════ */
+#nput-hero {
+  grid-column:1; grid-row:2;
+  background:#0055FF; flex-direction:column;
+  gap:calc(.8*var(--u)); padding:calc(2*var(--u));
+  background-image:radial-gradient(circle,rgba(255,255,255,.14) 1px,transparent 1px);
+  background-size:calc(2.5*var(--u)) calc(2.5*var(--u));
+}
+.lstar { position:absolute; pointer-events:none; animation:lstarFloat 3s ease-in-out infinite; }
+.ls1{top:8%;left:7%;font-size:calc(3.5*var(--u));color:#FFE600;animation-delay:0s}
+.ls2{top:10%;right:9%;font-size:calc(2.5*var(--u));color:#fff;animation-delay:.8s}
+.ls3{bottom:12%;left:6%;font-size:calc(2*var(--u));color:#FFE600;animation-delay:1.5s}
+.ls4{bottom:10%;right:8%;font-size:calc(3*var(--u));color:#fff;animation-delay:.3s}
+@keyframes lstarFloat { 0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:.7} 50%{transform:translateY(calc(-2*var(--u))) rotate(20deg) scale(1.4);opacity:1} }
+.robot-hero { flex-shrink:0; display:flex; flex-direction:column; align-items:center; animation:robotFloat 2.5s ease-in-out infinite; filter:drop-shadow(0 0 calc(5*var(--u)) rgba(0,200,255,.9)) drop-shadow(0 0 calc(1.5*var(--u)) rgba(255,220,0,.5)); }
+.robot-hero svg { width:calc(28*var(--u)); height:auto; overflow:visible; }
+.glow-floor-hero { width:calc(24*var(--u)); height:calc(1.2*var(--u)); margin-top:calc(-.6*var(--u)); background:radial-gradient(ellipse,rgba(0,200,255,.7) 0%,transparent 70%); animation:floorBob 2.5s ease-in-out infinite; }
+@keyframes robotFloat { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(calc(-2*var(--u))) rotate(2deg)} }
+@keyframes floorBob{0%,100%{transform:scaleX(1);opacity:.7}50%{transform:scaleX(.25);opacity:.06}}
+@keyframes nputScan      {0%,100%{transform:translateX(-9px)}50%{transform:translateX(9px)}}
+@keyframes nputBlink     {0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.06)}97%{transform:scaleY(1)}}
+@keyframes nputAntGlow   {0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+@keyframes nputAntBounce {0%,100%{transform:translateY(0)}45%{transform:translateY(-5px)}}
+@keyframes nputEyeGlow   {0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes nputBrowFurrow{0%,78%,100%{transform:translateY(0)}84%{transform:translateY(-2.5px)}90%{transform:translateY(0)}}
+@keyframes nputBreathe   {0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.025)}}
+@keyframes nputShadowPulse{0%,100%{transform:scaleX(1);opacity:.5}50%{transform:scaleX(.7);opacity:.25}}
+@keyframes nputRimGlow   {0%,100%{opacity:.3}50%{opacity:.7}}
+.hero-label { background:#FFE600; border:calc(.3*var(--u)) solid #000; border-radius:calc(3*var(--u)); padding:calc(.4*var(--u)) calc(1.8*var(--u)); font-size:calc(1.9*var(--u)); color:#000; letter-spacing:.06em; text-transform:uppercase; animation:badgeBounce 1.4s ease-in-out infinite; }
+
+/* ════ PUNCH ════ */
+#punch {
+  grid-column:2; grid-row:2;
+  background:repeating-conic-gradient(from 0deg at 50% 50%,#FF2020 0deg 4deg,#fff 4deg 8deg);
+  flex-direction:column; gap:calc(1.5*var(--u)); padding:calc(2.5*var(--u));
+}
+.punch-card { background:#fff; border:calc(.5*var(--u)) solid #000; border-radius:calc(1*var(--u)); padding:calc(1.5*var(--u)); text-align:center; width:92%; box-shadow:calc(.6*var(--u)) calc(.6*var(--u)) 0 #000; }
+.pc-small { font-size:calc(3*var(--u)); color:#000; line-height:1.05; text-transform:uppercase; }
+.pc-big { font-size:calc(7.5*var(--u)); color:#FF2020; line-height:.85; text-transform:uppercase; text-shadow:calc(.4*var(--u)) calc(.4*var(--u)) 0 rgba(0,0,0,.2); }
+.pc-sub { font-size:calc(2.4*var(--u)); color:#555; text-transform:uppercase; margin-top:calc(.4*var(--u)); }
+.pstar { position:absolute; pointer-events:none; animation:pstarSpin 4s linear infinite; }
+.ps1{top:5%;left:5%;font-size:calc(4*var(--u));color:#FF2020;animation-delay:0s}
+.ps2{top:5%;right:6%;font-size:calc(2.8*var(--u));color:#FF2020;animation-delay:1s}
+.ps3{bottom:5%;left:5%;font-size:calc(2.8*var(--u));color:#FF2020;animation-delay:2s}
+.ps4{bottom:5%;right:6%;font-size:calc(4*var(--u));color:#FF2020;animation-delay:3s}
+@keyframes pstarSpin{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.7)}100%{transform:rotate(360deg) scale(1)}}
+
+/* ════ FEATURE STRIP ════ */
+#featstrip {
+  grid-column:1/3; grid-row:3;
+  background:#6600CC; flex-direction:row;
+  justify-content:space-around; align-items:center;
+  padding:0 calc(3*var(--u)); gap:calc(2*var(--u));
+  background-image:radial-gradient(circle,rgba(255,255,255,.08) 1px,transparent 1px);
+  background-size:calc(2*var(--u)) calc(2*var(--u));
+}
+.strip-pill { display:flex; flex-direction:column; align-items:center; gap:calc(.4*var(--u)); flex:1; }
+.pill-icon { font-size:calc(3.5*var(--u)); animation:iconBop 2s ease-in-out infinite; }
+.strip-pill:nth-child(1) .pill-icon{animation-delay:0s}
+.strip-pill:nth-child(2) .pill-icon{animation-delay:.4s}
+.strip-pill:nth-child(3) .pill-icon{animation-delay:.8s}
+@keyframes iconBop{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.2) translateY(calc(-.5*var(--u)))}}
+.pill-name { font-size:calc(2.8*var(--u)); color:#FFE600; text-transform:uppercase; line-height:1; text-shadow:calc(.3*var(--u)) calc(.3*var(--u)) 0 rgba(0,0,0,.4); }
+.pill-hint { font-size:calc(1.4*var(--u)); color:rgba(255,255,255,.85); font-family:Arial,sans-serif; font-weight:bold; letter-spacing:.08em; text-transform:uppercase; }
+.strip-divider { width:calc(.3*var(--u)); height:60%; background:rgba(255,255,255,.25); border-radius:calc(.3*var(--u)); }
+
+/* ════ NOTEBOOK ════ */
+#nbpanel {
+  grid-column:1; grid-row:4;
+  background:#00CC44; flex-direction:column;
+  padding:calc(1.5*var(--u)) calc(2*var(--u));
+  gap:calc(.7*var(--u)); align-items:flex-start;
+  background-image:radial-gradient(circle,rgba(0,0,0,.07) 1px,transparent 1px);
+  background-size:calc(2*var(--u)) calc(2*var(--u));
+}
+#nbpanel .ptitle { font-size:calc(3.2*var(--u)); color:#fff; text-shadow:calc(.3*var(--u)) calc(.3*var(--u)) 0 rgba(0,0,0,.3); line-height:1; }
+#nbpanel .psub { font-size:calc(1.4*var(--u)); color:rgba(255,255,255,.8); font-family:Arial,sans-serif; font-weight:700; }
+.clip-stack { display:flex; flex-direction:column; gap:calc(.5*var(--u)); width:100%; }
+.clip-item { background:#fff; border:calc(.25*var(--u)) solid #000; border-radius:calc(.5*var(--u)); padding:calc(.5*var(--u)) calc(.8*var(--u)); font-size:calc(1.35*var(--u)); color:#333; font-family:Arial,sans-serif; display:flex; align-items:center; gap:calc(.7*var(--u)); transform:translateX(calc(20*var(--u))); opacity:0; box-shadow:calc(.3*var(--u)) calc(.3*var(--u)) 0 #000; }
+.ci1{animation:clipSlide 4s .2s ease-in-out infinite}
+.ci2{animation:clipSlide 4s .8s ease-in-out infinite}
+.ci3{animation:clipSlide 4s 1.4s ease-in-out infinite}
+@keyframes clipSlide{0%,100%{transform:translateX(calc(20*var(--u)));opacity:0}15%,75%{transform:translateX(0);opacity:1}90%{transform:translateX(0);opacity:0}}
+.clip-dot{width:calc(1*var(--u));height:calc(1*var(--u));border-radius:50%;background:#00CC44;flex-shrink:0}
+
+/* ════ SKINS ════ */
+#skinpanel {
+  grid-column:2; grid-row:4;
+  background:#FF8C00; flex-direction:column;
+  padding:calc(1.5*var(--u)); align-items:center; gap:calc(1*var(--u));
+  background-image:radial-gradient(circle,rgba(0,0,0,.07) 1px,transparent 1px);
+  background-size:calc(2*var(--u)) calc(2*var(--u));
+}
+#skinpanel .ptitle { font-size:calc(3*var(--u)); color:#fff; text-shadow:calc(.3*var(--u)) calc(.3*var(--u)) 0 rgba(0,0,0,.3); text-align:center; line-height:1; }
+.skin-dots { display:grid; grid-template-columns:repeat(4,1fr); gap:calc(.8*var(--u)); width:100%; }
+.sdot { height:calc(4*var(--u)); border-radius:calc(1*var(--u)); border:calc(.3*var(--u)) solid rgba(0,0,0,.4); box-shadow:calc(.3*var(--u)) calc(.3*var(--u)) 0 rgba(0,0,0,.3); animation:skinPulse 2s ease-in-out infinite; }
+.sdot:nth-child(1){background:#99CCFF;animation-delay:0s}
+.sdot:nth-child(2){background:#00FF41;animation-delay:.2s}
+.sdot:nth-child(3){background:#FF6600;animation-delay:.4s}
+.sdot:nth-child(4){background:#0088FF;animation-delay:.6s}
+.sdot:nth-child(5){background:#FF1A1A;animation-delay:.8s}
+.sdot:nth-child(6){background:#FFD700;animation-delay:1s}
+.sdot:nth-child(7){background:#AA00FF;animation-delay:1.2s}
+.sdot:nth-child(8){background:#00FFCC;animation-delay:1.4s}
+@keyframes skinPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+#skinpanel .psub { font-size:calc(1.3*var(--u)); color:rgba(255,255,255,.85); font-family:Arial,sans-serif; font-weight:700; text-align:center; }
+
+/* ════ CTA ════ */
+#ctapanel {
+  grid-column:1/3; grid-row:5;
+  background:#FF2020; flex-direction:row; justify-content:space-between;
+  padding:0 calc(3*var(--u));
+  background-image:radial-gradient(circle,rgba(255,255,255,.1) 1px,transparent 1px);
+  background-size:calc(1.8*var(--u)) calc(1.8*var(--u));
+}
+.cta-words { font-size:calc(3.2*var(--u)); color:#fff; letter-spacing:.02em; }
+.cta-words em { color:#FFE600; font-style:normal; }
+.cta-play-btn { display:flex; align-items:center; gap:calc(1.2*var(--u)); background:#FFE600; border:calc(.4*var(--u)) solid #000; border-radius:calc(1*var(--u)); padding:calc(.8*var(--u)) calc(2*var(--u)); box-shadow:calc(.4*var(--u)) calc(.4*var(--u)) 0 #000; animation:ctaBounce 1.8s ease-in-out infinite; }
+@keyframes ctaBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.cta-arrow { font-size:calc(3.2*var(--u)); color:#000; }
+.cta-btn-text { font-size:calc(2.1*var(--u)); color:#000; line-height:1.2; }
+.cta-btn-sub  { font-size:calc(1.3*var(--u)); color:rgba(0,0,0,.5); font-family:Arial,sans-serif; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <div class="panel" id="hdr">
+    <div class="hdr-logo">Type<span>Right</span></div>
+    <div class="hdr-tag">THE KEYBOARD<br>THAT FITS HOW<br>YOU ACTUALLY TYPE</div>
+    <div class="free-badge">FREE</div>
+  </div>
+
+  <div class="panel" id="nput-hero">
+    <span class="lstar ls1">★</span>
+    <span class="lstar ls2">✦</span>
+    <span class="lstar ls3">★</span>
+    <span class="lstar ls4">✦</span>
+    <div class="robot-hero">
+      <svg width="110" height="130" viewBox="-5 -8 110 135" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+        <defs>
+          <radialGradient id="nRG1" cx="32%" cy="25%" r="72%"><stop offset="0%" stop-color="#4a6e98"/><stop offset="55%" stop-color="#2a4a6e"/><stop offset="100%" stop-color="#0e2236"/></radialGradient>
+          <radialGradient id="nRG2" cx="32%" cy="22%" r="72%"><stop offset="0%" stop-color="#3e5e88"/><stop offset="55%" stop-color="#223858"/><stop offset="100%" stop-color="#0a1e30"/></radialGradient>
+          <radialGradient id="nRG3" cx="35%" cy="28%" r="68%"><stop offset="0%" stop-color="#55eeff"/><stop offset="40%" stop-color="#00aadd"/><stop offset="100%" stop-color="#004466"/></radialGradient>
+          <radialGradient id="nRG4" cx="40%" cy="30%" r="70%"><stop offset="0%" stop-color="#2a4060"/><stop offset="100%" stop-color="#0a1828"/></radialGradient>
+          <linearGradient id="nRim" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(0,200,255,0)"/><stop offset="85%" stop-color="rgba(0,200,255,0)"/><stop offset="100%" stop-color="rgba(0,200,255,0.22)"/></linearGradient>
+          <linearGradient id="nArmG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#304e72"/><stop offset="100%" stop-color="#0e2236"/></linearGradient>
+          <radialGradient id="nShadow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,180,255,0.35)"/><stop offset="100%" stop-color="rgba(0,180,255,0)"/></radialGradient>
+        </defs>
+        <ellipse style="animation:nputShadowPulse 2.4s ease-in-out infinite;transform-origin:50px 126px" cx="50" cy="126" rx="38" ry="7" fill="url(#nShadow)"/>
+        <ellipse cx="34" cy="119" rx="13" ry="6.5" fill="url(#nRG4)" stroke="#3a5e82" stroke-width="1.3"/><ellipse cx="30" cy="116" rx="6" ry="2.5" fill="rgba(255,255,255,0.1)"/>
+        <ellipse cx="66" cy="119" rx="13" ry="6.5" fill="url(#nRG4)" stroke="#3a5e82" stroke-width="1.3"/><ellipse cx="62" cy="116" rx="6" ry="2.5" fill="rgba(255,255,255,0.1)"/>
+        <rect x="1" y="90" width="15" height="24" rx="7.5" fill="url(#nArmG)" stroke="#3a5e82" stroke-width="1.4"/><ellipse cx="8.5" cy="93" rx="5" ry="2" fill="rgba(255,255,255,0.12)"/>
+        <rect x="84" y="90" width="15" height="24" rx="7.5" fill="url(#nArmG)" stroke="#3a5e82" stroke-width="1.4"/><ellipse cx="91.5" cy="93" rx="5" ry="2" fill="rgba(255,255,255,0.12)"/>
+        <g style="animation:nputBreathe 3.2s ease-in-out infinite;transform-origin:50px 97px">
+          <rect x="16" y="88" width="68" height="30" rx="15" fill="url(#nRG2)" stroke="#3a5e82" stroke-width="1.8"/>
+          <ellipse cx="34" cy="92" rx="20" ry="6" fill="rgba(255,255,255,0.1)"/>
+          <rect x="16" y="88" width="68" height="30" rx="15" fill="url(#nRim)" stroke="none"/>
+          <rect x="28" y="96" width="44" height="16" rx="8" fill="rgba(0,5,18,0.55)" stroke="rgba(0,200,255,0.4)" stroke-width="1"/>
+          <rect x="33" y="101" width="9" height="6" rx="2" fill="#1e3858" stroke="rgba(0,200,255,0.6)" stroke-width="1"/>
+          <rect x="45" y="101" width="9" height="6" rx="2" fill="#1e3858" stroke="rgba(0,200,255,0.6)" stroke-width="1"/>
+          <rect x="57" y="101" width="9" height="6" rx="2" fill="#1e3858" stroke="rgba(0,200,255,0.6)" stroke-width="1"/>
+        </g>
+        <rect x="40" y="79" width="20" height="9" rx="4" fill="#0e2236" stroke="#3a5e82" stroke-width="1.3"/>
+        <rect x="11" y="18" width="78" height="61" rx="20" fill="url(#nRG1)" stroke="#4a6e90" stroke-width="1.8"/>
+        <ellipse cx="34" cy="26" rx="22" ry="10" fill="rgba(255,255,255,0.13)"/>
+        <rect style="animation:nputRimGlow 3s ease-in-out infinite" x="11" y="18" width="78" height="61" rx="20" fill="url(#nRim)" stroke="none"/>
+        <ellipse cx="50" cy="76" rx="34" ry="7" fill="rgba(0,0,0,0.3)"/>
+        <g style="animation:nputBrowFurrow 5s ease-in-out infinite;transform-origin:36px 35px"><path d="M22 37 Q34 32 43 35" stroke="#091828" stroke-width="4.5" stroke-linecap="round" fill="none"/><path d="M22 37 Q34 32 43 35" stroke="#1e3858" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+        <g style="animation:nputBrowFurrow 5s ease-in-out infinite .2s;transform-origin:64px 35px"><path d="M57 35 Q66 32 78 37" stroke="#091828" stroke-width="4.5" stroke-linecap="round" fill="none"/><path d="M57 35 Q66 32 78 37" stroke="#1e3858" stroke-width="2" stroke-linecap="round" fill="none"/></g>
+        <rect x="11" y="40" width="78" height="17" fill="rgba(0,6,20,0.7)"/>
+        <line x1="11" y1="40" x2="89" y2="40" stroke="rgba(0,210,255,0.5)" stroke-width="1"/>
+        <line x1="11" y1="57" x2="89" y2="57" stroke="rgba(0,210,255,0.5)" stroke-width="1"/>
+        <clipPath id="nVC"><rect x="11" y="40" width="78" height="17"/></clipPath>
+        <g clip-path="url(#nVC)">
+          <line style="animation:nputScan 2s ease-in-out infinite" x1="28" y1="40" x2="28" y2="57" stroke="rgba(0,220,255,0.55)" stroke-width="2"/>
+          <rect style="animation:nputScan 2s ease-in-out infinite" x="18" y="40" width="20" height="17" fill="rgba(0,200,255,0.08)"/>
+        </g>
+        <g style="animation:nputBlink 4.5s ease-in-out infinite;transform-origin:36px 47px">
+          <ellipse style="animation:nputEyeGlow 2s ease-in-out infinite" cx="36" cy="48" rx="10.5" ry="9" fill="url(#nRG3)" stroke="#00d4ff" stroke-width="1.2" opacity=".9"/>
+          <ellipse cx="36" cy="48" rx="6" ry="5.5" fill="rgba(0,8,25,0.9)"/>
+          <clipPath id="nCL"><ellipse cx="36" cy="48" rx="5.5" ry="5"/></clipPath>
+          <g clip-path="url(#nCL)"><line style="animation:nputScan 2s ease-in-out infinite" x1="36" y1="43" x2="36" y2="53" stroke="#00eeff" stroke-width="2.5"/></g>
+          <ellipse cx="31" cy="43" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.55)"/>
+        </g>
+        <g style="animation:nputBlink 4.5s ease-in-out infinite .2s;transform-origin:64px 47px">
+          <ellipse style="animation:nputEyeGlow 2s ease-in-out infinite .25s" cx="64" cy="48" rx="10.5" ry="9" fill="url(#nRG3)" stroke="#00d4ff" stroke-width="1.2" opacity=".9"/>
+          <ellipse cx="64" cy="48" rx="6" ry="5.5" fill="rgba(0,8,25,0.9)"/>
+          <clipPath id="nCR"><ellipse cx="64" cy="48" rx="5.5" ry="5"/></clipPath>
+          <g clip-path="url(#nCR)"><line style="animation:nputScan 2s ease-in-out infinite;animation-delay:.3s" x1="64" y1="43" x2="64" y2="53" stroke="#00eeff" stroke-width="2.5"/></g>
+          <ellipse cx="59" cy="43" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.55)"/>
+        </g>
+        <path d="M36 67 L45 67 Q50 69.5 55 67 L64 67" stroke="#4a6e90" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <g style="animation:nputAntBounce 1.8s ease-in-out infinite;transform-origin:50px 16px">
+          <line x1="44" y1="6" x2="44" y2="19" stroke="#5588aa" stroke-width="2.2" stroke-linecap="round"/>
+          <line x1="56" y1="6" x2="56" y2="19" stroke="#5588aa" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="44" cy="6" r="4.5" fill="#1a3050" stroke="#5588aa" stroke-width="1.5"/>
+          <circle style="animation:nputAntGlow 1.8s ease-in-out infinite" cx="44" cy="6" r="2.5" fill="#00d4ff"/>
+          <ellipse cx="43" cy="4.5" rx="1.2" ry="0.8" fill="rgba(255,255,255,0.6)"/>
+          <circle cx="56" cy="6" r="4.5" fill="#1a3050" stroke="#5588aa" stroke-width="1.5"/>
+          <circle style="animation:nputAntGlow 1.8s ease-in-out infinite .7s" cx="56" cy="6" r="2.5" fill="#00d4ff"/>
+          <ellipse cx="55" cy="4.5" rx="1.2" ry="0.8" fill="rgba(255,255,255,0.6)"/>
+        </g>
+      </svg>
+      <div class="glow-floor-hero"></div>
+    </div>
+    <div class="hero-label">Meet NPUT 🤖</div>
+  </div>
+
+  <div class="panel" id="punch">
+    <span class="pstar ps1">✦</span><span class="pstar ps2">★</span>
+    <span class="pstar ps3">★</span><span class="pstar ps4">✦</span>
+    <div class="punch-card">
+      <div class="pc-small">Your keyboard</div>
+      <div class="pc-small">now has</div>
+      <div class="pc-big">AI.</div>
+      <div class="pc-sub">Notebook. 8 Skins.</div>
+    </div>
+  </div>
+
+  <div class="panel" id="featstrip">
+    <div class="strip-pill"><div class="pill-icon">🤖</div><div class="pill-name">AI</div><div class="pill-hint">Long press A</div></div>
+    <div class="strip-divider"></div>
+    <div class="strip-pill"><div class="pill-icon">📋</div><div class="pill-name">Notebook</div><div class="pill-hint">Long press N</div></div>
+    <div class="strip-divider"></div>
+    <div class="strip-pill"><div class="pill-icon">🎨</div><div class="pill-name">8 Skins</div><div class="pill-hint">All free</div></div>
+  </div>
+
+  <div class="panel" id="nbpanel">
+    <div class="ptitle">NOTEBOOK</div>
+    <div class="psub">Long-press N · Auto-saves clips</div>
+    <div class="clip-stack">
+      <div class="clip-item ci1"><div class="clip-dot"></div>Meeting link copied</div>
+      <div class="clip-item ci2"><div class="clip-dot"></div>123 Main St, Austin</div>
+      <div class="clip-item ci3"><div class="clip-dot"></div>Thanks! See you then 👍</div>
+    </div>
+  </div>
+
+  <div class="panel" id="skinpanel">
+    <div class="ptitle">8 SKINS</div>
+    <div class="skin-dots">
+      <div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div>
+      <div class="sdot"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div>
+    </div>
+    <div class="psub">8 styles. All free.</div>
+  </div>
+
+  <div class="panel" id="ctapanel">
+    <div class="cta-words">FREE ON <em>GOOGLE PLAY</em></div>
+    <div class="cta-play-btn">
+      <div class="cta-arrow">▶</div>
+      <div><div class="cta-btn-text">GET IT NOW</div><div class="cta-btn-sub">No subscription ever</div></div>
+    </div>
+  </div>
+
+</div>
+<script>
+function resize() {
+  const sz = Math.min(window.innerWidth, window.innerHeight);
+  const s = document.getElementById('stage');
+  s.style.width = sz+'px';
+  s.style.height = sz+'px';
+  document.documentElement.style.setProperty('--u',(sz/100)+'px');
+}
+resize();
+window.addEventListener('resize', resize);
+</script>
+</body>
+</html>

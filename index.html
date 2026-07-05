@@ -81,6 +81,84 @@
     }
 
     /* ── NPUT ── */
+    /* ── COMIC BOOK ── */
+    .comic-section {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .comic-label {
+      font-size: 11px;
+      color: #1a3a5c;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0.4;
+      font-weight: bold;
+    }
+
+    .comic-book {
+      width: 100%;
+      aspect-ratio: 1;
+      position: relative;
+      perspective: 1200px;
+      border-radius: 8px;
+      box-shadow: 6px 6px 0 #c8a87a, 8px 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .comic-page {
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 4px solid #1a1a1a;
+      backface-visibility: hidden;
+      transform-origin: left center;
+      transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    .comic-page iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+    }
+
+    .comic-page.flip-out {
+      transform: rotateY(-180deg);
+      z-index: 1;
+    }
+
+    .comic-page.active {
+      z-index: 2;
+      transform: rotateY(0deg);
+    }
+
+    .comic-page.behind {
+      z-index: 0;
+      transform: rotateY(0deg);
+    }
+
+    .comic-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .comic-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c8a87a;
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+
+    .comic-dot.on { opacity: 1; background: #e85d20; }
+
+    /* ── NPUT ── */
     .nput-wrap {
       position: fixed;
       bottom: 20px;
@@ -117,6 +195,25 @@
     <img src="logo.png" alt="Dumb Donkey" class="logo">
     <div class="tagline">Building weird, useful things.</div>
 
+    <!-- Comic Book Banners -->
+    <div class="comic-section">
+      <div class="comic-label">Now on Google Play</div>
+      <div class="comic-book" id="comicBook">
+        <div class="comic-page active" id="page0"><iframe src="banners/week1.html" scrolling="no"></iframe></div>
+        <div class="comic-page behind" id="page1"><iframe src="banners/week2.html" scrolling="no"></iframe></div>
+        <div class="comic-page behind" id="page2"><iframe src="banners/week3.html" scrolling="no"></iframe></div>
+        <div class="comic-page behind" id="page3"><iframe src="banners/week4.html" scrolling="no"></iframe></div>
+        <div class="comic-page behind" id="page4"><iframe src="banners/week5.html" scrolling="no"></iframe></div>
+      </div>
+      <div class="comic-dots">
+        <div class="comic-dot on" id="dot0"></div>
+        <div class="comic-dot" id="dot1"></div>
+        <div class="comic-dot" id="dot2"></div>
+        <div class="comic-dot" id="dot3"></div>
+        <div class="comic-dot" id="dot4"></div>
+      </div>
+    </div>
+
     <div class="social-row">
       <a href="mailto:hello@dumbdonkey.fyi" class="social-btn btn-email">
         <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -128,6 +225,40 @@
       </a>
     </div>
   </div>
+  <script>
+    const total = 5;
+    let current = 0;
+
+    function flipPage() {
+      const prev = current;
+      current = (current + 1) % total;
+
+      const prevPage = document.getElementById('page' + prev);
+      const nextPage = document.getElementById('page' + current);
+
+      // Flip out current
+      prevPage.classList.remove('active');
+      prevPage.classList.add('flip-out');
+
+      // Bring next to front
+      nextPage.classList.remove('behind');
+      nextPage.classList.add('active');
+
+      // After flip animation, reset flipped page to behind
+      setTimeout(() => {
+        prevPage.classList.remove('flip-out');
+        prevPage.classList.add('behind');
+      }, 800);
+
+      // Update dots
+      document.querySelectorAll('.comic-dot').forEach((d, i) => {
+        d.classList.toggle('on', i === current);
+      });
+    }
+
+    setInterval(flipPage, 30000);
+  </script>
+
   <div class="nput-wrap">
     <svg width="110" height="130" viewBox="-5 -8 110 135" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
       <defs>

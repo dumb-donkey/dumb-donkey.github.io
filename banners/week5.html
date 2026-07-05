@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TypeRight Week 5 — NPUT Alerts 1:1</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  width:100vw; height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  background:#111;
+  font-family:Impact,'Arial Black',Arial,sans-serif;
+  overflow:hidden;
+}
+
+#stage {
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows: 12% 11% 51% 12% 14%;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+    "hdr   hdr"
+    "punch punch"
+    "alert know"
+    "pills pills"
+    "cta   cta";
+  width: min(100vw, 100vh);
+  height: min(100vh, 100vw);
+  --u: min(100vw, 100vh) / 100;
+}
+
+/* ════ HEADER — exact match to all other weeks ════ */
+#hdr {
+  grid-area: hdr;
+  background: #FFE600;
+  background-image: radial-gradient(circle, rgba(0,0,0,.08) 1px, transparent 1px);
+  background-size: calc(1.8 * var(--u)) calc(1.8 * var(--u));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 calc(4 * var(--u));
+  border: calc(.8 * var(--u)) solid #000;
+  position: relative; overflow: hidden;
+}
+.hdr-logo {
+  font-size: calc(7 * var(--u));
+  color: #000;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  text-shadow: calc(.5 * var(--u)) calc(.5 * var(--u)) 0 rgba(0,0,0,.2);
+  line-height: 1;
+}
+.hdr-logo span { color: #FF2020; }
+.free-badge {
+  background: #FF2020; color: #fff;
+  font-size: calc(1.8 * var(--u)); font-weight: 900;
+  padding: calc(.5 * var(--u)) calc(1.5 * var(--u));
+  border-radius: calc(.5 * var(--u));
+  border: calc(.3 * var(--u)) solid #000;
+  flex-shrink: 0;
+  animation: badgeBounce 1.2s ease-in-out infinite;
+}
+@keyframes badgeBounce { 0%,100%{transform:rotate(-3deg) scale(1)} 50%{transform:rotate(3deg) scale(1.07)} }
+.hdr-tag {
+  font-size: calc(2 * var(--u));
+  color: #000;
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+  letter-spacing: .05em;
+  text-align: right;
+  line-height: 1.3;
+  max-width: 40%;
+  opacity: .7;
+}
+
+/* ════ PUNCHLINE STRIP ════ */
+#punch {
+  grid-area: punch;
+  background: #0044CC;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 calc(3 * var(--u));
+  position: relative; overflow: hidden;
+  border: calc(.8 * var(--u)) solid #000;
+}
+#punch::after {
+  content: '';
+  position: absolute; top: 0; left: -60%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
+  animation: punchSwipe 2.8s ease-in-out infinite;
+}
+@keyframes punchSwipe { from{left:-60%} to{left:120%} }
+.punch-text {
+  font-size: calc(4 * var(--u));
+  color: #FFE600;
+  text-align: center;
+  letter-spacing: -.01em;
+  line-height: 1.05;
+  text-shadow: calc(.3 * var(--u)) calc(.3 * var(--u)) 0 rgba(0,0,0,.35);
+  position: relative; z-index: 1;
+}
+
+/* ════ ALERT PANEL (left 2/3) ════ */
+#alert {
+  grid-area: alert;
+  background: #FF5500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(2.5 * var(--u)) calc(3 * var(--u));
+  position: relative; overflow: hidden;
+  gap: calc(1.8 * var(--u));
+  border: calc(.8 * var(--u)) solid #000;
+}
+#alert::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: calc(150 * var(--u));
+  height: calc(150 * var(--u));
+  margin: calc(-75 * var(--u));
+  background: conic-gradient(
+    rgba(255,255,255,.07) 0deg 8deg,   transparent 8deg 22deg,
+    rgba(255,255,255,.07) 22deg 30deg, transparent 30deg 45deg,
+    rgba(255,255,255,.07) 45deg 53deg, transparent 53deg 68deg,
+    rgba(255,255,255,.07) 68deg 76deg, transparent 76deg 90deg,
+    rgba(255,255,255,.07) 90deg 98deg, transparent 98deg 113deg,
+    rgba(255,255,255,.07) 113deg 121deg,transparent 121deg 135deg,
+    rgba(255,255,255,.07) 135deg 143deg,transparent 143deg 158deg,
+    rgba(255,255,255,.07) 158deg 166deg,transparent 166deg 180deg,
+    rgba(255,255,255,.07) 180deg 188deg,transparent 188deg 202deg,
+    rgba(255,255,255,.07) 202deg 210deg,transparent 210deg 225deg,
+    rgba(255,255,255,.07) 225deg 233deg,transparent 233deg 248deg,
+    rgba(255,255,255,.07) 248deg 256deg,transparent 256deg 270deg,
+    rgba(255,255,255,.07) 270deg 278deg,transparent 278deg 293deg,
+    rgba(255,255,255,.07) 293deg 301deg,transparent 301deg 315deg,
+    rgba(255,255,255,.07) 315deg 323deg,transparent 323deg 338deg,
+    rgba(255,255,255,.07) 338deg 346deg,transparent 346deg 360deg
+  );
+  animation: sunSpin 15s linear infinite;
+  z-index: 0;
+}
+@keyframes sunSpin { to{transform:rotate(360deg)} }
+#alert > * { position: relative; z-index: 1; }
+
+.alert-bell {
+  font-size: calc(11 * var(--u));
+  line-height: 1;
+  animation: bellRing 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 calc(2.5 * var(--u)) rgba(255,230,0,.9));
+}
+@keyframes bellRing {
+  0%,100%{transform:rotate(0deg) scale(1)}
+  86%{transform:rotate(0deg) scale(1)}
+  89%{transform:rotate(-16deg) scale(1.04)}
+  92%{transform:rotate(16deg) scale(1.04)}
+  95%{transform:rotate(-10deg) scale(1.02)}
+  98%{transform:rotate(5deg) scale(1.01)}
+}
+.alert-title {
+  font-size: calc(7.5 * var(--u));
+  color: #FFE600;
+  text-align: center;
+  line-height: 1.0;
+  letter-spacing: -.03em;
+  text-shadow:
+    calc(.4 * var(--u)) calc(.4 * var(--u)) 0 rgba(0,0,0,.4),
+    0 0 calc(3 * var(--u)) rgba(255,230,0,.3);
+}
+.alert-badge {
+  background: #FFE600; color: #CC3300;
+  font-size: calc(2.2 * var(--u)); font-weight: 900;
+  padding: calc(.7 * var(--u)) calc(2 * var(--u));
+  border-radius: calc(10 * var(--u));
+  border: calc(.25 * var(--u)) solid rgba(0,0,0,.2);
+  letter-spacing: .14em;
+  animation: badgePop 2s ease-in-out infinite;
+}
+@keyframes badgePop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+.snooze-label {
+  font-size: calc(1.7 * var(--u));
+  color: rgba(255,255,255,.6);
+  letter-spacing: .3em;
+  font-weight: 700;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  margin-bottom: calc(-1 * var(--u));
+}
+.snooze-row { display:flex; gap:calc(1.5 * var(--u)); }
+.snooze-pill {
+  background: rgba(0,0,0,.25);
+  border: calc(.3 * var(--u)) solid rgba(255,255,255,.55);
+  color: #fff;
+  font-size: calc(3 * var(--u)); font-weight: 900;
+  padding: calc(.7 * var(--u)) calc(2.2 * var(--u));
+  border-radius: calc(10 * var(--u));
+  letter-spacing: .08em;
+}
+
+/* ════ RIGHT COLUMN ════ */
+#know-col {
+  grid-area: know;
+  display: flex;
+  flex-direction: column;
+}
+.know-card {
+  flex: 6;
+  background: #FFE600;
+  display: flex; flex-direction: column;
+  padding: calc(2 * var(--u)) calc(1.8 * var(--u));
+  gap: calc(1 * var(--u));
+  position: relative; overflow: hidden;
+  border: calc(.8 * var(--u)) solid #000;
+}
+.know-card::after {
+  content: '';
+  position: absolute; top:0; left:-60%; width:60%; height:100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+  animation: knowSwipe 3.8s ease-in-out infinite;
+}
+@keyframes knowSwipe { from{left:-60%} to{left:120%} }
+.know-label { font-size:calc(1.7 * var(--u)); font-weight:900; color:rgba(0,0,0,.45); letter-spacing:.22em; font-family:Arial,sans-serif; }
+.know-emoji { font-size:calc(5.5 * var(--u)); line-height:1; }
+.know-text { font-size:calc(2.1 * var(--u)); font-weight:700; color:#000; line-height:1.38; font-family:Arial,sans-serif; }
+.know-hl { color:#CC3300; }
+
+.stats-card {
+  flex: 4;
+  background: #0044CC;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: calc(1.5 * var(--u));
+  gap: calc(.5 * var(--u));
+  border: calc(.8 * var(--u)) solid #000;
+}
+.stats-num { font-size:calc(10 * var(--u)); color:#FFE600; line-height:1; letter-spacing:-.05em; text-shadow:0 0 calc(2 * var(--u)) rgba(255,230,0,.5); animation:numPulse 2s ease-in-out infinite; }
+@keyframes numPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+.stats-pending { font-size:calc(1.7 * var(--u)); color:rgba(255,255,255,.7); letter-spacing:.22em; font-family:Arial,sans-serif; font-weight:900; margin-top:calc(-.3 * var(--u)); }
+.stats-divider { width:60%; height:calc(.2 * var(--u)); background:rgba(255,255,255,.2); margin:calc(.3 * var(--u)) 0; }
+.stats-next { font-size:calc(1.9 * var(--u)); font-weight:700; color:#fff; text-align:center; font-family:Arial,sans-serif; line-height:1.3; }
+
+/* ════ PILLS ROW ════ */
+#pills {
+  grid-area: pills;
+  background: #00AA33;
+  display: flex; align-items: center; justify-content: space-around;
+  padding: 0 calc(1.5 * var(--u));
+  border: calc(.8 * var(--u)) solid #000;
+}
+.pill { display:flex; align-items:center; gap:calc(.6 * var(--u)); font-size:calc(2.1 * var(--u)); color:#FFE600; letter-spacing:.08em; }
+.pill-sep { width:calc(.2 * var(--u)); height:calc(4 * var(--u)); background:rgba(255,230,0,.35); }
+
+/* ════ CTA — exact match to all other weeks ════ */
+#cta {
+  grid-area: cta;
+  background: #FF2020;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 calc(4 * var(--u));
+  background-image: radial-gradient(circle, rgba(255,255,255,.1) 1px, transparent 1px);
+  background-size: calc(1.8 * var(--u)) calc(1.8 * var(--u));
+  border: calc(.8 * var(--u)) solid #000;
+}
+.cta-words { font-size:calc(4 * var(--u)); color:#fff; letter-spacing:.02em; }
+.cta-words em { color:#FFE600; font-style:normal; }
+.cta-play-btn {
+  display:flex; align-items:center; gap:calc(1.5 * var(--u));
+  background:#FFE600; border:calc(.4 * var(--u)) solid #000;
+  border-radius:calc(1 * var(--u));
+  padding:calc(1 * var(--u)) calc(2.5 * var(--u));
+  box-shadow:calc(.4 * var(--u)) calc(.4 * var(--u)) 0 #000;
+  animation:ctaBounce 1.8s ease-in-out infinite;
+}
+@keyframes ctaBounce { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+.cta-arrow { font-size:calc(4 * var(--u)); color:#000; }
+.cta-btn-text { font-size:calc(2.5 * var(--u)); color:#000; line-height:1.2; }
+.cta-btn-sub { font-size:calc(1.5 * var(--u)); color:rgba(0,0,0,.5); font-family:Arial,sans-serif; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- HEADER: logo | FREE | tag — matches all other weeks -->
+  <div id="hdr">
+    <div class="hdr-logo">Type<span>Right</span></div>
+    <div class="free-badge">FREE</div>
+    <div class="hdr-tag">THE KEYBOARD<br>THAT THINKS<br>FOR YOU</div>
+  </div>
+
+  <!-- Punchline strip -->
+  <div id="punch">
+    <div class="punch-text">YOUR KEYBOARD SENDS SMART ALERTS</div>
+  </div>
+
+  <!-- Alert panel (left 2/3) -->
+  <div id="alert">
+    <div class="alert-bell">🔔</div>
+    <div class="alert-title">DINNER<br>AT 8PM</div>
+    <div class="alert-badge">✦ NPUT ALERT</div>
+    <div class="snooze-label">SNOOZE</div>
+    <div class="snooze-row">
+      <div class="snooze-pill">5m</div>
+      <div class="snooze-pill">10m</div>
+      <div class="snooze-pill">15m</div>
+    </div>
+  </div>
+
+  <!-- Right column: NPUT KNOWS + Stats -->
+  <div id="know-col">
+    <div class="know-card">
+      <div class="know-label">NPUT KNOWS</div>
+      <div class="know-emoji">🍽️</div>
+      <div class="know-text">Most restaurants only hold your table for <span class="know-hl">15 minutes.</span> Leave by 7:30 to arrive comfortably.</div>
+    </div>
+    <div class="stats-card">
+      <div class="stats-num">5</div>
+      <div class="stats-pending">PENDING</div>
+      <div class="stats-divider"></div>
+      <div class="stats-next">▶ Call dentist<br>Tomorrow 9 AM</div>
+    </div>
+  </div>
+
+  <!-- Pills row -->
+  <div id="pills">
+    <div class="pill">🔔 ALERTS</div>
+    <div class="pill-sep"></div>
+    <div class="pill">🧠 AI CONTEXT</div>
+    <div class="pill-sep"></div>
+    <div class="pill">😴 SMART SNOOZE</div>
+  </div>
+
+  <!-- CTA: matches all other weeks -->
+  <div id="cta">
+    <div class="cta-words">FREE ON<br><em>GOOGLE PLAY</em></div>
+    <div class="cta-play-btn">
+      <div class="cta-arrow">▶</div>
+      <div>
+        <div class="cta-btn-text">GET IT NOW</div>
+        <div class="cta-btn-sub">No subscription ever</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
