@@ -114,7 +114,7 @@
     .right-section {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 14px;
       padding-top: 10px;
     }
 
@@ -127,28 +127,52 @@
       font-weight: bold;
     }
 
+    /* Comic panel cards */
     .app-card {
       background: #fff;
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 3px solid #1a1a1a;
+      border-radius: 6px;
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 #1a1a1a;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 8px;
+      transition: transform 0.15s;
     }
 
+    .app-card:first-of-type { transform: rotate(-1deg); }
+    .app-card:last-of-type  { transform: rotate(0.8deg); }
+    .app-card:hover { transform: rotate(0deg) translateY(-3px) !important; }
+
     .app-card-title {
-      font-size: 22px;
+      font-size: 17px;
       font-weight: 900;
       color: #1a3a5c;
     }
 
     .app-card-desc {
-      font-size: 14px;
+      font-size: 12px;
       color: #555;
-      line-height: 1.6;
+      line-height: 1.5;
       font-family: Arial, sans-serif;
       font-weight: normal;
+    }
+
+    /* Donkey panel */
+    .donkey-panel {
+      border: 3px solid #1a1a1a;
+      border-radius: 6px;
+      box-shadow: 5px 5px 0 #1a1a1a;
+      overflow: hidden;
+      transform: rotate(-0.5deg);
+      background: #1a1a1a;
+    }
+
+    .donkey-panel img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 200px;
     }
 
     .app-badge {
@@ -157,9 +181,9 @@
       gap: 8px;
       background: #e85d20;
       color: #fff;
-      padding: 10px 20px;
+      padding: 7px 14px;
       border-radius: 50px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
       text-decoration: none;
       width: fit-content;
@@ -326,7 +350,7 @@
           The keyboard that fits how you actually type. AI built in, 8 skins, notebook — all free. No subscription. No nonsense.
         </div>
         <a href="https://play.google.com/store/apps/details?id=com.sy5temn3xt.typeright" target="_blank" class="app-badge">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M3 20.5v-17c0-.83 1.01-1.3 1.7-.78l14 8.5c.62.38.62 1.18 0 1.56l-14 8.5c-.69.52-1.7.05-1.7-.78z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M3 20.5v-17c0-.83 1.01-1.3 1.7-.78l14 8.5c.62.38.62 1.18 0 1.56l-14 8.5c-.69.52-1.7.05-1.7-.78z"/></svg>
           Get it on Google Play
         </a>
       </div>
@@ -336,9 +360,12 @@
           A keyboard built for one-handed typing. Compact, fast, and designed to fit the way your thumb actually moves.
         </div>
         <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.thumbtype" target="_blank" class="app-badge">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M3 20.5v-17c0-.83 1.01-1.3 1.7-.78l14 8.5c.62.38.62 1.18 0 1.56l-14 8.5c-.69.52-1.7.05-1.7-.78z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M3 20.5v-17c0-.83 1.01-1.3 1.7-.78l14 8.5c.62.38.62 1.18 0 1.56l-14 8.5c-.69.52-1.7.05-1.7-.78z"/></svg>
           Get it on Google Play
         </a>
+      </div>
+      <div class="donkey-panel">
+        <img src="nget.png" alt="You're not getting it" />
       </div>
     </div>
 
