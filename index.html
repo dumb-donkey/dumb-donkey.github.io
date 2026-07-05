@@ -358,19 +358,6 @@
 
     setInterval(flipPage, 30000);
 
-    // Nput bubble toggle
-    const nputWrap = document.getElementById('nputRobot');
-    const bubble   = document.getElementById('nputBubble');
-
-    nputWrap.addEventListener('click', () => {
-      bubble.classList.toggle('open');
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!nputWrap.contains(e.target) && !bubble.contains(e.target)) {
-        bubble.classList.remove('open');
-      }
-    });
   </script>
 
   <!-- NPUT CONTAINER -->
@@ -451,5 +438,19 @@
 
   </div>
 
+  <script>
+    const nputWrap = document.getElementById('nputRobot');
+    const bubble   = document.getElementById('nputBubble');
+
+    nputWrap.addEventListener('click', () => {
+      bubble.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!nputWrap.contains(e.target) && !bubble.contains(e.target)) {
+        bubble.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>
