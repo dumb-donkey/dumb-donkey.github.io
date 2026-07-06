@@ -3,7 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dumb Donkey</title>
+  <title>Dumb Donkey — Building weird, useful things.</title>
+  <meta name="description" content="We make apps that are a little weird, surprisingly useful, and definitely free. TypeRight keyboard + more.">
+
+  <!-- Open Graph (Facebook, Discord, iMessage, WhatsApp) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dumbdonkey.fyi">
+  <meta property="og:title" content="Dumb Donkey 🫏">
+  <meta property="og:description" content="We make apps that are a little weird, surprisingly useful, and definitely free. TypeRight keyboard + more.">
+  <meta property="og:image" content="https://dumbdonkey.fyi/nget.png">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dumb Donkey 🫏">
+  <meta name="twitter:description" content="We make apps that are a little weird, surprisingly useful, and definitely free.">
+  <meta name="twitter:image" content="https://dumbdonkey.fyi/nget.png">
+
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="shortcut icon" href="favicon.ico">
   <style>
@@ -307,12 +322,69 @@
     .nput-brow-l  { animation:nputBrowFurrow 5s ease-in-out infinite; transform-origin:36px 35px; }
     .nput-brow-r  { animation:nputBrowFurrow 5s ease-in-out infinite .2s; transform-origin:64px 35px; }
 
+    /* ── FOOTER ── */
+    .footer {
+      margin: 0 60px 40px;
+      border: 3px solid #1a1a1a;
+      border-radius: 8px;
+      background: #FFE600;
+      background-image: radial-gradient(circle, rgba(0,0,0,.07) 1px, transparent 1px);
+      background-size: 16px 16px;
+      box-shadow: 4px 4px 0 #1a1a1a;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-left {
+      font-size: 13px;
+      font-weight: 900;
+      color: #1a1a1a;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-left span {
+      font-weight: normal;
+      opacity: 0.6;
+      font-size: 11px;
+      display: block;
+      margin-top: 2px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      background: #1a1a1a;
+      color: #FFE600;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 6px 14px;
+      border-radius: 50px;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 2px 2px 0 #e85d20;
+    }
+
+    .footer-link:hover { transform: translateY(-2px); box-shadow: 3px 4px 0 #e85d20; }
+
     @media (max-width: 768px) {
       .header { padding: 30px 20px 20px; }
-      .main { grid-template-columns: 1fr; padding: 0 20px 120px; }
+      .main { grid-template-columns: 1fr; padding: 0 20px 40px; }
       .brand-name { font-size: 26px; }
       .nput-container { bottom: 12px; right: 12px; }
       .nput-wrap svg { width: 64px; height: auto; }
+      .footer { margin: 0 20px 100px; }
     }
   </style>
 </head>
@@ -408,6 +480,19 @@
     }, { passive: true });
 
   </script>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      🫏 Dumb Donkey
+      <span>© 2026 — Making weird, useful stuff.</span>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:hello@dumbdonkey.fyi" class="footer-link">📬 Say Hi</a>
+      <a href="https://dumbdonkey.fyi/typeright-privacy/" target="_blank" class="footer-link">🔒 Privacy</a>
+      <a href="https://github.com/dumb-donkey" target="_blank" rel="noopener" class="footer-link">👾 GitHub</a>
+    </div>
+  </div>
 
   <!-- NPUT CONTAINER -->
   <div class="nput-container">
