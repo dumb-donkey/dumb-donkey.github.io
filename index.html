@@ -421,6 +421,18 @@
 
     setInterval(flipPage, 15000);
 
+    // Swipe to flip on mobile
+    const book = document.getElementById('comicBook');
+    let touchStartX = 0;
+    book.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    book.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) goToPage((current + 1) % total);
+        else goToPage((current - 1 + total) % total);
+      }
+    }, { passive: true });
+
   </script>
 
   <!-- NPUT CONTAINER -->
