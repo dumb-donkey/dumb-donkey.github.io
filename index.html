@@ -107,7 +107,7 @@
     .comic-page.behind { z-index: 0; transform: rotateY(0deg); }
 
     .comic-dots { display: flex; gap: 8px; }
-    .comic-dot { width: 8px; height: 8px; border-radius: 50%; background: #c8a87a; opacity: 0.3; transition: opacity 0.3s; }
+    .comic-dot { width: 8px; height: 8px; border-radius: 50%; background: #c8a87a; opacity: 0.3; transition: opacity 0.3s; cursor: pointer; }
     .comic-dot.on { opacity: 1; background: #e85d20; }
 
     /* ── RIGHT ── */
@@ -342,11 +342,11 @@
         <div class="comic-page behind" id="page4"><iframe src="banners/week5.html" scrolling="no"></iframe></div>
       </div>
       <div class="comic-dots">
-        <div class="comic-dot on" id="dot0"></div>
-        <div class="comic-dot" id="dot1"></div>
-        <div class="comic-dot" id="dot2"></div>
-        <div class="comic-dot" id="dot3"></div>
-        <div class="comic-dot" id="dot4"></div>
+        <div class="comic-dot on" id="dot0" onclick="goToPage(0)"></div>
+        <div class="comic-dot" id="dot1" onclick="goToPage(1)"></div>
+        <div class="comic-dot" id="dot2" onclick="goToPage(2)"></div>
+        <div class="comic-dot" id="dot3" onclick="goToPage(3)"></div>
+        <div class="comic-dot" id="dot4" onclick="goToPage(4)"></div>
       </div>
     </div>
 
@@ -381,6 +381,25 @@
   <script>
     const total = 5;
     let current = 0;
+
+    function goToPage(n) {
+      if (n === current) return;
+      const prev = current;
+      current = n;
+      const prevPage = document.getElementById('page' + prev);
+      const nextPage = document.getElementById('page' + current);
+      prevPage.classList.remove('active');
+      prevPage.classList.add('flip-out');
+      nextPage.classList.remove('behind');
+      nextPage.classList.add('active');
+      setTimeout(() => {
+        prevPage.classList.remove('flip-out');
+        prevPage.classList.add('behind');
+      }, 800);
+      document.querySelectorAll('.comic-dot').forEach((d, i) => {
+        d.classList.toggle('on', i === current);
+      });
+    }
 
     function flipPage() {
       const prev = current;
