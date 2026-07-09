@@ -153,6 +153,7 @@
     .mini-hype.blue{color:var(--blue);}
     .mini-hype.yellow{color:var(--yellow);}
     @keyframes hypeFlash{0%,100%{opacity:1}50%{opacity:.4}}
+    @keyframes thumbBounce{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(5deg)}}
     .mini-panel.reveal{opacity:0;transform:translateY(30px);transition:all .5s cubic-bezier(.34,1.2,.64,1);}
     .mini-panel.reveal.vis{opacity:1;transform:translateY(0);}
 
@@ -243,43 +244,103 @@
   </div>
 
   <!-- APP PANELS -->
-  <div class="panels-grid" id="apps">
-    <!-- TypeRight big panel -->
-    <div class="panel-typeright">
-      <div class="panel-label">NOW ON ANDROID</div>
-      <div class="panel-title">TYPERIGHT</div>
-      <p class="panel-desc">The keyboard that finally thinks. Keys sized by how often you use them — E gets 60% more space than Z. AI assistant built in. 8 skins. Notebook. Everything a keyboard should've had from day one.</p>
-      <div>
-        <div class="panel-tag-label" style="margin-bottom:10px;">WHAT'S INSIDE</div>
-        <div class="panel-tags">
-          <span class="panel-tag">MORPHIE KEYS</span>
-          <span class="panel-tag">NPUT AI</span>
-          <span class="panel-tag">NOTEBOOK</span>
-          <span class="panel-tag">8 SKINS</span>
-          <span class="panel-tag">SPELL CHECK</span>
-          <span class="panel-tag">AUTOCORRECT</span>
-        </div>
-      </div>
-      <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" rel="noopener" class="play-btn">▶ GET IT ON GOOGLE PLAY</a>
+  <div id="apps">
+
+    <!-- SECTION HEADER -->
+    <div style="background:var(--ink);border-bottom:5px solid var(--red);padding:28px 40px;text-align:center;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(232,28,28,0.08) 1.8px,transparent 1.8px);background-size:16px 16px;"></div>
+      <div style="position:relative;z-index:1;font-size:11px;letter-spacing:4px;color:var(--blue);margin-bottom:10px;">DUMB DONKEY STUDIO</div>
+      <div style="position:relative;z-index:1;font-size:clamp(36px,5vw,60px);color:var(--white);text-shadow:4px 4px 0 var(--red);letter-spacing:2px;">OUR APPS</div>
     </div>
 
-    <!-- Phone panel -->
-    <div class="panel-phone">
-      <div class="phone">
-        <div class="pscreen">
-          <div class="krow"><div class="k s">Q</div><div class="k s">W</div><div class="k b">E</div><div class="k s">R</div><div class="k b">T</div><div class="k s">Y</div><div class="k">U</div><div class="k b">I</div><div class="k">O</div><div class="k s">P</div></div>
-          <div class="krow"><div class="k b">A</div><div class="k s">S</div><div class="k s">D</div><div class="k s">F</div><div class="k s">G</div><div class="k s">H</div><div class="k s">J</div><div class="k s">K</div><div class="k s">L</div></div>
-          <div class="krow"><div class="k s">Z</div><div class="k s">X</div><div class="k s">C</div><div class="k s">V</div><div class="k s">B</div><div class="k">N</div><div class="k s">M</div></div>
-          <div class="krow"><div class="k w">SPACE</div></div>
+    <!-- TYPERIGHT -->
+    <div class="panels-grid" style="border-bottom:7px solid var(--ink);">
+      <div class="panel-typeright">
+        <div class="panel-label">APP 01 — NOW ON ANDROID</div>
+        <div class="panel-title">TYPERIGHT</div>
+        <p class="panel-desc">The keyboard that finally thinks. Keys sized by how often you use them — E gets 60% more space than Z. AI assistant built in. 8 skins. Notebook. Everything a keyboard should've had from day one.</p>
+        <div>
+          <div class="panel-tag-label" style="margin-bottom:10px;">WHAT'S INSIDE</div>
+          <div class="panel-tags">
+            <span class="panel-tag">MORPHIE KEYS</span>
+            <span class="panel-tag">NPUT AI</span>
+            <span class="panel-tag">NOTEBOOK</span>
+            <span class="panel-tag">8 SKINS</span>
+            <span class="panel-tag">SPELL CHECK</span>
+            <span class="panel-tag">AUTOCORRECT</span>
+          </div>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" rel="noopener" class="play-btn">▶ GET IT ON GOOGLE PLAY</a>
+      </div>
+      <div class="panel-phone">
+        <div class="phone">
+          <div class="pscreen">
+            <div class="krow"><div class="k s">Q</div><div class="k s">W</div><div class="k b">E</div><div class="k s">R</div><div class="k b">T</div><div class="k s">Y</div><div class="k">U</div><div class="k b">I</div><div class="k">O</div><div class="k s">P</div></div>
+            <div class="krow"><div class="k b">A</div><div class="k s">S</div><div class="k s">D</div><div class="k s">F</div><div class="k s">G</div><div class="k s">H</div><div class="k s">J</div><div class="k s">K</div><div class="k s">L</div></div>
+            <div class="krow"><div class="k s">Z</div><div class="k s">X</div><div class="k s">C</div><div class="k s">V</div><div class="k s">B</div><div class="k">N</div><div class="k s">M</div></div>
+            <div class="krow"><div class="k w">SPACE</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-tagline">
+        <div class="tagline-zap">⚡</div>
+        <div class="tagline-text">KEYS THAT<br>THINK FOR<br>THEMSELVES.</div>
+      </div>
+    </div>
+
+    <!-- THUMBTYPE -->
+    <div style="display:grid;grid-template-columns:1fr 2fr;border-bottom:7px solid var(--ink);">
+      <div style="background:#0a1a0a;border-right:7px solid var(--ink);display:flex;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,0,0.08) 1.8px,transparent 1.8px);background-size:16px 16px;"></div>
+        <div style="position:relative;z-index:1;text-align:center;">
+          <div style="font-size:80px;animation:thumbBounce 2s ease-in-out infinite;">👍</div>
+          <div style="font-size:13px;letter-spacing:3px;color:rgba(255,255,255,.4);margin-top:12px;">YOUR THUMB<br>KNOWS BEST</div>
+        </div>
+      </div>
+      <div style="background:#0d1a0d;padding:50px 50px;display:flex;flex-direction:column;gap:22px;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,0,0.06) 1.8px,transparent 1.8px);background-size:16px 16px;"></div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:22px;">
+          <div class="panel-label">APP 02 — NOW ON ANDROID</div>
+          <div class="panel-title" style="color:var(--white);text-shadow:5px 5px 0 rgba(0,100,0,.5);">THUMBTYPE</div>
+          <p class="panel-desc">A keyboard engineered around your thumb. Offline voice input, AI built in, spell check, personal dictionary, notepad, QR scanner — everything works without internet. Your phone, your data.</p>
+          <div>
+            <div class="panel-tag-label" style="margin-bottom:10px;">WHAT'S INSIDE</div>
+            <div class="panel-tags">
+              <span class="panel-tag">VOICE INPUT</span>
+              <span class="panel-tag">OFFLINE AI</span>
+              <span class="panel-tag">SPELL CHECK</span>
+              <span class="panel-tag">NOTEPAD</span>
+              <span class="panel-tag">QR SCANNER</span>
+              <span class="panel-tag">PERSONAL DICT</span>
+            </div>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.thumbtype" target="_blank" rel="noopener" class="play-btn">▶ GET IT ON GOOGLE PLAY</a>
         </div>
       </div>
     </div>
 
-    <!-- Tagline panel -->
-    <div class="panel-tagline">
-      <div class="tagline-zap">⚡</div>
-      <div class="tagline-text">BUILT BY<br>ONE DONKEY.<br>WORKS LIKE<br>A TEAM DID IT.</div>
+    <!-- MORE APPS TEASER -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:7px solid var(--ink);">
+      <div style="background:#1a1a0a;border-right:5px solid var(--ink);padding:40px 36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,215,0,0.06) 1.8px,transparent 1.8px);background-size:14px 14px;"></div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;">
+          <div class="mini-eyebrow">IN THE LAB</div>
+          <div class="mini-title">APP #3</div>
+          <div class="mini-body">Something is being built. Something weird. Something you'll use every single day.</div>
+          <div class="mini-hype yellow">🔥 THE DONKEY IS COOKING</div>
+        </div>
+      </div>
+      <div style="background:#0a0a1a;padding:40px 36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,255,0.06) 1.8px,transparent 1.8px);background-size:14px 14px;"></div>
+        <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;">
+          <div class="mini-eyebrow">ALWAYS</div>
+          <div class="mini-title">NO BS</div>
+          <div class="mini-body">No dark patterns. No fake urgency. No subscriptions unless they're earned. Dumb Donkey builds things that earn their place on your phone.</div>
+          <div class="mini-hype blue">🫏 THAT'S THE DEAL</div>
+        </div>
+      </div>
     </div>
+
   </div>
 
   <!-- ABOUT -->
