@@ -3,580 +3,329 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dumb Donkey — Building weird, useful things.</title>
-  <meta name="description" content="We make apps that are a little weird, surprisingly useful, and definitely free. TypeRight keyboard + more.">
-
-  <!-- Open Graph (Facebook, Discord, iMessage, WhatsApp) -->
+  <title>Dumb Donkey — We build apps that should've existed already.</title>
+  <meta name="description" content="We build apps that are weird, useful, and completely free. TypeRight keyboard + more.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dumbdonkey.fyi">
-  <meta property="og:title" content="Dumb Donkey 🫏">
-  <meta property="og:description" content="We make apps that are a little weird, surprisingly useful, and definitely free. TypeRight keyboard + more.">
+  <meta property="og:title" content="Dumb Donkey">
+  <meta property="og:description" content="We build apps that should've existed already. All free.">
   <meta property="og:image" content="https://dumbdonkey.fyi/nget.png">
-
-  <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dumb Donkey 🫏">
-  <meta name="twitter:description" content="We make apps that are a little weird, surprisingly useful, and definitely free.">
+  <meta name="twitter:title" content="Dumb Donkey">
+  <meta name="twitter:description" content="We build apps that should've existed already. All free.">
   <meta name="twitter:image" content="https://dumbdonkey.fyi/nget.png">
-
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="shortcut icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      background: #f5f0e8;
-      min-height: 100vh;
-      font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
+    :root {
+      --black:  #111111;
+      --navy:   #0d1b2a;
+      --red:    #e81c1c;
+      --yellow: #FFD700;
+      --blue:   #00b4ff;
+      --purple: #7c3aed;
+      --white:  #f5f5f5;
     }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--black); font-family:'Comic Neue','Arial Rounded MT Bold',Arial,sans-serif; font-weight:700; overflow-x:hidden; color:var(--white); }
 
-    /* ── TOP HEADER ── */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      padding: 24px 60px 20px;
-    }
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:var(--black); border-bottom:4px solid var(--red); display:flex; align-items:center; justify-content:space-between; padding:14px 40px; box-shadow:0 4px 20px rgba(232,28,28,0.3); }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo img { width:42px; height:42px; border-radius:50%; border:3px solid var(--yellow); animation:logoBounce 3s ease-in-out infinite; }
+    @keyframes logoBounce { 0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)} }
+    .nav-logo-text { font-family:'Bangers',cursive; font-size:26px; letter-spacing:2px; color:var(--yellow); text-shadow:3px 3px 0 var(--black); }
+    .nav-links { display:flex; gap:24px; list-style:none; }
+    .nav-links a { color:var(--white); text-decoration:none; font-size:12px; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border:2px solid transparent; border-radius:4px; transition:all .2s; }
+    .nav-links a:hover { border-color:var(--red); color:var(--yellow); background:rgba(232,28,28,0.1); }
 
-    .logo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-      flex-shrink: 0;
-    }
+    /* HERO */
+    .hero { min-height:100vh; background:var(--navy); position:relative; display:flex; align-items:center; overflow:hidden; padding-top:80px; }
+    .hero::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,180,255,0.07) 1.5px,transparent 1.5px); background-size:22px 22px; pointer-events:none; }
+    .hero-lines { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+    .hero-lines::before { content:''; position:absolute; top:50%; left:55%; width:200%; height:200%; transform:translate(-50%,-50%); background:repeating-conic-gradient(rgba(232,28,28,0.04) 0deg,transparent 1deg,transparent 4deg,rgba(0,180,255,0.04) 4deg,transparent 5deg,transparent 8deg); animation:spinLines 60s linear infinite; }
+    @keyframes spinLines { to{transform:translate(-50%,-50%) rotate(360deg)} }
+    .hero-inner { position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:40px; max-width:1200px; margin:0 auto; padding:60px 40px; width:100%; }
+    .hero-left { display:flex; flex-direction:column; gap:24px; }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; background:var(--red); color:var(--white); font-size:11px; letter-spacing:3px; text-transform:uppercase; padding:6px 16px; border:3px solid rgba(0,0,0,0.5); box-shadow:4px 4px 0 rgba(0,0,0,0.5); width:fit-content; animation:slideInLeft .6s ease both; }
+    .hero-headline { font-family:'Bangers',cursive; font-size:clamp(42px,6vw,76px); line-height:1.05; color:var(--white); text-shadow:5px 5px 0 rgba(0,0,0,0.6); animation:slideInLeft .7s ease both; }
+    .hero-headline span { color:var(--blue); }
+    .hero-sub { font-size:16px; color:rgba(255,255,255,0.7); line-height:1.6; max-width:440px; animation:slideInLeft .8s ease both; }
+    .hero-sub strong { color:var(--yellow); }
+    .hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--red); color:var(--white); text-decoration:none; font-family:'Bangers',cursive; font-size:22px; letter-spacing:2px; padding:14px 32px; border:4px solid rgba(0,0,0,0.5); box-shadow:6px 6px 0 rgba(0,0,0,0.5); width:fit-content; transition:all .15s; animation:slideInLeft .9s ease both,ctaPulse 2s ease-in-out 2s infinite; }
+    .hero-cta:hover { transform:translate(-3px,-3px); box-shadow:9px 9px 0 rgba(0,0,0,0.5); }
+    @keyframes ctaPulse { 0%,100%{box-shadow:6px 6px 0 rgba(0,0,0,0.5)}50%{box-shadow:6px 6px 0 rgba(0,0,0,0.5),0 0 30px rgba(232,28,28,0.7)} }
+    @keyframes slideInLeft { from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)} }
+    .hero-right { display:flex; justify-content:center; align-items:center; position:relative; }
+    .hero-donkey-wrap { position:relative; animation:heroFloat 3.5s ease-in-out infinite; }
+    @keyframes heroFloat { 0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-24px) rotate(2deg)} }
+    .hero-donkey-wrap img { width:min(360px,90%); border-radius:12px; border:5px solid rgba(0,0,0,0.5); box-shadow:8px 8px 0 rgba(0,0,0,0.5); display:block; }
+    .pow-badge { position:absolute; top:-20px; right:-20px; background:var(--yellow); color:var(--black); font-family:'Bangers',cursive; font-size:18px; letter-spacing:1px; width:72px; height:72px; display:flex; align-items:center; justify-content:center; clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); animation:starSpin 4s linear infinite; z-index:3; }
+    @keyframes starSpin { 0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.15)}100%{transform:rotate(360deg) scale(1)} }
+    .speech-bubble { position:absolute; bottom:-10px; left:-30px; background:var(--white); color:var(--black); font-size:13px; padding:10px 16px; border:3px solid rgba(0,0,0,0.5); border-radius:16px; box-shadow:4px 4px 0 rgba(0,0,0,0.5); white-space:nowrap; animation:bubblePop .5s cubic-bezier(0.34,1.56,0.64,1) 1.5s both; z-index:4; }
+    .speech-bubble::after { content:''; position:absolute; top:100%; right:40px; border:10px solid transparent; border-top-color:rgba(0,0,0,0.5); }
+    .speech-bubble::before { content:''; position:absolute; top:calc(100% - 3px); right:43px; border:8px solid transparent; border-top-color:var(--white); z-index:1; }
+    @keyframes bubblePop { from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)} }
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    /* FEATURES STRIP */
+    .features { background:var(--red); border-top:5px solid rgba(0,0,0,0.4); border-bottom:5px solid rgba(0,0,0,0.4); padding:28px 40px; position:relative; overflow:hidden; }
+    .features::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,0,0,0.15) 1.5px,transparent 1.5px); background-size:16px 16px; }
+    .features-inner { position:relative; z-index:1; display:flex; justify-content:center; gap:48px; flex-wrap:wrap; }
+    .feature-badge { display:flex; align-items:center; gap:12px; color:var(--white); font-size:14px; letter-spacing:1.5px; text-transform:uppercase; }
+    .feature-badge .icon { font-size:24px; animation:iconBounce 2s ease-in-out infinite; }
+    .feature-badge:nth-child(3) .icon { animation-delay:.3s; }
+    .feature-badge:nth-child(5) .icon { animation-delay:.6s; }
+    @keyframes iconBounce { 0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)} }
+    .feature-divider { width:4px; height:4px; background:rgba(255,255,255,0.4); border-radius:50%; align-self:center; }
 
-    .brand-name {
-      font-size: 36px;
-      font-weight: 900;
-      color: #1a3a5c;
-      letter-spacing: 1px;
-    }
+    /* TICKER */
+    .ticker { background:var(--black); border-top:3px solid var(--blue); border-bottom:3px solid var(--blue); padding:12px 0; overflow:hidden; white-space:nowrap; }
+    .ticker-inner { display:inline-flex; animation:tickerScroll 20s linear infinite; }
+    @keyframes tickerScroll { from{transform:translateX(0)}to{transform:translateX(-50%)} }
+    .ticker-item { font-family:'Bangers',cursive; font-size:16px; letter-spacing:3px; color:var(--blue); padding:0 32px; }
+    .ticker-sep { color:var(--white); opacity:.3; padding:0 8px; }
 
-    .tagline {
-      font-size: 14px;
-      color: #1a3a5c;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      opacity: 0.55;
-    }
+    /* APPS */
+    .apps { background:var(--navy); padding:100px 40px; position:relative; overflow:hidden; }
+    .apps::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,180,255,0.05) 1.5px,transparent 1.5px); background-size:20px 20px; }
+    .section-header { text-align:center; margin-bottom:60px; position:relative; z-index:1; }
+    .section-eyebrow { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--blue); margin-bottom:12px; }
+    .section-title { font-family:'Bangers',cursive; font-size:clamp(40px,5vw,64px); color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,0.5); letter-spacing:2px; }
+    .section-title span { color:var(--red); }
 
-    /* ── MAIN CONTENT AREA ── */
-    .main {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      padding: 0 60px 60px;
-      align-items: start;
-    }
+    .app-featured { position:relative; z-index:1; max-width:900px; margin:0 auto 60px; background:#0a0f1a; border:5px solid rgba(0,0,0,0.5); box-shadow:10px 10px 0 rgba(0,0,0,0.5); border-radius:8px; display:grid; grid-template-columns:1fr 1fr; overflow:hidden; opacity:0; transform:translateY(40px); transition:all .6s cubic-bezier(0.34,1.2,0.64,1); }
+    .app-featured.visible { opacity:1; transform:translateY(0); }
+    .app-featured-left { background:var(--purple); padding:50px 40px; display:flex; flex-direction:column; gap:20px; position:relative; overflow:hidden; }
+    .app-featured-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,0,0,0.2) 1.5px,transparent 1.5px); background-size:16px 16px; }
+    .app-featured-left > * { position:relative; z-index:1; }
+    .app-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.6); }
+    .app-name { font-family:'Bangers',cursive; font-size:52px; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,0.4); letter-spacing:2px; line-height:1; }
+    .app-desc { font-size:15px; color:rgba(255,255,255,0.85); line-height:1.6; }
+    .app-tags { display:flex; flex-wrap:wrap; gap:8px; }
+    .app-tag { background:rgba(0,0,0,0.3); border:2px solid rgba(255,255,255,0.3); color:var(--white); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border-radius:3px; }
+    .app-play-btn { display:inline-flex; align-items:center; gap:10px; background:var(--yellow); color:var(--black); text-decoration:none; font-family:'Bangers',cursive; font-size:18px; letter-spacing:1.5px; padding:12px 24px; border:4px solid rgba(0,0,0,0.4); box-shadow:5px 5px 0 rgba(0,0,0,0.4); width:fit-content; transition:all .15s; animation:playBtnPulse 2.5s ease-in-out infinite; }
+    .app-play-btn:hover { transform:translate(-2px,-2px); box-shadow:7px 7px 0 rgba(0,0,0,0.4); }
+    @keyframes playBtnPulse { 0%,100%{box-shadow:5px 5px 0 rgba(0,0,0,0.4)}50%{box-shadow:5px 5px 0 rgba(0,0,0,0.4),0 0 20px rgba(255,215,0,0.5)} }
+    .app-featured-right { background:#080e18; display:flex; align-items:center; justify-content:center; padding:40px; position:relative; }
 
-    /* ── LEFT: COMIC BOOK ── */
-    .comic-section {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    /* Phone */
+    .phone-mockup { width:160px; background:#1a1a2e; border:4px solid rgba(0,0,0,0.5); border-radius:30px; padding:20px 12px; box-shadow:8px 8px 0 rgba(0,0,0,0.5),0 0 40px rgba(124,58,237,0.3); animation:phoneTilt 4s ease-in-out infinite; }
+    @keyframes phoneTilt { 0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(3deg) translateY(-10px)} }
+    .phone-screen { background:#0d1b2a; border-radius:18px; padding:10px 6px 6px; border:2px solid #2a3a5e; }
+    .key-row { display:flex; gap:3px; justify-content:center; margin-top:3px; }
+    .key { background:var(--purple); border:1.5px solid rgba(255,255,255,0.2); border-radius:4px; height:20px; display:flex; align-items:center; justify-content:center; font-size:7px; color:white; font-weight:bold; transition:background .3s,box-shadow .3s; flex:1; }
+    .key.big { flex:1.6; background:#9f5dee; }
+    .key.sm  { flex:0.8; }
+    .key.wide { flex:3; background:#2a2a4a; font-size:6px; }
 
-    .comic-label {
-      font-size: 10px;
-      color: #1a3a5c;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      opacity: 0.4;
-      font-weight: bold;
-    }
+    /* Teasers */
+    .app-teasers { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:900px; margin:0 auto; }
+    .teaser-card { background:rgba(255,255,255,0.03); border:4px solid rgba(255,255,255,0.08); border-radius:8px; padding:40px 32px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; box-shadow:6px 6px 0 rgba(0,0,0,0.4); opacity:0; transform:translateY(30px); transition:all .5s cubic-bezier(0.34,1.2,0.64,1); position:relative; overflow:hidden; }
+    .teaser-card.visible { opacity:1; transform:translateY(0); }
+    .teaser-card:nth-child(2) { transition-delay:.15s; }
+    .teaser-card::before { content:'?'; position:absolute; font-family:'Bangers',cursive; font-size:180px; color:rgba(255,255,255,0.03); top:50%; left:50%; transform:translate(-50%,-50%); animation:questionFloat 4s ease-in-out infinite; pointer-events:none; }
+    @keyframes questionFloat { 0%,100%{transform:translate(-50%,-50%) scale(1) rotate(-5deg)}50%{transform:translate(-50%,-50%) scale(1.1) rotate(5deg)} }
+    .teaser-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--blue); }
+    .teaser-title { font-family:'Bangers',cursive; font-size:28px; color:rgba(255,255,255,0.2); letter-spacing:2px; }
+    .teaser-hype { font-family:'Bangers',cursive; font-size:20px; color:var(--red); letter-spacing:1px; animation:hypePulse 1.5s ease-in-out infinite; }
+    @keyframes hypePulse { 0%,100%{opacity:1}50%{opacity:0.4} }
 
-    .comic-book {
-      width: min(100%, 55vh);
-      aspect-ratio: 1;
-      position: relative;
-      perspective: 1200px;
-      border-radius: 8px;
-      box-shadow: 8px 8px 0 #c8a87a, 10px 10px 24px rgba(0,0,0,0.25);
-    }
+    /* ABOUT */
+    .about { background:var(--black); padding:100px 40px; position:relative; overflow:hidden; }
+    .about::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(232,28,28,0.06) 1.5px,transparent 1.5px); background-size:18px 18px; }
+    .about-inner { position:relative; z-index:1; max-width:900px; margin:0 auto; display:grid; grid-template-columns:auto 1fr; gap:60px; align-items:center; }
+    .about-donkey { width:220px; flex-shrink:0; border:5px solid rgba(0,0,0,0.5); border-radius:12px; box-shadow:8px 8px 0 rgba(0,0,0,0.5); animation:aboutFloat 3s ease-in-out infinite; }
+    @keyframes aboutFloat { 0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(2deg) translateY(-12px)} }
+    .about-text { display:flex; flex-direction:column; gap:20px; }
+    .about-headline { font-family:'Bangers',cursive; font-size:clamp(32px,4vw,52px); color:var(--white); text-shadow:4px 4px 0 var(--red); letter-spacing:2px; line-height:1.1; opacity:0; transform:translateX(40px); transition:all .6s ease; }
+    .about-headline.visible { opacity:1; transform:translateX(0); }
+    .about-body { font-size:16px; color:rgba(255,255,255,0.7); line-height:1.7; max-width:500px; opacity:0; transform:translateX(40px); transition:all .6s ease .15s; }
+    .about-body.visible { opacity:1; transform:translateX(0); }
+    .about-body strong { color:var(--blue); }
+    .contact-link { display:inline-flex; align-items:center; gap:8px; color:var(--white); text-decoration:none; font-size:13px; letter-spacing:2px; text-transform:uppercase; padding:10px 20px; border:3px solid var(--red); transition:all .2s; width:fit-content; }
+    .contact-link:hover { background:var(--red); transform:translate(-2px,-2px); }
 
-    .comic-page {
-      position: absolute;
-      inset: 0;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 4px solid #1a1a1a;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      z-index: 0;
-    }
+    /* FOOTER */
+    footer { background:var(--black); border-top:5px solid var(--red); padding:40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+    .footer-brand { font-family:'Bangers',cursive; font-size:22px; letter-spacing:2px; color:var(--yellow); }
+    .footer-brand span { display:block; font-family:'Comic Neue',Arial,sans-serif; font-size:11px; letter-spacing:2px; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-top:4px; }
+    .footer-links { display:flex; gap:20px; align-items:center; }
+    .footer-links a { color:rgba(255,255,255,0.5); text-decoration:none; font-size:12px; letter-spacing:1px; text-transform:uppercase; transition:color .2s; }
+    .footer-links a:hover { color:var(--white); }
+    .footer-copy { color:rgba(255,255,255,0.25); font-size:11px; letter-spacing:1px; }
 
-    .comic-page iframe { width: 100%; height: 100%; border: none; pointer-events: none; }
-    .comic-page.active { opacity: 1; z-index: 2; }
-    .comic-page.behind { opacity: 0; z-index: 0; }
+    /* FLOATING STARS */
+    .star { position:fixed; pointer-events:none; z-index:0; font-size:16px; opacity:0.12; animation:starFloat linear infinite; }
+    @keyframes starFloat { 0%{transform:translateY(0) rotate(0deg);opacity:.12}50%{opacity:.25}100%{transform:translateY(-100vh) rotate(360deg);opacity:0} }
 
-    .comic-dots { display: flex; gap: 8px; }
-    .comic-dot { width: 8px; height: 8px; border-radius: 50%; background: #c8a87a; opacity: 0.3; transition: opacity 0.3s; cursor: pointer; }
-    .comic-dot.on { opacity: 1; background: #e85d20; }
-
-    /* ── RIGHT ── */
-    .right-section {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-top: 10px;
-    }
-
-    .right-label {
-      font-size: 10px;
-      color: #1a3a5c;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      opacity: 0.4;
-      font-weight: bold;
-    }
-
-    /* Coming Soon stamp */
-    .coming-soon-stamp {
-      display: inline-block;
-      background: #FF2020;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 900;
-      font-family: 'Arial Black', Arial, sans-serif;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 5px 10px;
-      border: 2px solid #1a1a1a;
-      border-radius: 4px;
-      box-shadow: 2px 2px 0 #1a1a1a;
-      transform: rotate(-4deg);
-      transform-origin: left center;
-      animation: stampPulse 1.8s ease-in-out infinite;
-      width: fit-content;
-    }
-    @keyframes stampPulse {
-      0%,100% { transform: rotate(-4deg) scale(1); }
-      50%      { transform: rotate(-4deg) scale(1.06); }
-    }
-
-    /* App cards row — side by side */
-    .app-cards-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    /* Comic panel cards */
-    .app-card {
-      background: #fff;
-      border: 3px solid #1a1a1a;
-      border-radius: 6px;
-      padding: 12px 14px;
-      box-shadow: 4px 4px 0 #1a1a1a;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-
-    .app-card:first-child { transform: rotate(-1.2deg); }
-    .app-card:last-child  { transform: rotate(0.9deg); }
-    .app-card:hover { transform: rotate(0deg) translateY(-3px) !important; box-shadow: 6px 6px 0 #1a1a1a; }
-
-    .app-card-title {
-      font-size: 14px;
-      font-weight: 900;
-      color: #1a3a5c;
-    }
-
-    .app-card-desc {
-      font-size: 11px;
-      color: #555;
-      line-height: 1.4;
-      font-family: Arial, sans-serif;
-      font-weight: normal;
-      flex: 1;
-    }
-
-    /* Donkey panel */
-    .donkey-panel {
-      border: 3px solid #1a1a1a;
-      border-radius: 6px;
-      box-shadow: 5px 5px 0 #1a1a1a;
-      overflow: hidden;
-      transform: rotate(-0.4deg);
-      background: #1a1a1a;
-    }
-
-    .donkey-panel img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-    }
-
-    .app-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #e85d20;
-      color: #fff;
-      padding: 6px 11px;
-      border-radius: 50px;
-      font-size: 10px;
-      font-weight: bold;
-      text-decoration: none;
-      width: fit-content;
-      box-shadow: 0 3px 10px rgba(232,93,32,0.35);
-      transition: transform 0.15s;
-    }
-
-    .app-badge:hover { transform: translateY(-2px); }
-
-    /* ── NPUT + CHAT BUBBLE ── */
-    .nput-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0;
-    }
-
-    /* Speech bubble */
-    .nput-bubble {
-      background: #fff;
-      border-radius: 20px;
-      padding: 18px 20px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 0 0 2px rgba(0,200,255,0.2);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 8px;
-      margin-right: 10px;
-      transform-origin: bottom right;
-      transform: scale(0);
-      opacity: 0;
-      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s;
-      pointer-events: none;
-      min-width: 190px;
-    }
-
-    .nput-bubble.open {
-      transform: scale(1);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Tail on the bubble pointing down-right toward Nput */
-    .nput-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -12px;
-      right: 28px;
-      width: 0;
-      height: 0;
-      border-left: 10px solid transparent;
-      border-right: 4px solid transparent;
-      border-top: 14px solid #fff;
-      filter: drop-shadow(0 3px 3px rgba(0,0,0,0.08));
-    }
-
-    .nput-bubble-label {
-      font-size: 10px;
-      color: #1a3a5c;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      opacity: 0.4;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-    }
-
-    .bubble-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 16px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: bold;
-      letter-spacing: 0.3px;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-    }
-
-    .bubble-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.18); }
-    .bubble-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
-    .btn-email { background: #e85d20; color: #fff; }
-    .btn-github { background: #1a3a5c; color: #fff; }
-
-    /* Nput robot */
-    .nput-wrap {
-      cursor: pointer;
-      filter: drop-shadow(0 0 18px rgba(0,200,255,0.5)) drop-shadow(0 4px 12px rgba(0,0,0,0.3));
-      animation: robotFloat 2.4s ease-in-out infinite;
-      flex-shrink: 0;
-    }
-    .nput-wrap:hover { filter: drop-shadow(0 0 28px rgba(0,200,255,0.9)) drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
-
-    @keyframes robotFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
-    @keyframes nputScan { 0%,100% { transform:translateX(-9px); } 50% { transform:translateX(9px); } }
-    @keyframes nputBlink { 0%,90%,100% { transform:scaleY(1); } 94% { transform:scaleY(0.06); } 97% { transform:scaleY(1); } }
-    @keyframes nputAntGlow { 0%,100% { opacity:.5; transform:scale(1); } 50% { opacity:1; transform:scale(1.5); } }
-    @keyframes nputAntBounce { 0%,100% { transform:translateY(0); } 45% { transform:translateY(-5px); } }
-    @keyframes nputEyeGlow { 0%,100% { opacity:.7; } 50% { opacity:1; } }
-    @keyframes nputBrowFurrow { 0%,78%,100% { transform:translateY(0); } 84% { transform:translateY(-2.5px); } 90% { transform:translateY(0); } }
-    @keyframes nputBreathe { 0%,100% { transform:scaleY(1); } 50% { transform:scaleY(1.025); } }
-    .nput-eye-l   { animation:nputBlink 4.5s ease-in-out infinite; transform-origin:36px 47px; }
-    .nput-eye-r   { animation:nputBlink 4.5s ease-in-out infinite .2s; transform-origin:64px 47px; }
-    .nput-scan    { animation:nputScan 2s ease-in-out infinite; }
-    .nput-antdot  { animation:nputAntGlow 1.8s ease-in-out infinite; }
-    .nput-antg    { animation:nputAntBounce 1.8s ease-in-out infinite; transform-origin:50px 16px; }
-    .nput-egl     { animation:nputEyeGlow 2s ease-in-out infinite; }
-    .nput-egr     { animation:nputEyeGlow 2s ease-in-out infinite .25s; }
-    .nput-body    { animation:nputBreathe 3.2s ease-in-out infinite; transform-origin:50px 97px; }
-    .nput-brow-l  { animation:nputBrowFurrow 5s ease-in-out infinite; transform-origin:36px 35px; }
-    .nput-brow-r  { animation:nputBrowFurrow 5s ease-in-out infinite .2s; transform-origin:64px 35px; }
-
-    /* ── FOOTER ── */
-    .footer {
-      margin: 0 60px 40px;
-      padding: 18px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-left {
-      font-size: 13px;
-      font-weight: 900;
-      color: #1a1a1a;
-      letter-spacing: 0.5px;
-    }
-
-    .footer-left span {
-      font-weight: normal;
-      opacity: 0.6;
-      font-size: 11px;
-      display: block;
-      margin-top: 2px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-@media (max-width: 768px) {
-      .header { padding: 30px 20px 20px; }
-      .main { grid-template-columns: 1fr; padding: 0 20px 40px; }
-      .brand-name { font-size: 26px; }
-      .nput-container { bottom: 12px; right: 12px; }
-      .nput-wrap svg { width: 64px; height: auto; }
-      .footer { margin: 0 20px 100px; }
+    @media(max-width:768px){
+      nav{padding:12px 20px;}
+      .nav-links{display:none;}
+      .hero-inner{grid-template-columns:1fr;text-align:center;padding:40px 20px;}
+      .hero-right{order:-1;}
+      .hero-cta,.hero-eyebrow{margin:0 auto;}
+      .apps,.about{padding:60px 20px;}
+      .app-featured{grid-template-columns:1fr;}
+      .app-teasers{grid-template-columns:1fr;}
+      .about-inner{grid-template-columns:1fr;text-align:center;}
+      .about-donkey{display:none;}
+      .contact-link{margin:0 auto;}
+      footer{flex-direction:column;text-align:center;align-items:center;}
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div class="header">
-    <img src="logo.png" alt="Dumb Donkey" class="logo">
-    <div class="brand">
-      <div class="brand-name">Dumb Donkey</div>
-      <div class="tagline">Building weird, useful things.</div>
-    </div>
-  </div>
+  <div class="star" style="left:10%;animation-duration:14s;animation-delay:0s;">⭐</div>
+  <div class="star" style="left:25%;animation-duration:18s;animation-delay:3s;">✦</div>
+  <div class="star" style="left:60%;animation-duration:12s;animation-delay:6s;">⭐</div>
+  <div class="star" style="left:80%;animation-duration:20s;animation-delay:1s;">✦</div>
+  <div class="star" style="left:45%;animation-duration:16s;animation-delay:9s;">⭐</div>
 
-  <!-- MAIN -->
-  <div class="main">
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="logo.png" alt="Dumb Donkey">
+      <span class="nav-logo-text">DUMB DONKEY</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="mailto:hello@dumbdonkey.fyi">Contact</a></li>
+    </ul>
+  </nav>
 
-    <!-- LEFT: Comic Book -->
-    <div class="comic-section">
-      <div class="comic-label">TypeRight — Now on Google Play</div>
-      <div class="comic-book" id="comicBook">
-        <div class="comic-page active" id="page0"><iframe src="banners/week1.html" scrolling="no"></iframe></div>
-        <div class="comic-page behind" id="page1"><iframe src="banners/week2.html" scrolling="no"></iframe></div>
-        <div class="comic-page behind" id="page2"><iframe src="banners/week3.html" scrolling="no"></iframe></div>
-        <div class="comic-page behind" id="page3"><iframe src="banners/week4.html" scrolling="no"></iframe></div>
-        <div class="comic-page behind" id="page4"><iframe src="banners/week5.html" scrolling="no"></iframe></div>
+  <section class="hero">
+    <div class="hero-lines"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">🫏 Dumb Donkey Apps</div>
+        <h1 class="hero-headline">WE BUILD APPS THAT<br><span>SHOULD'VE EXISTED</span><br>ALREADY.</h1>
+        <p class="hero-sub">Free apps. No subscriptions. No BS.<br><strong>Just ideas that make your phone actually useful.</strong></p>
+        <a href="#apps" class="hero-cta">⚡ SEE OUR APPS</a>
       </div>
-      <div class="comic-dots">
-        <div class="comic-dot on" id="dot0" onclick="goToPage(0)"></div>
-        <div class="comic-dot" id="dot1" onclick="goToPage(1)"></div>
-        <div class="comic-dot" id="dot2" onclick="goToPage(2)"></div>
-        <div class="comic-dot" id="dot3" onclick="goToPage(3)"></div>
-        <div class="comic-dot" id="dot4" onclick="goToPage(4)"></div>
-      </div>
-    </div>
-
-    <!-- RIGHT: App Info -->
-    <div class="right-section">
-      <div class="right-label">Our Apps</div>
-      <div class="app-cards-row">
-        <div class="app-card">
-          <div class="app-card-title">TypeRight ⌨️</div>
-          <div class="app-card-desc">AI keyboard, 8 skins, notebook. All free. No nonsense.</div>
-          <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" class="app-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M3 20.5v-17c0-.83 1.01-1.3 1.7-.78l14 8.5c.62.38.62 1.18 0 1.56l-14 8.5c-.69.52-1.7.05-1.7-.78z"/></svg>
-            Google Play
-          </a>
-        </div>
-        <div class="app-card">
-          <div class="app-card-title">ThumbType 👍</div>
-          <div class="app-card-desc">One-handed keyboard built for how your thumb actually moves.</div>
-          <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.thumbtype" target="_blank" class="app-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M3 20.5v-17c0-.83 1.01-1.3 1.7-.78l14 8.5c.62.38.62 1.18 0 1.56l-14 8.5c-.69.52-1.7.05-1.7-.78z"/></svg>
-            Google Play
-          </a>
+      <div class="hero-right">
+        <div class="hero-donkey-wrap">
+          <img src="nget.png" alt="Dumb the Donkey">
+          <div class="pow-badge">FREE!</div>
+          <div class="speech-bubble">Built by one donkey 🫏</div>
         </div>
       </div>
-      <div class="donkey-panel">
-        <img src="nget.png" alt="You're not getting it" />
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="features-inner">
+      <div class="feature-badge"><span class="icon">💰</span>100% Free — No Subscriptions</div>
+      <div class="feature-divider"></div>
+      <div class="feature-badge"><span class="icon">🫏</span>Built By One Donkey</div>
+      <div class="feature-divider"></div>
+      <div class="feature-badge"><span class="icon">⚡</span>Actually Useful Apps</div>
+    </div>
+  </section>
+
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-item">DUMB DONKEY</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">FREE APPS</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">NO SUBSCRIPTIONS</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">TYPERIGHT KEYBOARD</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">BUILT WITH LOVE</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">MORE APPS DROPPING</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">DUMB DONKEY</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">FREE APPS</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">NO SUBSCRIPTIONS</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">TYPERIGHT KEYBOARD</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">BUILT WITH LOVE</span><span class="ticker-sep">★</span>
+      <span class="ticker-item">MORE APPS DROPPING</span><span class="ticker-sep">★</span>
+    </div>
+  </div>
+
+  <section class="apps" id="apps">
+    <div class="section-header">
+      <div class="section-eyebrow">What we've built</div>
+      <h2 class="section-title">OUR <span>APPS</span></h2>
+    </div>
+    <div class="app-featured" id="appFeatured">
+      <div class="app-featured-left">
+        <div class="app-label">Available now on Android</div>
+        <div class="app-name">TypeRight</div>
+        <p class="app-desc">The keyboard that gives your most-used keys up to 60% more space. AI assistant built in. 8 skins. Notebook. Completely free.</p>
+        <div class="app-tags">
+          <span class="app-tag">AI Built In</span>
+          <span class="app-tag">8 Skins</span>
+          <span class="app-tag">Notebook</span>
+          <span class="app-tag">Free Forever</span>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" rel="noopener" class="app-play-btn">▶ GET IT FREE ON GOOGLE PLAY</a>
+      </div>
+      <div class="app-featured-right">
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <div class="key-row"><div class="key sm">Q</div><div class="key sm">W</div><div class="key big">E</div><div class="key sm">R</div><div class="key big">T</div><div class="key sm">Y</div><div class="key">U</div><div class="key big">I</div><div class="key">O</div><div class="key sm">P</div></div>
+            <div class="key-row"><div class="key big">A</div><div class="key sm">S</div><div class="key sm">D</div><div class="key sm">F</div><div class="key sm">G</div><div class="key sm">H</div><div class="key sm">J</div><div class="key sm">K</div><div class="key sm">L</div></div>
+            <div class="key-row"><div class="key sm">Z</div><div class="key sm">X</div><div class="key sm">C</div><div class="key sm">V</div><div class="key sm">B</div><div class="key">N</div><div class="key sm">M</div></div>
+            <div class="key-row"><div class="key wide">SPACE</div></div>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="app-teasers">
+      <div class="teaser-card" id="teaser1">
+        <div class="teaser-label">Coming Soon</div>
+        <div class="teaser-title">???</div>
+        <div class="teaser-hype">🔥 SOMETHING BIG IS COMING</div>
+      </div>
+      <div class="teaser-card" id="teaser2">
+        <div class="teaser-label">In The Lab</div>
+        <div class="teaser-title">???</div>
+        <div class="teaser-hype">⚡ THE DONKEY IS COOKING</div>
+      </div>
+    </div>
+  </section>
 
-  </div>
+  <section class="about" id="about">
+    <div class="about-inner">
+      <img src="nget.png" alt="Dumb the Donkey" class="about-donkey">
+      <div class="about-text">
+        <h2 class="about-headline" id="aboutHeadline">ONE DONKEY.<br>BIG IDEAS.<br>ZERO SUBSCRIPTIONS.</h2>
+        <p class="about-body" id="aboutBody">Every app we ship is <strong>completely free</strong>. No paywalls, no subscriptions, no dark patterns. Just apps that solve real problems in ways nobody else bothered to.<br><br>We're a one-person studio that moves fast, ships weird ideas, and refuses to charge for things that should just exist.</p>
+        <a href="mailto:hello@dumbdonkey.fyi" class="contact-link">✉ Say Hello</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand">DUMB DONKEY<span>© 2026 — Making weird, useful stuff.</span></div>
+    <div class="footer-links">
+      <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" rel="noopener">TypeRight</a>
+      <a href="mailto:hello@dumbdonkey.fyi">Contact</a>
+      <a href="https://twitter.com/dumbdonkeyfyi" target="_blank" rel="noopener">X</a>
+      <a href="https://www.tiktok.com/@dumbthedonkey" target="_blank" rel="noopener">TikTok</a>
+    </div>
+    <div class="footer-copy">dumbdonkey.fyi</div>
+  </footer>
 
   <script>
-    const total = 5;
-    let current = 0;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.15 });
 
-    function goToPage(n) {
-      if (n === current) return;
-      document.getElementById('page' + current).classList.replace('active', 'behind');
-      current = n;
-      document.getElementById('page' + current).classList.replace('behind', 'active');
-      document.querySelectorAll('.comic-dot').forEach((d, i) => d.classList.toggle('on', i === current));
-    }
-
-    function flipPage() {
-      goToPage((current + 1) % total);
-    }
-
-    setInterval(flipPage, 15000);
-
-    // Swipe to flip on mobile
-    const book = document.getElementById('comicBook');
-    let touchStartX = 0;
-    book.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    book.addEventListener('touchend', e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) goToPage((current + 1) % total);
-        else goToPage((current - 1 + total) % total);
-      }
-    }, { passive: true });
-
-  </script>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="footer-left">
-      🫏 Dumb Donkey
-      <span>© 2026 — Making weird, useful stuff.</span>
-    </div>
-  </div>
-
-  <!-- NPUT CONTAINER -->
-  <div class="nput-container">
-
-    <!-- Chat bubble (above Nput) -->
-    <div class="nput-bubble" id="nputBubble">
-      <div class="nput-bubble-label">Say hi</div>
-      <a href="mailto:hello@dumbdonkey.fyi" class="bubble-btn btn-email">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        hello@dumbdonkey.fyi
-      </a>
-      <a href="https://github.com/dumb-donkey" target="_blank" rel="noopener" class="bubble-btn btn-github">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-        GitHub
-      </a>
-    </div>
-
-    <!-- Nput robot -->
-    <div class="nput-wrap" id="nputRobot">
-      <svg width="110" height="130" viewBox="-5 -8 110 135" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
-        <defs>
-          <radialGradient id="nRG1" cx="32%" cy="25%" r="72%"><stop offset="0%" stop-color="#4a6e98"/><stop offset="55%" stop-color="#2a4a6e"/><stop offset="100%" stop-color="#0e2236"/></radialGradient>
-          <radialGradient id="nRG2" cx="32%" cy="22%" r="72%"><stop offset="0%" stop-color="#3e5e88"/><stop offset="55%" stop-color="#223858"/><stop offset="100%" stop-color="#0a1e30"/></radialGradient>
-          <radialGradient id="nRG3" cx="35%" cy="28%" r="68%"><stop offset="0%" stop-color="#55eeff"/><stop offset="40%" stop-color="#00aadd"/><stop offset="100%" stop-color="#004466"/></radialGradient>
-          <radialGradient id="nRG4" cx="40%" cy="30%" r="70%"><stop offset="0%" stop-color="#2a4060"/><stop offset="100%" stop-color="#0a1828"/></radialGradient>
-          <linearGradient id="nRim" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(0,200,255,0)"/><stop offset="85%" stop-color="rgba(0,200,255,0)"/><stop offset="100%" stop-color="rgba(0,200,255,0.22)"/></linearGradient>
-          <linearGradient id="nArmG" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#304e72"/><stop offset="100%" stop-color="#0e2236"/></linearGradient>
-          <radialGradient id="nShadow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,180,255,0.35)"/><stop offset="100%" stop-color="rgba(0,180,255,0)"/></radialGradient>
-        </defs>
-        <ellipse class="nput-shadow" cx="50" cy="126" rx="38" ry="7" fill="url(#nShadow)"/>
-        <ellipse cx="34" cy="119" rx="13" ry="6.5" fill="url(#nRG4)" stroke="#3a5e82" stroke-width="1.3"/>
-        <ellipse cx="66" cy="119" rx="13" ry="6.5" fill="url(#nRG4)" stroke="#3a5e82" stroke-width="1.3"/>
-        <rect x="1" y="90" width="15" height="24" rx="7.5" fill="url(#nArmG)" stroke="#3a5e82" stroke-width="1.4"/>
-        <rect x="84" y="90" width="15" height="24" rx="7.5" fill="url(#nArmG)" stroke="#3a5e82" stroke-width="1.4"/>
-        <g class="nput-body">
-          <rect x="16" y="88" width="68" height="30" rx="15" fill="url(#nRG2)" stroke="#3a5e82" stroke-width="1.8"/>
-          <rect x="28" y="96" width="44" height="16" rx="8" fill="rgba(0,5,18,0.55)" stroke="rgba(0,200,255,0.4)" stroke-width="1"/>
-          <rect x="33" y="101" width="9" height="6" rx="2" fill="#1e3858" stroke="rgba(0,200,255,0.6)" stroke-width="1"/>
-          <rect x="45" y="101" width="9" height="6" rx="2" fill="#1e3858" stroke="rgba(0,200,255,0.6)" stroke-width="1"/>
-          <rect x="57" y="101" width="9" height="6" rx="2" fill="#1e3858" stroke="rgba(0,200,255,0.6)" stroke-width="1"/>
-        </g>
-        <rect x="11" y="18" width="78" height="61" rx="20" fill="url(#nRG1)" stroke="#4a6e90" stroke-width="1.8"/>
-        <rect class="nput-rim" x="11" y="18" width="78" height="61" rx="20" fill="url(#nRim)" stroke="none"/>
-        <g class="nput-brow-l"><path d="M22 37 Q34 32 43 35" stroke="#091828" stroke-width="4.5" stroke-linecap="round" fill="none"/><path d="M22 37 Q34 32 43 35" stroke="#1e3858" stroke-width="2" stroke-linecap="round" fill="none"/></g>
-        <g class="nput-brow-r"><path d="M57 35 Q66 32 78 37" stroke="#091828" stroke-width="4.5" stroke-linecap="round" fill="none"/><path d="M57 35 Q66 32 78 37" stroke="#1e3858" stroke-width="2" stroke-linecap="round" fill="none"/></g>
-        <rect x="11" y="40" width="78" height="17" fill="rgba(0,6,20,0.7)"/>
-        <clipPath id="nVC"><rect x="11" y="40" width="78" height="17"/></clipPath>
-        <g clip-path="url(#nVC)">
-          <line class="nput-scan" x1="28" y1="40" x2="28" y2="57" stroke="rgba(0,220,255,0.55)" stroke-width="2"/>
-          <rect class="nput-scan" x="18" y="40" width="20" height="17" fill="rgba(0,200,255,0.08)"/>
-        </g>
-        <g class="nput-eye-l">
-          <ellipse class="nput-egl" cx="36" cy="48" rx="10.5" ry="9" fill="url(#nRG3)" stroke="#00d4ff" stroke-width="1.2" opacity=".9"/>
-          <ellipse cx="36" cy="48" rx="6" ry="5.5" fill="rgba(0,8,25,0.9)"/>
-          <clipPath id="nCL"><ellipse cx="36" cy="48" rx="5.5" ry="5"/></clipPath>
-          <g clip-path="url(#nCL)"><line class="nput-scan" x1="36" y1="43" x2="36" y2="53" stroke="#00eeff" stroke-width="2.5"/></g>
-          <ellipse cx="31" cy="43" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.55)"/>
-        </g>
-        <g class="nput-eye-r">
-          <ellipse class="nput-egr" cx="64" cy="48" rx="10.5" ry="9" fill="url(#nRG3)" stroke="#00d4ff" stroke-width="1.2" opacity=".9"/>
-          <ellipse cx="64" cy="48" rx="6" ry="5.5" fill="rgba(0,8,25,0.9)"/>
-          <clipPath id="nCR"><ellipse cx="64" cy="48" rx="5.5" ry="5"/></clipPath>
-          <g clip-path="url(#nCR)"><line class="nput-scan" x1="64" y1="43" x2="64" y2="53" stroke="#00eeff" stroke-width="2.5" style="animation-delay:.3s"/></g>
-          <ellipse cx="59" cy="43" rx="3.5" ry="2.5" fill="rgba(255,255,255,0.55)"/>
-        </g>
-        <path d="M36 67 L45 67 Q50 69.5 55 67 L64 67" stroke="#4a6e90" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <g class="nput-antg">
-          <line x1="44" y1="6" x2="44" y2="19" stroke="#5588aa" stroke-width="2.2" stroke-linecap="round"/>
-          <line x1="56" y1="6" x2="56" y2="19" stroke="#5588aa" stroke-width="2.2" stroke-linecap="round"/>
-          <circle cx="44" cy="6" r="4.5" fill="#1a3050" stroke="#5588aa" stroke-width="1.5"/>
-          <circle class="nput-antdot" cx="44" cy="6" r="2.5" fill="#00d4ff"/>
-          <circle cx="56" cy="6" r="4.5" fill="#1a3050" stroke="#5588aa" stroke-width="1.5"/>
-          <circle class="nput-antdot" cx="56" cy="6" r="2.5" fill="#00d4ff" style="animation-delay:.7s"/>
-        </g>
-      </svg>
-    </div>
-
-  </div>
-
-  <script>
-    const nputWrap = document.getElementById('nputRobot');
-    const bubble   = document.getElementById('nputBubble');
-
-    nputWrap.addEventListener('click', () => {
-      bubble.classList.toggle('open');
+    ['appFeatured','teaser1','teaser2','aboutHeadline','aboutBody'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) observer.observe(el);
     });
 
-    document.addEventListener('click', (e) => {
-      if (!nputWrap.contains(e.target) && !bubble.contains(e.target)) {
-        bubble.classList.remove('open');
-      }
-    });
+    const keys = document.querySelectorAll('.key');
+    setInterval(() => {
+      keys.forEach(k => { k.style.background=''; k.style.boxShadow=''; });
+      const pick = keys[Math.floor(Math.random()*keys.length)];
+      pick.style.background = '#00b4ff';
+      pick.style.boxShadow = '0 0 8px rgba(0,180,255,0.9)';
+      setTimeout(() => { pick.style.background=''; pick.style.boxShadow=''; }, 400);
+    }, 600);
   </script>
 </body>
 </html>
-
