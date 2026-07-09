@@ -183,6 +183,18 @@
       .nav-right{display:none;}
       footer{flex-direction:column;align-items:flex-start;}
     }
+
+    /* PANEL HOVER POP */
+    .panel-typeright{transition:transform .15s,box-shadow .15s;}
+    .panel-typeright:hover{transform:translate(-5px,-5px);box-shadow:16px 16px 0 var(--purple);}
+    .panel-thumbtype-wrap{transition:transform .15s,box-shadow .15s;}
+    .panel-thumbtype-wrap:hover{transform:translate(-5px,-5px);box-shadow:16px 16px 0 rgba(0,160,0,.8);}
+
+    /* CURSOR TRAIL spark */
+    .cursor-spark{position:fixed;pointer-events:none;z-index:9999;font-family:'Bangers',cursive;transform:translate(-50%,-50%);will-change:transform,opacity;}
+
+    /* FLOATING BACKGROUND WORDS */
+    .float-word{position:fixed;pointer-events:none;z-index:9;font-family:'Bangers',cursive;}
   </style>
 </head>
 <body>
@@ -291,7 +303,7 @@
     </div>
 
     <!-- THUMBTYPE -->
-    <div style="display:grid;grid-template-columns:1fr 2fr;border-bottom:7px solid var(--ink);">
+    <div class="panel-thumbtype-wrap" style="display:grid;grid-template-columns:1fr 2fr;border-bottom:7px solid var(--ink);">
       <div style="background:#0a1a0a;border-right:7px solid var(--ink);display:flex;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden;">
         <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,0,0.08) 1.8px,transparent 1.8px);background-size:16px 16px;"></div>
         <div style="position:relative;z-index:1;text-align:center;">
@@ -329,7 +341,7 @@
           <div class="mini-eyebrow">IN THE LAB</div>
           <div class="mini-title">APP #3</div>
           <div class="mini-body">Something is being built. Something weird. Something you'll use every single day.</div>
-          <div class="mini-hype yellow">🔥 THE DONKEY IS COOKING</div>
+          <div class="mini-hype yellow" id="labCount1">🔥 THE DONKEY IS COOKING</div>
         </div>
       </div>
       <div style="background:#0a0a1a;padding:40px 36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;">
@@ -373,7 +385,7 @@
       <div class="mini-eyebrow">IN THE LAB</div>
       <div class="mini-title">APP #3</div>
       <div class="mini-body">Three ideas on the board. One is already half built. Stay close.</div>
-      <div class="mini-hype blue">⚡ DROPPING WHEN IT'S READY</div>
+      <div class="mini-hype blue" id="labCount2">⚡ DROPPING WHEN IT'S READY</div>
     </div>
     <div class="mini-panel mini-panel-3 reveal" id="mp3" style="transition-delay:.24s;">
       <div class="mini-eyebrow">ALWAYS</div>
@@ -398,7 +410,7 @@
 </div>
 
 <script>
-  // Scroll reveal
+  // ── SCROLL REVEAL ──────────────────────────────────────────────────────────
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); } });
   }, {threshold:0.12});
@@ -407,7 +419,7 @@
     if(el) obs.observe(el);
   });
 
-  // Random key glow
+  // ── RANDOM KEY GLOW ────────────────────────────────────────────────────────
   const keys = document.querySelectorAll('.k');
   setInterval(() => {
     keys.forEach(k => { k.style.background=''; k.style.boxShadow=''; });
@@ -416,6 +428,70 @@
     pick.style.boxShadow='0 0 10px rgba(0,180,255,1)';
     setTimeout(()=>{ pick.style.background=''; pick.style.boxShadow=''; }, 350);
   }, 500);
+
+  // ── PARALLAX HERO ──────────────────────────────────────────────────────────
+  const heroImg = document.querySelector('.hero-img');
+  if(heroImg) {
+    window.addEventListener('scroll', () => {
+      const pct = Math.min(window.scrollY / window.innerHeight, 1);
+      heroImg.style.objectPosition = '50% ' + (50 + pct * 28) + '%';
+    }, {passive: true});
+  }
+
+  // ── CURSOR TRAIL ───────────────────────────────────────────────────────────
+  const sparkWords = ['★','POW!','ZAP!','BAM!','✦','⚡','★'];
+  const sparkColors = ['#FFD700','#e81c1c','#00b4ff','#ffffff','#FFD700'];
+  let lastSpark = 0;
+  document.addEventListener('mousemove', e => {
+    const now = Date.now();
+    if(now - lastSpark < 90) return;
+    lastSpark = now;
+    const el = document.createElement('div');
+    el.className = 'cursor-spark';
+    el.textContent = sparkWords[Math.floor(Math.random() * sparkWords.length)];
+    el.style.cssText += 'left:' + e.clientX + 'px;top:' + e.clientY + 'px;font-size:' + (10 + Math.random()*11) + 'px;color:' + sparkColors[Math.floor(Math.random()*sparkColors.length)] + ';opacity:1;transition:opacity .65s ease,transform .65s ease;';
+    document.body.appendChild(el);
+    requestAnimationFrame(() => {
+      el.style.opacity = '0';
+      el.style.transform = 'translate(-50%, calc(-50% - ' + (28 + Math.random()*28) + 'px)) rotate(' + (-18 + Math.random()*36) + 'deg)';
+    });
+    setTimeout(() => el.remove(), 700);
+  });
+
+  // ── FLOATING BACKGROUND ACTION WORDS ──────────────────────────────────────
+  const floatWords = ['BAM!','ZAP!','POW!','WOW!','BOOM!','KA-POW!','★','⚡','NICE!','WILD!'];
+  const floatColors = ['#FFD700','#e81c1c','#00b4ff'];
+  function spawnFloat() {
+    const el = document.createElement('div');
+    el.className = 'float-word';
+    el.textContent = floatWords[Math.floor(Math.random() * floatWords.length)];
+    el.style.left = (8 + Math.random() * 82) + '%';
+    el.style.bottom = '-55px';
+    el.style.fontSize = (16 + Math.random() * 22) + 'px';
+    el.style.color = floatColors[Math.floor(Math.random() * floatColors.length)];
+    el.style.opacity = '0';
+    el.style.transition = 'none';
+    document.body.appendChild(el);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      el.style.transition = 'bottom 4.2s ease-out, opacity 0.6s ease';
+      el.style.bottom = (42 + Math.random() * 38) + 'vh';
+      el.style.opacity = '0.11';
+      setTimeout(() => {
+        el.style.transition = 'opacity 1.2s ease';
+        el.style.opacity = '0';
+      }, 3000);
+    }));
+    setTimeout(() => el.remove(), 4600);
+  }
+  setTimeout(spawnFloat, 600);
+  setInterval(spawnFloat, 2200);
+
+  // ── LAB DAYS COUNTER ──────────────────────────────────────────────────────
+  const labDays = Math.floor((Date.now() - new Date('2026-07-01').getTime()) / 86400000);
+  ['labCount1','labCount2'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = '🔥 ' + labDays + ' DAYS IN THE LAB';
+  });
 </script>
 </body>
 </html>
