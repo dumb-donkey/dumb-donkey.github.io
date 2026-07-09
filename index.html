@@ -3,329 +3,354 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dumb Donkey — We build apps that should've existed already.</title>
-  <meta name="description" content="We build apps that are weird, useful, and completely free. TypeRight keyboard + more.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dumbdonkey.fyi">
-  <meta property="og:title" content="Dumb Donkey">
-  <meta property="og:description" content="We build apps that should've existed already. All free.">
-  <meta property="og:image" content="https://dumbdonkey.fyi/nget.png">
+  <title>Dumb Donkey — Apps that should've existed already.</title>
+  <meta name="description" content="We build apps that should've existed already. Dumb Donkey studio.">
+  <meta property="og:image" content="https://dumbdonkey.fyi/hero.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dumb Donkey">
-  <meta name="twitter:description" content="We build apps that should've existed already. All free.">
-  <meta name="twitter:image" content="https://dumbdonkey.fyi/nget.png">
+  <meta name="twitter:image" content="https://dumbdonkey.fyi/hero.png">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="shortcut icon" href="favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --black:  #111111;
-      --navy:   #0d1b2a;
-      --red:    #e81c1c;
-      --yellow: #FFD700;
-      --blue:   #00b4ff;
-      --purple: #7c3aed;
-      --white:  #f5f5f5;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { background:var(--black); font-family:'Comic Neue','Arial Rounded MT Bold',Arial,sans-serif; font-weight:700; overflow-x:hidden; color:var(--white); }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{--black:#0a0a0a;--ink:#1a1a1a;--red:#e81c1c;--yellow:#FFD700;--blue:#00b4ff;--purple:#6d28d9;--white:#f9f9f9;--dots:rgba(0,0,0,0.18);}
+    html{scroll-behavior:smooth;}
+    body{background:#e8e0d0;font-family:'Bangers',cursive;overflow-x:hidden;cursor:default;}
+
+    /* HALFTONE TEXTURE */
+    .ht{background-image:radial-gradient(circle,var(--dots) 1.8px,transparent 1.8px);background-size:16px 16px;}
+    .ht-w{background-image:radial-gradient(circle,rgba(255,255,255,0.18) 1.8px,transparent 1.8px);background-size:16px 16px;}
+    .ht-b{background-image:radial-gradient(circle,rgba(0,0,255,0.06) 1.8px,transparent 1.8px);background-size:16px 16px;}
+
+    /* PANEL BORDER — the signature comic look */
+    .panel{border:5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);}
+    .panel-lg{border:7px solid var(--ink);box-shadow:10px 10px 0 var(--ink);}
 
     /* NAV */
-    nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:var(--black); border-bottom:4px solid var(--red); display:flex; align-items:center; justify-content:space-between; padding:14px 40px; box-shadow:0 4px 20px rgba(232,28,28,0.3); }
-    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
-    .nav-logo img { width:42px; height:42px; border-radius:50%; border:3px solid var(--yellow); animation:logoBounce 3s ease-in-out infinite; }
-    @keyframes logoBounce { 0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)} }
-    .nav-logo-text { font-family:'Bangers',cursive; font-size:26px; letter-spacing:2px; color:var(--yellow); text-shadow:3px 3px 0 var(--black); }
-    .nav-links { display:flex; gap:24px; list-style:none; }
-    .nav-links a { color:var(--white); text-decoration:none; font-size:12px; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border:2px solid transparent; border-radius:4px; transition:all .2s; }
-    .nav-links a:hover { border-color:var(--red); color:var(--yellow); background:rgba(232,28,28,0.1); }
+    nav{background:var(--ink);border-bottom:5px solid var(--red);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:999;}
+    .nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+    .nav-brand img{width:38px;height:38px;border-radius:50%;border:3px solid var(--yellow);animation:wobble 3s ease-in-out infinite;}
+    @keyframes wobble{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+    .nav-brand-name{font-size:28px;letter-spacing:3px;color:var(--yellow);text-shadow:3px 3px 0 rgba(0,0,0,0.5);}
+    .nav-right{display:flex;gap:8px;}
+    .nav-btn{color:var(--white);text-decoration:none;font-size:14px;letter-spacing:2px;padding:8px 18px;border:3px solid rgba(255,255,255,0.2);transition:all .2s;}
+    .nav-btn:hover{border-color:var(--red);color:var(--yellow);background:rgba(232,28,28,0.15);}
 
-    /* HERO */
-    .hero { min-height:100vh; background:var(--navy); position:relative; display:flex; align-items:center; overflow:hidden; padding-top:80px; }
-    .hero::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,180,255,0.07) 1.5px,transparent 1.5px); background-size:22px 22px; pointer-events:none; }
-    .hero-lines { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
-    .hero-lines::before { content:''; position:absolute; top:50%; left:55%; width:200%; height:200%; transform:translate(-50%,-50%); background:repeating-conic-gradient(rgba(232,28,28,0.04) 0deg,transparent 1deg,transparent 4deg,rgba(0,180,255,0.04) 4deg,transparent 5deg,transparent 8deg); animation:spinLines 60s linear infinite; }
-    @keyframes spinLines { to{transform:translate(-50%,-50%) rotate(360deg)} }
-    .hero-inner { position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:40px; max-width:1200px; margin:0 auto; padding:60px 40px; width:100%; }
-    .hero-left { display:flex; flex-direction:column; gap:24px; }
-    .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; background:var(--red); color:var(--white); font-size:11px; letter-spacing:3px; text-transform:uppercase; padding:6px 16px; border:3px solid rgba(0,0,0,0.5); box-shadow:4px 4px 0 rgba(0,0,0,0.5); width:fit-content; animation:slideInLeft .6s ease both; }
-    .hero-headline { font-family:'Bangers',cursive; font-size:clamp(42px,6vw,76px); line-height:1.05; color:var(--white); text-shadow:5px 5px 0 rgba(0,0,0,0.6); animation:slideInLeft .7s ease both; }
-    .hero-headline span { color:var(--blue); }
-    .hero-sub { font-size:16px; color:rgba(255,255,255,0.7); line-height:1.6; max-width:440px; animation:slideInLeft .8s ease both; }
-    .hero-sub strong { color:var(--yellow); }
-    .hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--red); color:var(--white); text-decoration:none; font-family:'Bangers',cursive; font-size:22px; letter-spacing:2px; padding:14px 32px; border:4px solid rgba(0,0,0,0.5); box-shadow:6px 6px 0 rgba(0,0,0,0.5); width:fit-content; transition:all .15s; animation:slideInLeft .9s ease both,ctaPulse 2s ease-in-out 2s infinite; }
-    .hero-cta:hover { transform:translate(-3px,-3px); box-shadow:9px 9px 0 rgba(0,0,0,0.5); }
-    @keyframes ctaPulse { 0%,100%{box-shadow:6px 6px 0 rgba(0,0,0,0.5)}50%{box-shadow:6px 6px 0 rgba(0,0,0,0.5),0 0 30px rgba(232,28,28,0.7)} }
-    @keyframes slideInLeft { from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)} }
-    .hero-right { display:flex; justify-content:center; align-items:center; position:relative; }
-    .hero-donkey-wrap { position:relative; animation:heroFloat 3.5s ease-in-out infinite; }
-    @keyframes heroFloat { 0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-24px) rotate(2deg)} }
-    .hero-donkey-wrap img { width:min(360px,90%); border-radius:12px; border:5px solid rgba(0,0,0,0.5); box-shadow:8px 8px 0 rgba(0,0,0,0.5); display:block; }
-    .pow-badge { position:absolute; top:-20px; right:-20px; background:var(--yellow); color:var(--black); font-family:'Bangers',cursive; font-size:18px; letter-spacing:1px; width:72px; height:72px; display:flex; align-items:center; justify-content:center; clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); animation:starSpin 4s linear infinite; z-index:3; }
-    @keyframes starSpin { 0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.15)}100%{transform:rotate(360deg) scale(1)} }
-    .speech-bubble { position:absolute; bottom:-10px; left:-30px; background:var(--white); color:var(--black); font-size:13px; padding:10px 16px; border:3px solid rgba(0,0,0,0.5); border-radius:16px; box-shadow:4px 4px 0 rgba(0,0,0,0.5); white-space:nowrap; animation:bubblePop .5s cubic-bezier(0.34,1.56,0.64,1) 1.5s both; z-index:4; }
-    .speech-bubble::after { content:''; position:absolute; top:100%; right:40px; border:10px solid transparent; border-top-color:rgba(0,0,0,0.5); }
-    .speech-bubble::before { content:''; position:absolute; top:calc(100% - 3px); right:43px; border:8px solid transparent; border-top-color:var(--white); z-index:1; }
-    @keyframes bubblePop { from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)} }
+    /* PAGE — comic book page layout */
+    .page{padding-top:64px;}
 
-    /* FEATURES STRIP */
-    .features { background:var(--red); border-top:5px solid rgba(0,0,0,0.4); border-bottom:5px solid rgba(0,0,0,0.4); padding:28px 40px; position:relative; overflow:hidden; }
-    .features::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,0,0,0.15) 1.5px,transparent 1.5px); background-size:16px 16px; }
-    .features-inner { position:relative; z-index:1; display:flex; justify-content:center; gap:48px; flex-wrap:wrap; }
-    .feature-badge { display:flex; align-items:center; gap:12px; color:var(--white); font-size:14px; letter-spacing:1.5px; text-transform:uppercase; }
-    .feature-badge .icon { font-size:24px; animation:iconBounce 2s ease-in-out infinite; }
-    .feature-badge:nth-child(3) .icon { animation-delay:.3s; }
-    .feature-badge:nth-child(5) .icon { animation-delay:.6s; }
-    @keyframes iconBounce { 0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)} }
-    .feature-divider { width:4px; height:4px; background:rgba(255,255,255,0.4); border-radius:50%; align-self:center; }
+    /* HERO PANEL — full viewport, side by side */
+    .hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px);border-bottom:7px solid var(--ink);}
 
-    /* TICKER */
-    .ticker { background:var(--black); border-top:3px solid var(--blue); border-bottom:3px solid var(--blue); padding:12px 0; overflow:hidden; white-space:nowrap; }
-    .ticker-inner { display:inline-flex; animation:tickerScroll 20s linear infinite; }
-    @keyframes tickerScroll { from{transform:translateX(0)}to{transform:translateX(-50%)} }
-    .ticker-item { font-family:'Bangers',cursive; font-size:16px; letter-spacing:3px; color:var(--blue); padding:0 32px; }
-    .ticker-sep { color:var(--white); opacity:.3; padding:0 8px; }
+    .hero-art{background:#1a2744;position:relative;overflow:hidden;}
+    .hero-art::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,255,0.1) 1.8px,transparent 1.8px);background-size:16px 16px;}
+    .hero-art-lines{position:absolute;inset:0;background:repeating-conic-gradient(rgba(255,255,255,0.03) 0deg,transparent .5deg,transparent 5deg,rgba(0,180,255,0.03) 5deg,transparent 5.5deg,transparent 10deg);animation:slowSpin 80s linear infinite;transform-origin:center;}
+    @keyframes slowSpin{to{transform:rotate(360deg)}}
+    .hero-img{width:100%;height:100%;object-fit:cover;display:block;animation:heroShift 6s ease-in-out infinite;}
+    @keyframes heroShift{0%,100%{transform:scale(1.02) translateX(0)}50%{transform:scale(1.04) translateX(-12px)}}
 
-    /* APPS */
-    .apps { background:var(--navy); padding:100px 40px; position:relative; overflow:hidden; }
-    .apps::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,180,255,0.05) 1.5px,transparent 1.5px); background-size:20px 20px; }
-    .section-header { text-align:center; margin-bottom:60px; position:relative; z-index:1; }
-    .section-eyebrow { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--blue); margin-bottom:12px; }
-    .section-title { font-family:'Bangers',cursive; font-size:clamp(40px,5vw,64px); color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,0.5); letter-spacing:2px; }
-    .section-title span { color:var(--red); }
+    .hero-text{background:var(--yellow);position:relative;display:flex;flex-direction:column;justify-content:center;padding:60px 50px;border-left:7px solid var(--ink);}
+    .hero-text::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,0,0,0.12) 1.8px,transparent 1.8px);background-size:16px 16px;pointer-events:none;}
+    .hero-text>*{position:relative;z-index:1;}
 
-    .app-featured { position:relative; z-index:1; max-width:900px; margin:0 auto 60px; background:#0a0f1a; border:5px solid rgba(0,0,0,0.5); box-shadow:10px 10px 0 rgba(0,0,0,0.5); border-radius:8px; display:grid; grid-template-columns:1fr 1fr; overflow:hidden; opacity:0; transform:translateY(40px); transition:all .6s cubic-bezier(0.34,1.2,0.64,1); }
-    .app-featured.visible { opacity:1; transform:translateY(0); }
-    .app-featured-left { background:var(--purple); padding:50px 40px; display:flex; flex-direction:column; gap:20px; position:relative; overflow:hidden; }
-    .app-featured-left::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(0,0,0,0.2) 1.5px,transparent 1.5px); background-size:16px 16px; }
-    .app-featured-left > * { position:relative; z-index:1; }
-    .app-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.6); }
-    .app-name { font-family:'Bangers',cursive; font-size:52px; color:var(--white); text-shadow:4px 4px 0 rgba(0,0,0,0.4); letter-spacing:2px; line-height:1; }
-    .app-desc { font-size:15px; color:rgba(255,255,255,0.85); line-height:1.6; }
-    .app-tags { display:flex; flex-wrap:wrap; gap:8px; }
-    .app-tag { background:rgba(0,0,0,0.3); border:2px solid rgba(255,255,255,0.3); color:var(--white); font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border-radius:3px; }
-    .app-play-btn { display:inline-flex; align-items:center; gap:10px; background:var(--yellow); color:var(--black); text-decoration:none; font-family:'Bangers',cursive; font-size:18px; letter-spacing:1.5px; padding:12px 24px; border:4px solid rgba(0,0,0,0.4); box-shadow:5px 5px 0 rgba(0,0,0,0.4); width:fit-content; transition:all .15s; animation:playBtnPulse 2.5s ease-in-out infinite; }
-    .app-play-btn:hover { transform:translate(-2px,-2px); box-shadow:7px 7px 0 rgba(0,0,0,0.4); }
-    @keyframes playBtnPulse { 0%,100%{box-shadow:5px 5px 0 rgba(0,0,0,0.4)}50%{box-shadow:5px 5px 0 rgba(0,0,0,0.4),0 0 20px rgba(255,215,0,0.5)} }
-    .app-featured-right { background:#080e18; display:flex; align-items:center; justify-content:center; padding:40px; position:relative; }
+    .hero-caption{display:inline-block;background:var(--red);color:var(--white);font-size:12px;letter-spacing:3px;padding:6px 14px;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);margin-bottom:20px;animation:captionPop .5s cubic-bezier(.34,1.56,.64,1) both;}
+    @keyframes captionPop{from{opacity:0;transform:scale(0) rotate(-5deg)}to{opacity:1;transform:scale(1) rotate(-2deg)}}
 
-    /* Phone */
-    .phone-mockup { width:160px; background:#1a1a2e; border:4px solid rgba(0,0,0,0.5); border-radius:30px; padding:20px 12px; box-shadow:8px 8px 0 rgba(0,0,0,0.5),0 0 40px rgba(124,58,237,0.3); animation:phoneTilt 4s ease-in-out infinite; }
-    @keyframes phoneTilt { 0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(3deg) translateY(-10px)} }
-    .phone-screen { background:#0d1b2a; border-radius:18px; padding:10px 6px 6px; border:2px solid #2a3a5e; }
-    .key-row { display:flex; gap:3px; justify-content:center; margin-top:3px; }
-    .key { background:var(--purple); border:1.5px solid rgba(255,255,255,0.2); border-radius:4px; height:20px; display:flex; align-items:center; justify-content:center; font-size:7px; color:white; font-weight:bold; transition:background .3s,box-shadow .3s; flex:1; }
-    .key.big { flex:1.6; background:#9f5dee; }
-    .key.sm  { flex:0.8; }
-    .key.wide { flex:3; background:#2a2a4a; font-size:6px; }
+    .hero-h1{font-size:clamp(52px,6vw,88px);line-height:.95;color:var(--ink);text-shadow:5px 5px 0 rgba(0,0,0,0.15);letter-spacing:2px;margin-bottom:24px;}
 
-    /* Teasers */
-    .app-teasers { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:24px; max-width:900px; margin:0 auto; }
-    .teaser-card { background:rgba(255,255,255,0.03); border:4px solid rgba(255,255,255,0.08); border-radius:8px; padding:40px 32px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; box-shadow:6px 6px 0 rgba(0,0,0,0.4); opacity:0; transform:translateY(30px); transition:all .5s cubic-bezier(0.34,1.2,0.64,1); position:relative; overflow:hidden; }
-    .teaser-card.visible { opacity:1; transform:translateY(0); }
-    .teaser-card:nth-child(2) { transition-delay:.15s; }
-    .teaser-card::before { content:'?'; position:absolute; font-family:'Bangers',cursive; font-size:180px; color:rgba(255,255,255,0.03); top:50%; left:50%; transform:translate(-50%,-50%); animation:questionFloat 4s ease-in-out infinite; pointer-events:none; }
-    @keyframes questionFloat { 0%,100%{transform:translate(-50%,-50%) scale(1) rotate(-5deg)}50%{transform:translate(-50%,-50%) scale(1.1) rotate(5deg)} }
-    .teaser-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--blue); }
-    .teaser-title { font-family:'Bangers',cursive; font-size:28px; color:rgba(255,255,255,0.2); letter-spacing:2px; }
-    .teaser-hype { font-family:'Bangers',cursive; font-size:20px; color:var(--red); letter-spacing:1px; animation:hypePulse 1.5s ease-in-out infinite; }
-    @keyframes hypePulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+    .speech-bubble{background:var(--white);border:4px solid var(--ink);border-radius:20px;padding:14px 20px;box-shadow:5px 5px 0 var(--ink);position:relative;margin-bottom:32px;font-size:18px;color:var(--ink);line-height:1.4;animation:bubbleIn .6s cubic-bezier(.34,1.56,.64,1) .4s both;}
+    @keyframes bubbleIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .speech-bubble::after{content:'';position:absolute;bottom:-20px;left:40px;border:12px solid transparent;border-top-color:var(--ink);}
+    .speech-bubble::before{content:'';position:absolute;bottom:-13px;left:44px;border:9px solid transparent;border-top-color:var(--white);z-index:1;}
 
-    /* ABOUT */
-    .about { background:var(--black); padding:100px 40px; position:relative; overflow:hidden; }
-    .about::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle,rgba(232,28,28,0.06) 1.5px,transparent 1.5px); background-size:18px 18px; }
-    .about-inner { position:relative; z-index:1; max-width:900px; margin:0 auto; display:grid; grid-template-columns:auto 1fr; gap:60px; align-items:center; }
-    .about-donkey { width:220px; flex-shrink:0; border:5px solid rgba(0,0,0,0.5); border-radius:12px; box-shadow:8px 8px 0 rgba(0,0,0,0.5); animation:aboutFloat 3s ease-in-out infinite; }
-    @keyframes aboutFloat { 0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(2deg) translateY(-12px)} }
-    .about-text { display:flex; flex-direction:column; gap:20px; }
-    .about-headline { font-family:'Bangers',cursive; font-size:clamp(32px,4vw,52px); color:var(--white); text-shadow:4px 4px 0 var(--red); letter-spacing:2px; line-height:1.1; opacity:0; transform:translateX(40px); transition:all .6s ease; }
-    .about-headline.visible { opacity:1; transform:translateX(0); }
-    .about-body { font-size:16px; color:rgba(255,255,255,0.7); line-height:1.7; max-width:500px; opacity:0; transform:translateX(40px); transition:all .6s ease .15s; }
-    .about-body.visible { opacity:1; transform:translateX(0); }
-    .about-body strong { color:var(--blue); }
-    .contact-link { display:inline-flex; align-items:center; gap:8px; color:var(--white); text-decoration:none; font-size:13px; letter-spacing:2px; text-transform:uppercase; padding:10px 20px; border:3px solid var(--red); transition:all .2s; width:fit-content; }
-    .contact-link:hover { background:var(--red); transform:translate(-2px,-2px); }
+    .hero-cta{display:inline-flex;align-items:center;gap:12px;background:var(--red);color:var(--white);text-decoration:none;font-size:26px;letter-spacing:2px;padding:16px 36px;border:5px solid var(--ink);box-shadow:7px 7px 0 var(--ink);transition:all .15s;width:fit-content;animation:ctaIn .6s ease .6s both,ctaPulse 2s ease-in-out 2s infinite;}
+    @keyframes ctaIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes ctaPulse{0%,100%{box-shadow:7px 7px 0 var(--ink)}50%{box-shadow:7px 7px 0 var(--ink),0 0 30px rgba(232,28,28,.7)}}
+    .hero-cta:hover{transform:translate(-4px,-4px);box-shadow:11px 11px 0 var(--ink);}
+
+    /* POW floating badges */
+    .pow{position:absolute;font-size:22px;letter-spacing:1px;color:var(--ink);z-index:3;pointer-events:none;}
+    .pow span{display:flex;align-items:center;justify-content:center;width:80px;height:80px;background:var(--yellow);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);border:3px solid var(--ink);animation:spinBadge 5s linear infinite;}
+    @keyframes spinBadge{to{transform:rotate(360deg)}}
+
+    /* STRIP — comic caption bar */
+    .strip{background:var(--red);border-top:5px solid var(--ink);border-bottom:5px solid var(--ink);padding:18px 40px;display:flex;align-items:center;gap:0;overflow:hidden;position:relative;}
+    .strip::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,0,0,0.15) 1.8px,transparent 1.8px);background-size:14px 14px;}
+    .strip-track{display:flex;animation:stripScroll 22s linear infinite;white-space:nowrap;position:relative;z-index:1;}
+    @keyframes stripScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .strip-item{font-size:20px;letter-spacing:4px;color:var(--white);text-shadow:2px 2px 0 rgba(0,0,0,0.3);padding:0 40px;}
+    .strip-dot{color:var(--yellow);padding:0 10px;font-size:14px;}
+
+    /* COMIC PANELS GRID */
+    .panels-grid{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;border-bottom:7px solid var(--ink);}
+
+    /* TYPERIGHT PANEL — big feature */
+    .panel-typeright{background:#1a0a2e;border-right:7px solid var(--ink);border-bottom:5px solid var(--ink);padding:60px 50px;display:flex;flex-direction:column;gap:28px;position:relative;overflow:hidden;}
+    .panel-typeright::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(109,40,217,0.15) 1.8px,transparent 1.8px);background-size:16px 16px;}
+    .panel-typeright>*{position:relative;z-index:1;}
+    .panel-label{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.5);text-shadow:none;}
+    .panel-title{font-size:clamp(50px,5vw,80px);color:var(--white);text-shadow:5px 5px 0 rgba(109,40,217,.6);letter-spacing:2px;line-height:.95;}
+    .panel-desc{font-family:'Comic Neue','Arial Rounded MT Bold',Arial,sans-serif;font-weight:700;font-size:17px;color:rgba(255,255,255,.8);line-height:1.6;max-width:480px;}
+    .panel-tags{display:flex;flex-wrap:wrap;gap:10px;}
+    .panel-tag{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.2);color:var(--white);font-size:11px;letter-spacing:2px;text-transform:none;padding:5px 12px;}
+    .panel-tag-label{font-size:11px;letter-spacing:3px;color:var(--blue);font-family:'Comic Neue',Arial,sans-serif;font-weight:700;}
+    .play-btn{display:inline-flex;align-items:center;gap:12px;background:var(--yellow);color:var(--ink);text-decoration:none;font-size:22px;letter-spacing:2px;padding:14px 30px;border:5px solid var(--ink);box-shadow:7px 7px 0 var(--ink);transition:all .15s;width:fit-content;animation:playGlow 2s ease-in-out infinite;}
+    @keyframes playGlow{0%,100%{box-shadow:7px 7px 0 var(--ink)}50%{box-shadow:7px 7px 0 var(--ink),0 0 25px rgba(255,215,0,.6)}}
+    .play-btn:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--ink);}
+
+    /* PHONE PANEL — right side top */
+    .panel-phone{background:#080e18;border-bottom:5px solid var(--ink);display:flex;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden;}
+    .panel-phone::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,255,0.08) 1.8px,transparent 1.8px);background-size:14px 14px;}
+    .phone{width:150px;background:#12192a;border:5px solid var(--ink);border-radius:28px;padding:18px 10px;box-shadow:8px 8px 0 var(--ink),0 0 40px rgba(109,40,217,.4);animation:phoneSway 4s ease-in-out infinite;position:relative;z-index:1;}
+    @keyframes phoneSway{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-14px)}}
+    .pscreen{background:#0a1020;border-radius:16px;padding:8px 5px 5px;border:2px solid #1e3060;}
+    .krow{display:flex;gap:2.5px;margin-top:2.5px;justify-content:center;}
+    .k{flex:1;height:18px;background:#4c1d95;border:1.5px solid rgba(255,255,255,.15);border-radius:3px;font-family:'Bangers',cursive;font-size:6px;color:#fff;display:flex;align-items:center;justify-content:center;transition:all .3s;}
+    .k.b{flex:1.7;background:#6d28d9;}
+    .k.s{flex:.75;}
+    .k.w{flex:3.5;background:#1a1a3a;font-size:5px;}
+
+    /* TAGLINE PANEL — right side bottom */
+    .panel-tagline{background:var(--yellow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 30px;text-align:center;position:relative;overflow:hidden;}
+    .panel-tagline::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,0,0,0.12) 1.8px,transparent 1.8px);background-size:14px 14px;}
+    .panel-tagline>*{position:relative;z-index:1;}
+    .tagline-text{font-size:clamp(22px,3vw,36px);color:var(--ink);text-shadow:3px 3px 0 rgba(0,0,0,.15);line-height:1.1;letter-spacing:1px;}
+    .tagline-zap{font-size:52px;animation:zapSpin 3s ease-in-out infinite;}
+    @keyframes zapSpin{0%,100%{transform:rotate(-10deg) scale(1)}50%{transform:rotate(10deg) scale(1.2)}}
+
+    /* ABOUT SECTION — 2 panel row */
+    .about-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:7px solid var(--ink);}
+    .panel-about-img{position:relative;overflow:hidden;min-height:480px;background:#0d1b2a;border-right:7px solid var(--ink);}
+    .panel-about-img img{width:100%;height:100%;object-fit:cover;display:block;animation:aboutImgShift 7s ease-in-out infinite;}
+    @keyframes aboutImgShift{0%,100%{transform:scale(1.03) translateY(0)}50%{transform:scale(1.06) translateY(-10px)}}
+    .caption-box{position:absolute;bottom:20px;left:20px;right:20px;background:var(--ink);color:var(--white);font-size:14px;letter-spacing:2px;padding:10px 16px;border:3px solid rgba(255,255,255,.2);}
+
+    .panel-about-text{background:var(--ink);padding:60px 50px;display:flex;flex-direction:column;justify-content:center;gap:28px;position:relative;overflow:hidden;}
+    .panel-about-text::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(232,28,28,0.08) 1.8px,transparent 1.8px);background-size:16px 16px;}
+    .panel-about-text>*{position:relative;z-index:1;}
+    .about-h{font-size:clamp(36px,4vw,60px);color:var(--white);text-shadow:4px 4px 0 var(--red);line-height:1;letter-spacing:2px;opacity:0;transform:translateX(40px);transition:all .7s ease;}
+    .about-h.vis{opacity:1;transform:translateX(0);}
+    .about-p{font-family:'Comic Neue','Arial Rounded MT Bold',Arial,sans-serif;font-weight:700;font-size:17px;color:rgba(255,255,255,.75);line-height:1.7;max-width:440px;opacity:0;transform:translateX(40px);transition:all .7s ease .15s;}
+    .about-p.vis{opacity:1;transform:translateX(0);}
+    .about-p strong{color:var(--blue);}
+    .about-contact{display:inline-flex;align-items:center;gap:10px;color:var(--white);text-decoration:none;font-size:16px;letter-spacing:2px;padding:12px 24px;border:4px solid var(--red);transition:all .2s;width:fit-content;}
+    .about-contact:hover{background:var(--red);transform:translate(-2px,-2px);box-shadow:4px 4px 0 rgba(232,28,28,.4);}
+
+    /* BOTTOM PANELS ROW */
+    .bottom-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:7px solid var(--ink);}
+    .mini-panel{padding:40px 32px;display:flex;flex-direction:column;gap:16px;border-right:5px solid var(--ink);position:relative;overflow:hidden;}
+    .mini-panel:last-child{border-right:none;}
+    .mini-panel-1{background:#1a2744;}
+    .mini-panel-2{background:#1a0a2e;}
+    .mini-panel-3{background:#1a0a0a;}
+    .mini-panel::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1.8px,transparent 1.8px);background-size:14px 14px;}
+    .mini-panel>*{position:relative;z-index:1;}
+    .mini-eyebrow{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);}
+    .mini-title{font-size:clamp(28px,3vw,42px);color:var(--white);text-shadow:3px 3px 0 rgba(0,0,0,.4);letter-spacing:1px;line-height:1;}
+    .mini-body{font-family:'Comic Neue',Arial,sans-serif;font-weight:700;font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;}
+    .mini-hype{font-size:20px;letter-spacing:2px;animation:hypeFlash 1.5s ease-in-out infinite;}
+    .mini-hype.red{color:var(--red);}
+    .mini-hype.blue{color:var(--blue);}
+    .mini-hype.yellow{color:var(--yellow);}
+    @keyframes hypeFlash{0%,100%{opacity:1}50%{opacity:.4}}
+    .mini-panel.reveal{opacity:0;transform:translateY(30px);transition:all .5s cubic-bezier(.34,1.2,.64,1);}
+    .mini-panel.reveal.vis{opacity:1;transform:translateY(0);}
 
     /* FOOTER */
-    footer { background:var(--black); border-top:5px solid var(--red); padding:40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
-    .footer-brand { font-family:'Bangers',cursive; font-size:22px; letter-spacing:2px; color:var(--yellow); }
-    .footer-brand span { display:block; font-family:'Comic Neue',Arial,sans-serif; font-size:11px; letter-spacing:2px; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-top:4px; }
-    .footer-links { display:flex; gap:20px; align-items:center; }
-    .footer-links a { color:rgba(255,255,255,0.5); text-decoration:none; font-size:12px; letter-spacing:1px; text-transform:uppercase; transition:color .2s; }
-    .footer-links a:hover { color:var(--white); }
-    .footer-copy { color:rgba(255,255,255,0.25); font-size:11px; letter-spacing:1px; }
+    footer{background:var(--ink);border-top:5px solid var(--red);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+    .footer-brand{font-size:24px;letter-spacing:3px;color:var(--yellow);}
+    .footer-brand small{display:block;font-family:'Comic Neue',Arial,sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-top:4px;}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap;}
+    .footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;letter-spacing:2px;transition:color .2s;}
+    .footer-links a:hover{color:var(--white);}
+    .footer-copy{font-family:'Comic Neue',Arial,sans-serif;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.2);}
 
-    /* FLOATING STARS */
-    .star { position:fixed; pointer-events:none; z-index:0; font-size:16px; opacity:0.12; animation:starFloat linear infinite; }
-    @keyframes starFloat { 0%{transform:translateY(0) rotate(0deg);opacity:.12}50%{opacity:.25}100%{transform:translateY(-100vh) rotate(360deg);opacity:0} }
-
+    /* MOBILE */
     @media(max-width:768px){
-      nav{padding:12px 20px;}
-      .nav-links{display:none;}
-      .hero-inner{grid-template-columns:1fr;text-align:center;padding:40px 20px;}
-      .hero-right{order:-1;}
-      .hero-cta,.hero-eyebrow{margin:0 auto;}
-      .apps,.about{padding:60px 20px;}
-      .app-featured{grid-template-columns:1fr;}
-      .app-teasers{grid-template-columns:1fr;}
-      .about-inner{grid-template-columns:1fr;text-align:center;}
-      .about-donkey{display:none;}
-      .contact-link{margin:0 auto;}
-      footer{flex-direction:column;text-align:center;align-items:center;}
+      .hero{grid-template-columns:1fr;}
+      .hero-art{min-height:50vw;}
+      .hero-text{padding:40px 24px;border-left:none;border-top:5px solid var(--ink);}
+      .hero-h1{font-size:42px;}
+      .panels-grid{grid-template-columns:1fr;}
+      .panel-phone,.panel-tagline{border-right:none;}
+      .panel-typeright{padding:40px 24px;}
+      .about-row{grid-template-columns:1fr;}
+      .panel-about-img{min-height:260px;}
+      .bottom-row{grid-template-columns:1fr;}
+      .mini-panel{border-right:none;border-bottom:5px solid var(--ink);}
+      nav{padding:0 16px;}
+      .nav-right{display:none;}
+      footer{flex-direction:column;align-items:flex-start;}
     }
   </style>
 </head>
 <body>
 
-  <div class="star" style="left:10%;animation-duration:14s;animation-delay:0s;">⭐</div>
-  <div class="star" style="left:25%;animation-duration:18s;animation-delay:3s;">✦</div>
-  <div class="star" style="left:60%;animation-duration:12s;animation-delay:6s;">⭐</div>
-  <div class="star" style="left:80%;animation-duration:20s;animation-delay:1s;">✦</div>
-  <div class="star" style="left:45%;animation-duration:16s;animation-delay:9s;">⭐</div>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <img src="logo.png" alt="Dumb Donkey">
+    <span class="nav-brand-name">DUMB DONKEY</span>
+  </a>
+  <div class="nav-right">
+    <a href="#apps" class="nav-btn">APPS</a>
+    <a href="#about" class="nav-btn">ABOUT</a>
+    <a href="mailto:hello@dumbdonkey.fyi" class="nav-btn">CONTACT</a>
+  </div>
+</nav>
 
-  <nav>
-    <a href="#" class="nav-logo">
-      <img src="logo.png" alt="Dumb Donkey">
-      <span class="nav-logo-text">DUMB DONKEY</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#apps">Apps</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="mailto:hello@dumbdonkey.fyi">Contact</a></li>
-    </ul>
-  </nav>
+<div class="page">
 
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-lines"></div>
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-eyebrow">🫏 Dumb Donkey Apps</div>
-        <h1 class="hero-headline">WE BUILD APPS THAT<br><span>SHOULD'VE EXISTED</span><br>ALREADY.</h1>
-        <p class="hero-sub">Free apps. No subscriptions. No BS.<br><strong>Just ideas that make your phone actually useful.</strong></p>
-        <a href="#apps" class="hero-cta">⚡ SEE OUR APPS</a>
+    <div class="hero-art panel-lg" style="border:none;box-shadow:none;">
+      <div class="hero-art-lines"></div>
+      <img src="hero.png" alt="Dumb Donkey" class="hero-img">
+      <div class="pow" style="top:12%;right:8%;">
+        <span style="background:var(--red);animation-duration:4s;">POW!</span>
       </div>
-      <div class="hero-right">
-        <div class="hero-donkey-wrap">
-          <img src="nget.png" alt="Dumb the Donkey">
-          <div class="pow-badge">FREE!</div>
-          <div class="speech-bubble">Built by one donkey 🫏</div>
-        </div>
+      <div class="pow" style="bottom:18%;left:6%;">
+        <span style="background:var(--blue);animation-delay:-2s;animation-duration:6s;font-size:14px;">ZAP!</span>
       </div>
+    </div>
+    <div class="hero-text">
+      <div class="hero-caption" style="transform:rotate(-2deg);">🫏 DUMB DONKEY STUDIO</div>
+      <h1 class="hero-h1">APPS THAT SHOULD'VE EXISTED ALREADY.</h1>
+      <div class="speech-bubble">
+        Big ideas. Built by one donkey.<br>
+        <span style="color:var(--red);">No compromises.</span>
+      </div>
+      <a href="#apps" class="hero-cta">⚡ SEE OUR APPS</a>
     </div>
   </section>
 
-  <section class="features">
-    <div class="features-inner">
-      <div class="feature-badge"><span class="icon">💰</span>100% Free — No Subscriptions</div>
-      <div class="feature-divider"></div>
-      <div class="feature-badge"><span class="icon">🫏</span>Built By One Donkey</div>
-      <div class="feature-divider"></div>
-      <div class="feature-badge"><span class="icon">⚡</span>Actually Useful Apps</div>
-    </div>
-  </section>
-
-  <div class="ticker">
-    <div class="ticker-inner">
-      <span class="ticker-item">DUMB DONKEY</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">FREE APPS</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">NO SUBSCRIPTIONS</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">TYPERIGHT KEYBOARD</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">BUILT WITH LOVE</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">MORE APPS DROPPING</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">DUMB DONKEY</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">FREE APPS</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">NO SUBSCRIPTIONS</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">TYPERIGHT KEYBOARD</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">BUILT WITH LOVE</span><span class="ticker-sep">★</span>
-      <span class="ticker-item">MORE APPS DROPPING</span><span class="ticker-sep">★</span>
+  <!-- SCROLLING STRIP -->
+  <div class="strip">
+    <div class="strip-track">
+      <span class="strip-item">DUMB DONKEY</span><span class="strip-dot">★</span>
+      <span class="strip-item">TYPERIGHT KEYBOARD</span><span class="strip-dot">★</span>
+      <span class="strip-item">APPS WITH IDEAS</span><span class="strip-dot">★</span>
+      <span class="strip-item">BUILT DIFFERENT</span><span class="strip-dot">★</span>
+      <span class="strip-item">MORE DROPPING SOON</span><span class="strip-dot">★</span>
+      <span class="strip-item">ONE DONKEY STUDIO</span><span class="strip-dot">★</span>
+      <span class="strip-item">DUMB DONKEY</span><span class="strip-dot">★</span>
+      <span class="strip-item">TYPERIGHT KEYBOARD</span><span class="strip-dot">★</span>
+      <span class="strip-item">APPS WITH IDEAS</span><span class="strip-dot">★</span>
+      <span class="strip-item">BUILT DIFFERENT</span><span class="strip-dot">★</span>
+      <span class="strip-item">MORE DROPPING SOON</span><span class="strip-dot">★</span>
+      <span class="strip-item">ONE DONKEY STUDIO</span><span class="strip-dot">★</span>
     </div>
   </div>
 
-  <section class="apps" id="apps">
-    <div class="section-header">
-      <div class="section-eyebrow">What we've built</div>
-      <h2 class="section-title">OUR <span>APPS</span></h2>
-    </div>
-    <div class="app-featured" id="appFeatured">
-      <div class="app-featured-left">
-        <div class="app-label">Available now on Android</div>
-        <div class="app-name">TypeRight</div>
-        <p class="app-desc">The keyboard that gives your most-used keys up to 60% more space. AI assistant built in. 8 skins. Notebook. Completely free.</p>
-        <div class="app-tags">
-          <span class="app-tag">AI Built In</span>
-          <span class="app-tag">8 Skins</span>
-          <span class="app-tag">Notebook</span>
-          <span class="app-tag">Free Forever</span>
-        </div>
-        <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" rel="noopener" class="app-play-btn">▶ GET IT FREE ON GOOGLE PLAY</a>
-      </div>
-      <div class="app-featured-right">
-        <div class="phone-mockup">
-          <div class="phone-screen">
-            <div class="key-row"><div class="key sm">Q</div><div class="key sm">W</div><div class="key big">E</div><div class="key sm">R</div><div class="key big">T</div><div class="key sm">Y</div><div class="key">U</div><div class="key big">I</div><div class="key">O</div><div class="key sm">P</div></div>
-            <div class="key-row"><div class="key big">A</div><div class="key sm">S</div><div class="key sm">D</div><div class="key sm">F</div><div class="key sm">G</div><div class="key sm">H</div><div class="key sm">J</div><div class="key sm">K</div><div class="key sm">L</div></div>
-            <div class="key-row"><div class="key sm">Z</div><div class="key sm">X</div><div class="key sm">C</div><div class="key sm">V</div><div class="key sm">B</div><div class="key">N</div><div class="key sm">M</div></div>
-            <div class="key-row"><div class="key wide">SPACE</div></div>
-          </div>
+  <!-- APP PANELS -->
+  <div class="panels-grid" id="apps">
+    <!-- TypeRight big panel -->
+    <div class="panel-typeright">
+      <div class="panel-label">NOW ON ANDROID</div>
+      <div class="panel-title">TYPERIGHT</div>
+      <p class="panel-desc">The keyboard that finally thinks. Keys sized by how often you use them — E gets 60% more space than Z. AI assistant built in. 8 skins. Notebook. Everything a keyboard should've had from day one.</p>
+      <div>
+        <div class="panel-tag-label" style="margin-bottom:10px;">WHAT'S INSIDE</div>
+        <div class="panel-tags">
+          <span class="panel-tag">MORPHIE KEYS</span>
+          <span class="panel-tag">NPUT AI</span>
+          <span class="panel-tag">NOTEBOOK</span>
+          <span class="panel-tag">8 SKINS</span>
+          <span class="panel-tag">SPELL CHECK</span>
+          <span class="panel-tag">AUTOCORRECT</span>
         </div>
       </div>
+      <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" rel="noopener" class="play-btn">▶ GET IT ON GOOGLE PLAY</a>
     </div>
-    <div class="app-teasers">
-      <div class="teaser-card" id="teaser1">
-        <div class="teaser-label">Coming Soon</div>
-        <div class="teaser-title">???</div>
-        <div class="teaser-hype">🔥 SOMETHING BIG IS COMING</div>
-      </div>
-      <div class="teaser-card" id="teaser2">
-        <div class="teaser-label">In The Lab</div>
-        <div class="teaser-title">???</div>
-        <div class="teaser-hype">⚡ THE DONKEY IS COOKING</div>
-      </div>
-    </div>
-  </section>
 
-  <section class="about" id="about">
-    <div class="about-inner">
-      <img src="nget.png" alt="Dumb the Donkey" class="about-donkey">
-      <div class="about-text">
-        <h2 class="about-headline" id="aboutHeadline">ONE DONKEY.<br>BIG IDEAS.<br>ZERO SUBSCRIPTIONS.</h2>
-        <p class="about-body" id="aboutBody">Every app we ship is <strong>completely free</strong>. No paywalls, no subscriptions, no dark patterns. Just apps that solve real problems in ways nobody else bothered to.<br><br>We're a one-person studio that moves fast, ships weird ideas, and refuses to charge for things that should just exist.</p>
-        <a href="mailto:hello@dumbdonkey.fyi" class="contact-link">✉ Say Hello</a>
+    <!-- Phone panel -->
+    <div class="panel-phone">
+      <div class="phone">
+        <div class="pscreen">
+          <div class="krow"><div class="k s">Q</div><div class="k s">W</div><div class="k b">E</div><div class="k s">R</div><div class="k b">T</div><div class="k s">Y</div><div class="k">U</div><div class="k b">I</div><div class="k">O</div><div class="k s">P</div></div>
+          <div class="krow"><div class="k b">A</div><div class="k s">S</div><div class="k s">D</div><div class="k s">F</div><div class="k s">G</div><div class="k s">H</div><div class="k s">J</div><div class="k s">K</div><div class="k s">L</div></div>
+          <div class="krow"><div class="k s">Z</div><div class="k s">X</div><div class="k s">C</div><div class="k s">V</div><div class="k s">B</div><div class="k">N</div><div class="k s">M</div></div>
+          <div class="krow"><div class="k w">SPACE</div></div>
+        </div>
       </div>
     </div>
-  </section>
 
+    <!-- Tagline panel -->
+    <div class="panel-tagline">
+      <div class="tagline-zap">⚡</div>
+      <div class="tagline-text">BUILT BY<br>ONE DONKEY.<br>WORKS LIKE<br>A TEAM DID IT.</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="about-row" id="about">
+    <div class="panel-about-img">
+      <img src="about-scene.png" alt="Dumb Donkey building apps">
+      <div class="caption-box">CHAPTER 1: THE DONKEY BUILDS</div>
+    </div>
+    <div class="panel-about-text">
+      <div class="about-h" id="aboutH">ONE DONKEY.<br>BIG IDEAS.<br>NO RULES.</div>
+      <p class="about-p" id="aboutP">Every app we build starts with a <strong>problem that annoyed us</strong>. No roadmaps, no committees, no compromises. Just one stubborn donkey building things that should've existed already.<br><br>We don't chase trends. We make apps we'd actually want to use.</p>
+      <a href="mailto:hello@dumbdonkey.fyi" class="about-contact">✉ SAY HELLO</a>
+    </div>
+  </div>
+
+  <!-- BOTTOM MINI PANELS -->
+  <div class="bottom-row">
+    <div class="mini-panel mini-panel-1 reveal" id="mp1">
+      <div class="mini-eyebrow">COMING SOON</div>
+      <div class="mini-title">APP #2</div>
+      <div class="mini-body">Something is in the lab. Something weird. Something you'll use every day.</div>
+      <div class="mini-hype red">🔥 THE DONKEY IS COOKING</div>
+    </div>
+    <div class="mini-panel mini-panel-2 reveal" id="mp2" style="transition-delay:.12s;">
+      <div class="mini-eyebrow">IN THE LAB</div>
+      <div class="mini-title">APP #3</div>
+      <div class="mini-body">Three ideas on the board. One is already half built. Stay close.</div>
+      <div class="mini-hype blue">⚡ DROPPING WHEN IT'S READY</div>
+    </div>
+    <div class="mini-panel mini-panel-3 reveal" id="mp3" style="transition-delay:.24s;">
+      <div class="mini-eyebrow">ALWAYS</div>
+      <div class="mini-title">NO BS</div>
+      <div class="mini-body">We don't do dark patterns. We don't do fake urgency. We build things that earn their place on your phone.</div>
+      <div class="mini-hype yellow">🫏 THAT'S THE DEAL</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
-    <div class="footer-brand">DUMB DONKEY<span>© 2026 — Making weird, useful stuff.</span></div>
+    <div class="footer-brand">DUMB DONKEY<small>© 2026 — BUILT DIFFERENT.</small></div>
     <div class="footer-links">
       <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" rel="noopener">TypeRight</a>
+      <a href="#about">About</a>
       <a href="mailto:hello@dumbdonkey.fyi">Contact</a>
-      <a href="https://twitter.com/dumbdonkeyfyi" target="_blank" rel="noopener">X</a>
+      <a href="https://twitter.com/dumbdonkeyfyi" target="_blank" rel="noopener">X / Twitter</a>
       <a href="https://www.tiktok.com/@dumbthedonkey" target="_blank" rel="noopener">TikTok</a>
     </div>
     <div class="footer-copy">dumbdonkey.fyi</div>
   </footer>
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.15 });
+</div>
 
-    ['appFeatured','teaser1','teaser2','aboutHeadline','aboutBody'].forEach(id => {
-      const el = document.getElementById(id);
-      if(el) observer.observe(el);
-    });
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); } });
+  }, {threshold:0.12});
+  ['aboutH','aboutP','mp1','mp2','mp3'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) obs.observe(el);
+  });
 
-    const keys = document.querySelectorAll('.key');
-    setInterval(() => {
-      keys.forEach(k => { k.style.background=''; k.style.boxShadow=''; });
-      const pick = keys[Math.floor(Math.random()*keys.length)];
-      pick.style.background = '#00b4ff';
-      pick.style.boxShadow = '0 0 8px rgba(0,180,255,0.9)';
-      setTimeout(() => { pick.style.background=''; pick.style.boxShadow=''; }, 400);
-    }, 600);
-  </script>
+  // Random key glow
+  const keys = document.querySelectorAll('.k');
+  setInterval(() => {
+    keys.forEach(k => { k.style.background=''; k.style.boxShadow=''; });
+    const pick = keys[Math.floor(Math.random()*keys.length)];
+    pick.style.background='#00b4ff';
+    pick.style.boxShadow='0 0 10px rgba(0,180,255,1)';
+    setTimeout(()=>{ pick.style.background=''; pick.style.boxShadow=''; }, 350);
+  }, 500);
+</script>
 </body>
 </html>
