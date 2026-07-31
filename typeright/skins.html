@@ -7,7 +7,7 @@
 <meta name="description" content="All 24 free animated TypeRight skins: MATRIX code rain, INFERNO embers, FOREST fireflies, SAKURA petals and more. Live effects that fade while you type.">
 <link rel="canonical" href="https://dumbdonkey.fyi/typeright/skins">
 <link rel="icon" href="/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=Special+Elite&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -22,28 +22,40 @@
 }
 </script>
 <style>
-  :root { --ink:#1a1a1a; --red:#e81c1c; --yellow:#FFD700; --blue:#00b4ff; --purple:#6d28d9; --paper:#e8e0d0; }
+  :root { --bg:#0b0b0d; --pnl:#111114; --ink:#f2f0eb; --dim:rgba(242,240,235,.65); --faint:rgba(242,240,235,.4); --red:#c1121f; --line:rgba(242,240,235,.16); }
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; line-height:1.65; }
-  nav { background:#fff; border-bottom:5px solid var(--ink); padding:12px 20px; display:flex; align-items:center; gap:10px; }
-  nav img { width:38px; height:38px; }
-  nav a.brand { font-family:'Bangers',cursive; font-size:1.5rem; color:var(--ink); text-decoration:none; letter-spacing:1px; }
-  nav a.back { margin-left:auto; font-weight:700; color:var(--red); text-decoration:none; font-size:.9rem; }
-  .wrap { max-width:760px; margin:0 auto; padding:34px 20px 60px; }
-  h1 { font-family:'Bangers',cursive; font-size:2.4rem; letter-spacing:1px; line-height:1.15; margin-bottom:8px; }
-  .sub { color:#555; margin-bottom:28px; font-size:1.02rem; }
-  h2 { font-family:'Bangers',cursive; font-size:1.5rem; letter-spacing:.5px; margin:34px 0 10px; }
-  p { margin-bottom:14px; }
-  ul { margin:0 0 14px 22px; }
-  li { margin-bottom:7px; }
-  table { width:100%; border-collapse:collapse; margin:18px 0; background:#fff; border:4px solid var(--ink); }
-  th, td { border:2px solid var(--ink); padding:10px 12px; text-align:left; font-size:.95rem; }
-  th { background:var(--yellow); font-family:'Bangers',cursive; letter-spacing:1px; font-size:1.05rem; }
-  .panel { background:#fff; border:4px solid var(--ink); border-radius:6px; padding:18px 20px; margin:18px 0; box-shadow:6px 6px 0 var(--ink); }
-  .cta { display:inline-block; background:var(--red); color:#fff; font-family:'Bangers',cursive; font-size:1.3rem; letter-spacing:1px; padding:13px 26px; border:4px solid var(--ink); border-radius:6px; text-decoration:none; box-shadow:5px 5px 0 var(--ink); margin:12px 0; }
-  .faq-q { font-weight:800; margin-top:20px; }
-  footer { border-top:5px solid var(--ink); background:#fff; text-align:center; padding:22px; font-size:.9rem; }
-  footer a { color:var(--red); font-weight:700; text-decoration:none; margin:0 8px; }
+  body { background:var(--bg); color:var(--dim); font-family:'Inter',-apple-system,sans-serif; line-height:1.75; font-size:15px; }
+  body::after { content:''; position:fixed; inset:-100px; pointer-events:none; opacity:.05; z-index:998;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grain 1.2s steps(6) infinite; }
+  @keyframes grain { 0%{transform:translate(0,0)}20%{transform:translate(-30px,20px)}40%{transform:translate(20px,-30px)}60%{transform:translate(-20px,-20px)}80%{transform:translate(30px,10px)}100%{transform:translate(0,0)} }
+  nav { background:rgba(11,11,13,.92); border-bottom:1px solid var(--line); padding:14px 22px; display:flex; align-items:center; gap:11px; position:sticky; top:0; z-index:999; backdrop-filter:blur(8px); }
+  nav img { width:28px; height:28px; border-radius:50%; filter:grayscale(1) contrast(1.2); }
+  nav a.brand { font-family:'Bebas Neue'; font-size:17px; color:var(--ink); text-decoration:none; letter-spacing:5px; }
+  nav a.back { margin-left:auto; color:var(--faint); text-decoration:none; font-size:10px; letter-spacing:2px; transition:color .3s; }
+  nav a.back:hover { color:var(--red); }
+  .wrap { max-width:720px; margin:0 auto; padding:44px 22px 70px; }
+  h1 { font-family:'Bebas Neue'; font-weight:400; font-size:clamp(30px,6vw,44px); letter-spacing:2px; line-height:1.05; margin-bottom:10px; color:var(--ink); }
+  .sub { font-family:'Special Elite',monospace; color:var(--red); margin-bottom:30px; font-size:12px; letter-spacing:2px; }
+  h2 { font-family:'Bebas Neue'; font-weight:400; font-size:24px; letter-spacing:2px; margin:40px 0 12px; color:var(--ink); position:relative; padding-bottom:10px; }
+  h2::after { content:''; position:absolute; left:0; bottom:0; width:44px; height:1px; background:var(--red); }
+  p { margin-bottom:15px; }
+  strong { color:var(--ink); }
+  a { color:var(--ink); }
+  ul { margin:0 0 15px 20px; }
+  li { margin-bottom:8px; }
+  table { width:100%; border-collapse:collapse; margin:20px 0; background:var(--pnl); border:1px solid var(--line); }
+  th, td { border:1px solid var(--line); padding:11px 13px; text-align:left; font-size:13px; }
+  th { background:#16161a; font-family:'Bebas Neue'; letter-spacing:2px; font-weight:400; font-size:15px; color:var(--ink); }
+  .panel { background:var(--pnl); border:1px solid var(--line); border-left:3px solid var(--red); padding:18px 20px; margin:16px 0; transition:background .3s; }
+  .panel:hover { background:#16161a; }
+  .panel a { color:var(--ink); }
+  .cta { display:inline-block; background:var(--ink); color:var(--bg); font-family:'Bebas Neue'; font-size:15px; letter-spacing:3px; padding:13px 26px; text-decoration:none; margin:14px 0; transition:background .3s,color .3s; }
+  .cta:hover { background:var(--red); color:var(--ink); }
+  .faq-q { font-weight:600; color:var(--ink); margin-top:22px; }
+  footer { border-top:1px solid var(--line); text-align:center; padding:26px 22px; font-size:10px; letter-spacing:2px; color:var(--faint); }
+  footer a { color:var(--faint); text-decoration:none; margin:0 8px; transition:color .3s; }
+  footer a:hover { color:var(--red); }
 </style>
 </head>
 <body>
