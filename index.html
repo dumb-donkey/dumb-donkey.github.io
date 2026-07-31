@@ -10,503 +10,377 @@
   <meta name="twitter:image" content="https://dumbdonkey.fyi/hero.png">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="shortcut icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=Special+Elite&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
-    :root{--black:#0a0a0a;--ink:#1a1a1a;--red:#e81c1c;--yellow:#FFD700;--blue:#00b4ff;--purple:#6d28d9;--white:#f9f9f9;--dots:rgba(0,0,0,0.18);}
+    :root{--bg:#0b0b0d;--panel:#111114;--ink:#f2f0eb;--dim:rgba(242,240,235,.6);--faint:rgba(242,240,235,.4);--red:#c1121f;--line:rgba(242,240,235,.16);}
     html{scroll-behavior:smooth;}
-    body{background:#e8e0d0;font-family:'Bangers',cursive;overflow-x:hidden;cursor:default;}
+    body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;overflow-x:hidden;}
 
-    /* HALFTONE TEXTURE */
-    .ht{background-image:radial-gradient(circle,var(--dots) 1.8px,transparent 1.8px);background-size:16px 16px;}
-    .ht-w{background-image:radial-gradient(circle,rgba(255,255,255,0.18) 1.8px,transparent 1.8px);background-size:16px 16px;}
-    .ht-b{background-image:radial-gradient(circle,rgba(0,0,255,0.06) 1.8px,transparent 1.8px);background-size:16px 16px;}
-
-    /* PANEL BORDER — the signature comic look */
-    .panel{border:5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);}
-    .panel-lg{border:7px solid var(--ink);box-shadow:10px 10px 0 var(--ink);}
+    /* FILM GRAIN — flickers like projected film */
+    .grain{position:fixed;inset:-100px;pointer-events:none;z-index:998;opacity:.05;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation:grain 1.2s steps(6) infinite;}
+    @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-30px,20px)}40%{transform:translate(20px,-30px)}60%{transform:translate(-20px,-20px)}80%{transform:translate(30px,10px)}100%{transform:translate(0,0)}}
 
     /* NAV */
-    nav{background:var(--ink);border-bottom:5px solid var(--red);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:999;}
-    .nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
-    .nav-brand img{width:38px;height:38px;border-radius:50%;border:3px solid var(--yellow);animation:wobble 3s ease-in-out infinite;}
-    @keyframes wobble{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-    .nav-brand-name{font-size:28px;letter-spacing:3px;color:var(--yellow);text-shadow:3px 3px 0 rgba(0,0,0,0.5);}
-    .nav-right{display:flex;gap:8px;}
-    .nav-btn{color:var(--white);text-decoration:none;font-size:14px;letter-spacing:2px;padding:8px 18px;border:3px solid rgba(255,255,255,0.2);transition:all .2s;}
-    .nav-btn:hover{border-color:var(--red);color:var(--yellow);background:rgba(232,28,28,0.15);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:0 26px;height:62px;background:rgba(11,11,13,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);}
+    .brand img{width:30px;height:30px;border-radius:50%;filter:grayscale(1) contrast(1.2);transition:filter .4s;}
+    .brand:hover img{filter:none;}
+    .brand span{font-family:'Bebas Neue';font-size:19px;letter-spacing:5px;}
+    .nav-links{display:flex;gap:26px;}
+    .nav-links a{color:var(--faint);text-decoration:none;font-size:10px;letter-spacing:3px;transition:color .3s;position:relative;}
+    .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--red);transition:width .3s;}
+    .nav-links a:hover{color:var(--ink);}
+    .nav-links a:hover::after{width:100%;}
 
-    /* PAGE — comic book page layout */
-    .page{padding-top:64px;}
+    .wrap{max-width:1150px;margin:0 auto;padding:0 26px;}
 
-    /* HERO PANEL — full viewport, side by side */
-    .hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px);border-bottom:7px solid var(--ink);}
+    /* HERO */
+    .hero{padding:150px 0 70px;position:relative;}
+    .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center;}
+    .kicker{font-family:'Special Elite',monospace;font-size:12px;color:var(--red);letter-spacing:2px;margin-bottom:20px;min-height:16px;}
+    .kicker .cursor{display:inline-block;width:8px;height:13px;background:var(--red);margin-left:4px;vertical-align:middle;animation:blink 1s steps(1) infinite;}
+    @keyframes blink{50%{opacity:0}}
+    h1{font-family:'Bebas Neue';font-size:clamp(52px,7.5vw,100px);line-height:.94;letter-spacing:1px;font-weight:400;}
+    h1 .line{display:block;opacity:0;transform:translateY(26px);animation:titleIn .7s cubic-bezier(.2,.7,.3,1) forwards;}
+    h1 .line:nth-child(1){animation-delay:.15s}
+    h1 .line:nth-child(2){animation-delay:.3s}
+    h1 .line:nth-child(3){animation-delay:.45s}
+    h1 .line:nth-child(4){animation-delay:.6s}
+    @keyframes titleIn{to{opacity:1;transform:none}}
+    h1 em{font-style:normal;color:var(--red);animation:neon 4s ease-in-out infinite;}
+    @keyframes neon{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.35}94%{opacity:1}96%{opacity:.5}97%{opacity:1}}
+    .sub{margin-top:22px;font-size:14px;line-height:1.8;color:var(--dim);max-width:36ch;opacity:0;animation:titleIn .7s .8s forwards;}
+    .cta{display:inline-block;margin-top:32px;font-family:'Bebas Neue';font-size:16px;letter-spacing:4px;color:var(--ink);text-decoration:none;border:1px solid var(--ink);padding:13px 32px;position:relative;transition:color .3s,background .3s;opacity:0;animation:titleIn .7s .95s forwards;}
+    .cta::after{content:'';position:absolute;inset:-1px;border:1px solid var(--red);transform:translate(6px,6px);z-index:-1;transition:transform .25s;}
+    .cta:hover{background:var(--red);border-color:var(--red);}
+    .cta:hover::after{transform:translate(0,0);}
 
-    .hero-art{background:#1a2744;position:relative;overflow:hidden;}
-    .hero-art::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,255,0.1) 1.8px,transparent 1.8px);background-size:16px 16px;}
-    .hero-art-lines{position:absolute;inset:0;background:repeating-conic-gradient(rgba(255,255,255,0.03) 0deg,transparent .5deg,transparent 5deg,rgba(0,180,255,0.03) 5deg,transparent 5.5deg,transparent 10deg);animation:slowSpin 80s linear infinite;transform-origin:center;}
-    @keyframes slowSpin{to{transform:rotate(360deg)}}
-    .hero-img{width:100%;height:100%;object-fit:cover;display:block;animation:heroShift 6s ease-in-out infinite;}
-    @keyframes heroShift{0%,100%{transform:scale(1.02) translateX(0)}50%{transform:scale(1.04) translateX(-12px)}}
+    /* COVER FRAME — used for hero art, video, about art */
+    .cover{position:relative;opacity:0;animation:titleIn .9s .5s forwards;}
+    .cover .art{overflow:hidden;border:1px solid var(--line);position:relative;}
+    .cover .art img{width:100%;display:block;filter:saturate(.78) contrast(1.08);animation:kenburns 22s ease-in-out infinite alternate;}
+    @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
+    .cover .art::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 90px 28px rgba(11,11,13,.85);pointer-events:none;}
+    .cap{position:absolute;left:-1px;bottom:20px;background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--red);padding:9px 16px;font-family:'Special Elite',monospace;font-size:10px;letter-spacing:2px;z-index:2;}
 
-    .hero-text{background:var(--yellow);position:relative;display:flex;flex-direction:column;justify-content:center;padding:60px 50px;border-left:7px solid var(--ink);}
-    .hero-text::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,0,0,0.12) 1.8px,transparent 1.8px);background-size:16px 16px;pointer-events:none;}
-    .hero-text>*{position:relative;z-index:1;}
+    /* TICKER */
+    .ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:13px 0;overflow:hidden;position:relative;}
+    .ticker-inner{display:flex;width:max-content;animation:tick 30s linear infinite;}
+    .ticker span{font-family:'Bebas Neue';font-size:14px;letter-spacing:6px;color:var(--faint);padding:0 24px;white-space:nowrap;}
+    .ticker b{color:var(--red);font-weight:400;}
+    @keyframes tick{to{transform:translateX(-50%)}}
 
-    .hero-caption{display:inline-block;background:var(--red);color:var(--white);font-size:12px;letter-spacing:3px;padding:6px 14px;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);margin-bottom:20px;animation:captionPop .5s cubic-bezier(.34,1.56,.64,1) both;}
-    @keyframes captionPop{from{opacity:0;transform:scale(0) rotate(-5deg)}to{opacity:1;transform:scale(1) rotate(-2deg)}}
+    /* SECTION HEADERS with scanner sweep */
+    .sect{padding:90px 0 0;position:relative;}
+    .sect-head{position:relative;margin-bottom:46px;}
+    .chapter{font-family:'Special Elite',monospace;font-size:11px;color:var(--red);letter-spacing:3px;margin-bottom:10px;}
+    .sect-title{font-family:'Bebas Neue';font-size:clamp(34px,4.5vw,54px);letter-spacing:2px;line-height:1;}
+    .ghost{position:absolute;right:0;top:-30px;font-family:'Bebas Neue';font-size:clamp(90px,14vw,170px);color:transparent;-webkit-text-stroke:1px rgba(242,240,235,.07);line-height:1;user-select:none;pointer-events:none;}
+    .scanline{height:1px;background:var(--line);margin-top:22px;position:relative;overflow:hidden;}
+    .scanline::after{content:'';position:absolute;top:0;left:-15%;width:15%;height:100%;background:linear-gradient(90deg,transparent,var(--red),transparent);animation:scan 3.4s ease-in-out infinite;}
+    @keyframes scan{0%{left:-15%}55%{left:100%}100%{left:100%}}
 
-    .hero-h1{font-size:clamp(52px,6vw,88px);line-height:.95;color:var(--ink);text-shadow:5px 5px 0 rgba(0,0,0,0.15);letter-spacing:2px;margin-bottom:24px;}
+    /* APP SECTIONS */
+    .app-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;}
+    .app-grid.flip{grid-template-columns:1.1fr 1fr;}
+    .app-desc{font-size:14px;line-height:1.85;color:var(--dim);margin-bottom:28px;}
+    .app-desc strong{color:var(--ink);font-weight:600;}
+    .tags-label{font-family:'Special Elite',monospace;font-size:10px;color:var(--faint);letter-spacing:3px;margin-bottom:14px;}
+    .tags{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:30px;}
+    .tag{font-size:10px;letter-spacing:2px;color:var(--dim);border:1px solid var(--line);padding:7px 13px;transition:border-color .3s,color .3s,transform .3s;}
+    .tag:hover{border-color:var(--red);color:var(--ink);transform:translateY(-2px);}
+    .play-btn{display:inline-block;font-family:'Bebas Neue';font-size:14px;letter-spacing:3px;color:var(--bg);background:var(--ink);text-decoration:none;padding:13px 26px;transition:background .3s,color .3s;position:relative;}
+    .play-btn:hover{background:var(--red);color:var(--ink);}
+    .badges{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap;align-items:center;}
+    .badges img{filter:grayscale(1) opacity(.55);transition:filter .4s;height:44px;width:auto;}
+    .badges a:hover img{filter:none;}
 
-    .speech-bubble{background:var(--white);border:4px solid var(--ink);border-radius:20px;padding:14px 20px;box-shadow:5px 5px 0 var(--ink);position:relative;margin-bottom:32px;font-size:18px;color:var(--ink);line-height:1.4;animation:bubbleIn .6s cubic-bezier(.34,1.56,.64,1) .4s both;}
-    @keyframes bubbleIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    .speech-bubble::after{content:'';position:absolute;bottom:-20px;left:40px;border:12px solid transparent;border-top-color:var(--ink);}
-    .speech-bubble::before{content:'';position:absolute;bottom:-13px;left:44px;border:9px solid transparent;border-top-color:var(--white);z-index:1;}
+    /* VIDEO PANEL */
+    .video-frame{position:relative;border:1px solid var(--line);background:#000;}
+    .video-frame video{width:100%;display:block;filter:saturate(.85) contrast(1.05);}
+    .video-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--line);font-family:'Special Elite',monospace;font-size:10px;letter-spacing:2px;color:var(--faint);}
+    .rec{width:8px;height:8px;border-radius:50%;background:var(--red);animation:blink 1.4s steps(1) infinite;}
 
-    .hero-cta{display:inline-flex;align-items:center;gap:12px;background:var(--red);color:var(--white);text-decoration:none;font-size:26px;letter-spacing:2px;padding:16px 36px;border:5px solid var(--ink);box-shadow:7px 7px 0 var(--ink);transition:all .15s;width:fit-content;animation:ctaIn .6s ease .6s both,ctaPulse 2s ease-in-out 2s infinite;}
-    @keyframes ctaIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
-    @keyframes ctaPulse{0%,100%{box-shadow:7px 7px 0 var(--ink)}50%{box-shadow:7px 7px 0 var(--ink),0 0 30px rgba(232,28,28,.7)}}
-    .hero-cta:hover{transform:translate(-4px,-4px);box-shadow:11px 11px 0 var(--ink);}
+    /* PULL QUOTE */
+    .pull{margin-top:70px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:44px 0;text-align:center;position:relative;overflow:hidden;}
+    .pull-text{font-family:'Bebas Neue';font-size:clamp(26px,3.6vw,44px);letter-spacing:3px;color:var(--ink);}
+    .pull-text em{font-style:normal;color:var(--red);}
+    .pull-sub{font-family:'Special Elite',monospace;font-size:10px;letter-spacing:3px;color:var(--faint);margin-top:10px;}
 
-    /* POW floating badges */
-    .pow{position:absolute;font-size:22px;letter-spacing:1px;color:var(--ink);z-index:3;pointer-events:none;}
-    .pow span{display:flex;align-items:center;justify-content:center;width:80px;height:80px;background:var(--yellow);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);border:3px solid var(--ink);animation:spinBadge 5s linear infinite;}
-    @keyframes spinBadge{to{transform:rotate(360deg)}}
+    /* THUMBTYPE MONO PANEL */
+    .mono-panel{border:1px solid var(--line);background:var(--panel);padding:60px 40px;text-align:center;position:relative;overflow:hidden;}
+    .mono-panel::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(193,18,31,.12),transparent 60%);}
+    .mono-thumb{font-size:54px;filter:grayscale(1);transition:filter .5s;display:inline-block;animation:floaty 5s ease-in-out infinite;}
+    .mono-panel:hover .mono-thumb{filter:none;}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .mono-line{font-family:'Bebas Neue';font-size:26px;letter-spacing:5px;margin-top:20px;}
+    .mono-cap{font-family:'Special Elite',monospace;font-size:10px;letter-spacing:3px;color:var(--faint);margin-top:8px;}
 
-    /* STRIP — comic caption bar */
-    .strip{background:var(--red);border-top:5px solid var(--ink);border-bottom:5px solid var(--ink);padding:18px 40px;display:flex;align-items:center;gap:0;overflow:hidden;position:relative;}
-    .strip::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,0,0,0.15) 1.8px,transparent 1.8px);background-size:14px 14px;}
-    .strip-track{display:flex;animation:stripScroll 22s linear infinite;white-space:nowrap;position:relative;z-index:1;}
-    @keyframes stripScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .strip-item{font-size:20px;letter-spacing:4px;color:var(--white);text-shadow:2px 2px 0 rgba(0,0,0,0.3);padding:0 40px;}
-    .strip-dot{color:var(--yellow);padding:0 10px;font-size:14px;}
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+    .about-h{font-family:'Bebas Neue';font-size:clamp(36px,4.6vw,58px);line-height:1;letter-spacing:2px;margin-bottom:22px;}
+    .about-h em{font-style:normal;color:var(--red);}
+    .about-p{font-size:14px;line-height:1.9;color:var(--dim);}
+    .about-p strong{color:var(--ink);}
+    .say{display:inline-block;margin-top:28px;font-family:'Special Elite',monospace;font-size:12px;letter-spacing:2px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:4px;transition:color .3s;}
+    .say:hover{color:var(--red);}
 
-    /* COMIC PANELS GRID */
-    .panels-grid{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;border-bottom:7px solid var(--ink);}
-
-    /* TYPERIGHT PANEL — big feature */
-    .panel-typeright{background:#1a0a2e;border-right:7px solid var(--ink);border-bottom:5px solid var(--ink);padding:60px 50px;display:flex;flex-direction:column;gap:28px;position:relative;overflow:hidden;}
-    .panel-typeright::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(109,40,217,0.15) 1.8px,transparent 1.8px);background-size:16px 16px;}
-    .panel-typeright>*{position:relative;z-index:1;}
-    .panel-label{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.5);text-shadow:none;}
-    .panel-title{font-size:clamp(50px,5vw,80px);color:var(--white);text-shadow:5px 5px 0 rgba(109,40,217,.6);letter-spacing:2px;line-height:.95;}
-    .panel-desc{font-family:'Comic Neue','Arial Rounded MT Bold',Arial,sans-serif;font-weight:700;font-size:17px;color:rgba(255,255,255,.8);line-height:1.6;max-width:480px;}
-    .panel-tags{display:flex;flex-wrap:wrap;gap:10px;}
-    .panel-tag{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.2);color:var(--white);font-size:11px;letter-spacing:2px;text-transform:none;padding:5px 12px;}
-    .panel-tag-label{font-size:11px;letter-spacing:3px;color:var(--blue);font-family:'Comic Neue',Arial,sans-serif;font-weight:700;}
-    .play-btn{display:inline-flex;align-items:center;gap:12px;background:var(--yellow);color:var(--ink);text-decoration:none;font-size:22px;letter-spacing:2px;padding:14px 30px;border:5px solid var(--ink);box-shadow:7px 7px 0 var(--ink);transition:all .15s;width:fit-content;animation:playGlow 2s ease-in-out infinite;}
-    @keyframes playGlow{0%,100%{box-shadow:7px 7px 0 var(--ink)}50%{box-shadow:7px 7px 0 var(--ink),0 0 25px rgba(255,215,0,.6)}}
-    .play-btn:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--ink);}
-
-    /* PHONE PANEL — right side top */
-    .panel-phone{background:#080e18;border-bottom:5px solid var(--ink);display:flex;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden;}
-    .panel-phone::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,255,0.08) 1.8px,transparent 1.8px);background-size:14px 14px;}
-    .phone{width:150px;background:#12192a;border:5px solid var(--ink);border-radius:28px;padding:18px 10px;box-shadow:8px 8px 0 var(--ink),0 0 40px rgba(109,40,217,.4);animation:phoneSway 4s ease-in-out infinite;position:relative;z-index:1;}
-    @keyframes phoneSway{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-14px)}}
-    .pscreen{background:#0a1020;border-radius:16px;padding:8px 5px 5px;border:2px solid #1e3060;}
-    .krow{display:flex;gap:2.5px;margin-top:2.5px;justify-content:center;}
-    .k{flex:1;height:18px;background:#4c1d95;border:1.5px solid rgba(255,255,255,.15);border-radius:3px;font-family:'Bangers',cursive;font-size:6px;color:#fff;display:flex;align-items:center;justify-content:center;transition:all .3s;}
-    .k.b{flex:1.7;background:#6d28d9;}
-    .k.s{flex:.75;}
-    .k.w{flex:3.5;background:#1a1a3a;font-size:5px;}
-
-    /* TAGLINE PANEL — right side bottom */
-    .panel-tagline{background:var(--yellow);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 30px;text-align:center;position:relative;overflow:hidden;}
-    .panel-tagline::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,0,0,0.12) 1.8px,transparent 1.8px);background-size:14px 14px;}
-    .panel-tagline>*{position:relative;z-index:1;}
-    .tagline-text{font-size:clamp(22px,3vw,36px);color:var(--ink);text-shadow:3px 3px 0 rgba(0,0,0,.15);line-height:1.1;letter-spacing:1px;}
-    .tagline-zap{font-size:52px;animation:zapSpin 3s ease-in-out infinite;}
-    @keyframes zapSpin{0%,100%{transform:rotate(-10deg) scale(1)}50%{transform:rotate(10deg) scale(1.2)}}
-
-    /* ABOUT SECTION — 2 panel row */
-    .about-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:7px solid var(--ink);}
-    .panel-about-img{position:relative;overflow:hidden;min-height:480px;background:#0d1b2a;border-right:7px solid var(--ink);}
-    .panel-about-img img{width:100%;height:100%;object-fit:cover;display:block;animation:aboutImgShift 7s ease-in-out infinite;}
-    @keyframes aboutImgShift{0%,100%{transform:scale(1.03) translateY(0)}50%{transform:scale(1.06) translateY(-10px)}}
-    .caption-box{position:absolute;bottom:20px;left:20px;right:20px;background:var(--ink);color:var(--white);font-size:14px;letter-spacing:2px;padding:10px 16px;border:3px solid rgba(255,255,255,.2);}
-
-    .panel-about-text{background:var(--ink);padding:60px 50px;display:flex;flex-direction:column;justify-content:center;gap:28px;position:relative;overflow:hidden;}
-    .panel-about-text::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(232,28,28,0.08) 1.8px,transparent 1.8px);background-size:16px 16px;}
-    .panel-about-text>*{position:relative;z-index:1;}
-    .about-h{font-size:clamp(36px,4vw,60px);color:var(--white);text-shadow:4px 4px 0 var(--red);line-height:1;letter-spacing:2px;opacity:0;transform:translateX(40px);transition:all .7s ease;}
-    .about-h.vis{opacity:1;transform:translateX(0);}
-    .about-p{font-family:'Comic Neue','Arial Rounded MT Bold',Arial,sans-serif;font-weight:700;font-size:17px;color:rgba(255,255,255,.75);line-height:1.7;max-width:440px;opacity:0;transform:translateX(40px);transition:all .7s ease .15s;}
-    .about-p.vis{opacity:1;transform:translateX(0);}
-    .about-p strong{color:var(--blue);}
-    .about-contact{display:inline-flex;align-items:center;gap:10px;color:var(--white);text-decoration:none;font-size:16px;letter-spacing:2px;padding:12px 24px;border:4px solid var(--red);transition:all .2s;width:fit-content;}
-    .about-contact:hover{background:var(--red);transform:translate(-2px,-2px);box-shadow:4px 4px 0 rgba(232,28,28,.4);}
-
-    /* BOTTOM PANELS ROW */
-    .bottom-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:7px solid var(--ink);}
-    .mini-panel{padding:40px 32px;display:flex;flex-direction:column;gap:16px;border-right:5px solid var(--ink);position:relative;overflow:hidden;}
-    .mini-panel:last-child{border-right:none;}
-    .mini-panel-1{background:#1a2744;}
-    .mini-panel-2{background:#1a0a2e;}
-    .mini-panel-3{background:#1a0a0a;}
-    .mini-panel::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1.8px,transparent 1.8px);background-size:14px 14px;}
-    .mini-panel>*{position:relative;z-index:1;}
-    .mini-eyebrow{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4);}
-    .mini-title{font-size:clamp(28px,3vw,42px);color:var(--white);text-shadow:3px 3px 0 rgba(0,0,0,.4);letter-spacing:1px;line-height:1;}
-    .mini-body{font-family:'Comic Neue',Arial,sans-serif;font-weight:700;font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;}
-    .mini-hype{font-size:20px;letter-spacing:2px;animation:hypeFlash 1.5s ease-in-out infinite;}
-    .mini-hype.red{color:var(--red);}
-    .mini-hype.blue{color:var(--blue);}
-    .mini-hype.yellow{color:var(--yellow);}
-    @keyframes hypeFlash{0%,100%{opacity:1}50%{opacity:.4}}
-    @keyframes thumbBounce{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(5deg)}}
-    .mini-panel.reveal{opacity:0;transform:translateY(30px);transition:all .5s cubic-bezier(.34,1.2,.64,1);}
-    .mini-panel.reveal.vis{opacity:1;transform:translateY(0);}
+    /* MINI PANELS */
+    .minis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:90px;}
+    .mini{background:var(--panel);padding:36px 30px;position:relative;transition:background .4s;}
+    .mini:hover{background:#16161a;}
+    .mini-eyebrow{font-family:'Special Elite',monospace;font-size:9px;letter-spacing:3px;color:var(--red);margin-bottom:12px;}
+    .mini-title{font-family:'Bebas Neue';font-size:24px;letter-spacing:3px;margin-bottom:12px;}
+    .mini-body{font-size:12px;line-height:1.8;color:var(--dim);}
+    .mini-hype{font-family:'Special Elite',monospace;font-size:10px;letter-spacing:2px;color:var(--faint);margin-top:16px;}
+    .mini-hype b{color:var(--red);font-weight:400;animation:neon 5s ease-in-out infinite;}
+    .soc{display:flex;gap:10px;margin-top:18px;}
+    .soc a{font-size:10px;letter-spacing:2px;color:var(--dim);text-decoration:none;border:1px solid var(--line);padding:9px 16px;transition:border-color .3s,color .3s;}
+    .soc a:hover{border-color:var(--red);color:var(--ink);}
 
     /* FOOTER */
-    footer{background:var(--ink);border-top:5px solid var(--red);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
-    .footer-brand{font-size:24px;letter-spacing:3px;color:var(--yellow);}
-    .footer-brand small{display:block;font-family:'Comic Neue',Arial,sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-top:4px;}
-    .footer-links{display:flex;gap:20px;flex-wrap:wrap;}
-    .footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;letter-spacing:2px;transition:color .2s;}
-    .footer-links a:hover{color:var(--white);}
-    .footer-copy{font-family:'Comic Neue',Arial,sans-serif;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.2);}
+    footer{margin-top:90px;border-top:1px solid var(--line);padding:40px 26px 46px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;max-width:1150px;margin-left:auto;margin-right:auto;}
+    .f-brand{font-family:'Bebas Neue';font-size:22px;letter-spacing:5px;}
+    .f-brand small{display:block;font-family:'Special Elite',monospace;font-size:9px;letter-spacing:2px;color:var(--faint);margin-top:8px;}
+    .f-links{display:flex;gap:20px;flex-wrap:wrap;}
+    .f-links a{color:var(--faint);text-decoration:none;font-size:10px;letter-spacing:2px;transition:color .3s;}
+    .f-links a:hover{color:var(--red);}
 
-    /* MOBILE */
-    @media(max-width:768px){
-      .hero{grid-template-columns:1fr;}
-      .hero-art{min-height:50vw;}
-      .hero-text{padding:40px 24px;border-left:none;border-top:5px solid var(--ink);}
-      .hero-h1{font-size:42px;}
-      .panels-grid{grid-template-columns:1fr;}
-      .panel-phone,.panel-tagline{border-right:none;}
-      .panel-typeright{padding:40px 24px;}
-      .about-row{grid-template-columns:1fr;}
-      .panel-about-img{min-height:260px;}
-      .bottom-row{grid-template-columns:1fr;}
-      .mini-panel{border-right:none;border-bottom:5px solid var(--ink);}
-      nav{padding:0 16px;}
-      .nav-right{display:none;}
-      footer{flex-direction:column;align-items:flex-start;}
+    /* SCROLL REVEAL */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1);}
+    .reveal.vis{opacity:1;transform:none;}
+
+    /* CURSOR EMBERS (desktop) */
+    .ember{position:fixed;width:3px;height:3px;border-radius:50%;background:var(--red);pointer-events:none;z-index:997;animation:emberFade 1s forwards;}
+    @keyframes emberFade{to{opacity:0;transform:translateY(-14px) scale(.3)}}
+
+    @media(max-width:860px){
+      .hero{padding:120px 0 50px;}
+      .hero-grid,.app-grid,.app-grid.flip,.about-grid{grid-template-columns:1fr;gap:38px;}
+      .minis{grid-template-columns:1fr;}
+      .nav-links{gap:16px;}
+      .ghost{display:none;}
+      .sect{padding:70px 0 0;}
     }
-
-    /* PANEL HOVER POP */
-    .panel-typeright{transition:transform .15s,box-shadow .15s;}
-    .panel-typeright:hover{transform:translate(-5px,-5px);box-shadow:16px 16px 0 var(--purple);}
-    .panel-thumbtype-wrap{transition:transform .15s,box-shadow .15s;}
-    .panel-thumbtype-wrap:hover{transform:translate(-5px,-5px);box-shadow:16px 16px 0 rgba(0,160,0,.8);}
-
-    /* CURSOR TRAIL spark */
-    .cursor-spark{position:fixed;pointer-events:none;z-index:9999;font-family:'Bangers',cursive;transform:translate(-50%,-50%);will-change:transform,opacity;}
-
-    /* FLOATING BACKGROUND WORDS */
-    .float-word{position:fixed;pointer-events:none;z-index:9;font-family:'Bangers',cursive;}
   </style>
 </head>
 <body>
+  <div class="grain"></div>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-brand">
-    <img src="logo.png" alt="Dumb Donkey">
-    <span class="nav-brand-name">DUMB DONKEY</span>
-  </a>
-  <div class="nav-right">
-    <a href="#apps" class="nav-btn">APPS</a>
-    <a href="#about" class="nav-btn">ABOUT</a>
-    <a href="mailto:hello@dumbdonkey.fyi" class="nav-btn">CONTACT</a>
-  </div>
-</nav>
-
-<div class="page">
+  <nav>
+    <a class="brand" href="#"><img src="logo.png" alt="Dumb Donkey"><span>DUMB DONKEY</span></a>
+    <div class="nav-links">
+      <a href="#apps">APPS</a>
+      <a href="#about">ABOUT</a>
+      <a href="mailto:hello@dumbdonkey.fyi">CONTACT</a>
+    </div>
+  </nav>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-art panel-lg" style="border:none;box-shadow:none;">
-      <div class="hero-art-lines"></div>
-      <img src="hero.png" alt="Dumb Donkey" class="hero-img">
-      <div class="pow" style="top:12%;right:8%;">
-        <span style="background:var(--red);animation-duration:4s;">POW!</span>
+  <header class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker"><span id="typed"></span><span class="cursor"></span></div>
+        <h1>
+          <span class="line">APPS THAT</span>
+          <span class="line">SHOULD'VE</span>
+          <span class="line"><em>EXISTED</em></span>
+          <span class="line">ALREADY.</span>
+        </h1>
+        <p class="sub">Big ideas. Built by one donkey. No compromises, no dark patterns, no noise.</p>
+        <a class="cta" href="#apps">SEE OUR APPS</a>
       </div>
-      <div class="pow" style="bottom:18%;left:6%;">
-        <span style="background:var(--blue);animation-delay:-2s;animation-duration:6s;font-size:14px;">ZAP!</span>
+      <div class="cover">
+        <div class="art"><img src="hero.png" alt="Dumb breaks through a wall"></div>
+        <div class="cap">ISSUE #01 — THE BREAKTHROUGH</div>
       </div>
     </div>
-    <div class="hero-text">
-      <div class="hero-caption" style="transform:rotate(-2deg);">🫏 DUMB DONKEY STUDIO</div>
-      <h1 class="hero-h1">APPS THAT SHOULD'VE EXISTED ALREADY.</h1>
-      <div class="speech-bubble">
-        Big ideas. Built by one donkey.<br>
-        <span style="color:var(--red);">No compromises.</span>
+  </header>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span>TYPERIGHT KEYBOARD <b>/</b> THUMBTYPE KEYBOARD <b>/</b> BUILT DIFFERENT <b>/</b> ONE DONKEY STUDIO <b>/</b> MORE DROPPING SOON <b>/</b></span>
+      <span>TYPERIGHT KEYBOARD <b>/</b> THUMBTYPE KEYBOARD <b>/</b> BUILT DIFFERENT <b>/</b> ONE DONKEY STUDIO <b>/</b> MORE DROPPING SOON <b>/</b></span>
+    </div>
+  </div>
+
+  <!-- TYPERIGHT -->
+  <section class="sect wrap" id="apps">
+    <div class="sect-head reveal">
+      <div class="ghost">01</div>
+      <div class="chapter">CHAPTER 01 — NOW ON ANDROID</div>
+      <div class="sect-title">TYPERIGHT</div>
+      <div class="scanline"></div>
+    </div>
+    <div class="app-grid">
+      <div class="reveal">
+        <p class="app-desc">The keyboard that finally thinks. <strong>Keys sized by how often you use them</strong> — E gets 60% more space than Z. A clipboard that never forgets what you copied. A spacebar that never changes your words behind your back. 24 animated skins with rain, embers and fireflies. AI assistant built in. Everything a keyboard should've had from day one.</p>
+        <div class="tags-label">WHAT'S INSIDE</div>
+        <div class="tags">
+          <span class="tag">MORPHIE KEYS</span>
+          <span class="tag">NPUT AI</span>
+          <span class="tag">NOTEBOOK</span>
+          <span class="tag">24 ANIMATED SKINS</span>
+          <span class="tag">KEY SOUNDS</span>
+          <span class="tag">PRIVACY LOCK</span>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" rel="noopener" class="play-btn">▶ GET IT ON GOOGLE PLAY</a>
+        <div class="badges">
+          <a href="https://www.producthunt.com/products/typeright?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-typeright" target="_blank" rel="noopener noreferrer"><img alt="TypeRight on Product Hunt" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1190397&theme=dark&t=1783694802764"></a>
+          <a href="https://launchbuff.com" target="_blank" rel="noopener noreferrer" title="Featured on LaunchBuff"><img src="https://launchbuff.com/badge-featured-dark.svg" alt="Featured on LaunchBuff"></a>
+        </div>
       </div>
-      <a href="#apps" class="hero-cta">⚡ SEE OUR APPS</a>
+      <div class="reveal">
+        <div class="video-frame">
+          <video autoplay muted loop playsinline preload="metadata" poster="typeright-ad-poster.jpg">
+            <source src="typeright-ad.mp4" type="video/mp4">
+          </video>
+          <div class="video-bar"><span class="rec"></span> NOW SHOWING — DUMB DEMOS IT · 8 SEC</div>
+        </div>
+      </div>
+    </div>
+    <div class="pull reveal">
+      <div class="pull-text">KEYS THAT <em>THINK</em> FOR THEMSELVES.</div>
+      <div class="pull-sub">— THE TYPERIGHT PRINCIPLE</div>
     </div>
   </section>
 
-  <!-- SCROLLING STRIP -->
-  <div class="strip">
-    <div class="strip-track">
-      <span class="strip-item">DUMB DONKEY</span><span class="strip-dot">★</span>
-      <span class="strip-item">TYPERIGHT KEYBOARD</span><span class="strip-dot">★</span>
-      <span class="strip-item">THUMBTYPE KEYBOARD</span><span class="strip-dot">★</span>
-      <span class="strip-item">APPS WITH IDEAS</span><span class="strip-dot">★</span>
-      <span class="strip-item">BUILT DIFFERENT</span><span class="strip-dot">★</span>
-      <span class="strip-item">MORE DROPPING SOON</span><span class="strip-dot">★</span>
-      <span class="strip-item">ONE DONKEY STUDIO</span><span class="strip-dot">★</span>
-      <span class="strip-item">DUMB DONKEY</span><span class="strip-dot">★</span>
-      <span class="strip-item">TYPERIGHT KEYBOARD</span><span class="strip-dot">★</span>
-      <span class="strip-item">THUMBTYPE KEYBOARD</span><span class="strip-dot">★</span>
-      <span class="strip-item">APPS WITH IDEAS</span><span class="strip-dot">★</span>
-      <span class="strip-item">BUILT DIFFERENT</span><span class="strip-dot">★</span>
-      <span class="strip-item">MORE DROPPING SOON</span><span class="strip-dot">★</span>
-      <span class="strip-item">ONE DONKEY STUDIO</span><span class="strip-dot">★</span>
+  <!-- THUMBTYPE -->
+  <section class="sect wrap">
+    <div class="sect-head reveal">
+      <div class="ghost">02</div>
+      <div class="chapter">CHAPTER 02 — NOW ON ANDROID</div>
+      <div class="sect-title">THUMBTYPE</div>
+      <div class="scanline"></div>
     </div>
-  </div>
-
-  <!-- APP PANELS -->
-  <div id="apps">
-
-    <!-- SECTION HEADER -->
-    <div style="background:var(--ink);border-bottom:5px solid var(--red);padding:28px 40px;text-align:center;position:relative;overflow:hidden;">
-      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(232,28,28,0.08) 1.8px,transparent 1.8px);background-size:16px 16px;"></div>
-      <div style="position:relative;z-index:1;font-size:11px;letter-spacing:4px;color:var(--blue);margin-bottom:10px;">DUMB DONKEY STUDIO</div>
-      <div style="position:relative;z-index:1;font-size:clamp(36px,5vw,60px);color:var(--white);text-shadow:4px 4px 0 var(--red);letter-spacing:2px;">OUR APPS</div>
-    </div>
-
-    <!-- TYPERIGHT -->
-    <div class="panels-grid" style="border-bottom:7px solid var(--ink);">
-      <div class="panel-typeright">
-        <div class="panel-label">APP 01 — NOW ON ANDROID</div>
-        <div class="panel-title">TYPERIGHT</div>
-        <p class="panel-desc">The keyboard that finally thinks. Keys sized by how often you use them — E gets 60% more space than Z. A clipboard that never forgets what you copied. A spacebar that never changes your words behind your back. 24 animated skins with rain, embers and fireflies. AI assistant built in. Everything a keyboard should've had from day one.</p>
-        <div>
-          <div class="panel-tag-label" style="margin-bottom:10px;">WHAT'S INSIDE</div>
-          <div class="panel-tags">
-            <span class="panel-tag">MORPHIE KEYS</span>
-            <span class="panel-tag">NPUT AI</span>
-            <span class="panel-tag">NOTEBOOK</span>
-            <span class="panel-tag">24 ANIMATED SKINS</span>
-            <span class="panel-tag">KEY SOUNDS</span>
-            <span class="panel-tag">PRIVACY LOCK</span>
-          </div>
-        </div>
-        <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.typeright" target="_blank" rel="noopener" class="play-btn">▶ GET IT ON GOOGLE PLAY</a>
-        <a href="https://www.producthunt.com/products/typeright?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-typeright" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:12px;"><img alt="TypeRight on Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1190397&theme=light&t=1783694802764"></a>
-        <a href="https://launchbuff.com" target="_blank" rel="noopener noreferrer" title="Featured on LaunchBuff" style="display:inline-block;margin-top:12px;"><img src="https://launchbuff.com/badge-featured-dark.svg" alt="Featured on LaunchBuff" width="256" height="80" /></a>
-      </div>
-      <div class="panel-phone">
-        <div class="phone">
-          <div class="pscreen">
-            <div class="krow"><div class="k s">Q</div><div class="k s">W</div><div class="k b">E</div><div class="k s">R</div><div class="k b">T</div><div class="k s">Y</div><div class="k">U</div><div class="k b">I</div><div class="k">O</div><div class="k s">P</div></div>
-            <div class="krow"><div class="k b">A</div><div class="k s">S</div><div class="k s">D</div><div class="k s">F</div><div class="k s">G</div><div class="k s">H</div><div class="k s">J</div><div class="k s">K</div><div class="k s">L</div></div>
-            <div class="krow"><div class="k s">Z</div><div class="k s">X</div><div class="k s">C</div><div class="k s">V</div><div class="k s">B</div><div class="k">N</div><div class="k s">M</div></div>
-            <div class="krow"><div class="k w">SPACE</div></div>
-          </div>
+    <div class="app-grid flip">
+      <div class="reveal">
+        <div class="mono-panel">
+          <span class="mono-thumb">👍</span>
+          <div class="mono-line">YOUR THUMB KNOWS BEST</div>
+          <div class="mono-cap">CASE FILE — TT.V3 · FIELD TESTED</div>
         </div>
       </div>
-      <div class="panel-tagline">
-        <div class="tagline-zap">⚡</div>
-        <div class="tagline-text">KEYS THAT<br>THINK FOR<br>THEMSELVES.</div>
+      <div class="reveal">
+        <p class="app-desc">A keyboard <strong>engineered around your thumb</strong>. Offline voice input, AI built in, spell check, personal dictionary, notepad, QR scanner — everything works without internet. Your phone, your data.</p>
+        <div class="tags-label">WHAT'S INSIDE</div>
+        <div class="tags">
+          <span class="tag">VOICE INPUT</span>
+          <span class="tag">OFFLINE AI</span>
+          <span class="tag">SPELL CHECK</span>
+          <span class="tag">NOTEPAD</span>
+          <span class="tag">QR SCANNER</span>
+          <span class="tag">PERSONAL DICT</span>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.thumbtype" target="_blank" rel="noopener" class="play-btn">▶ GET IT ON GOOGLE PLAY</a>
       </div>
     </div>
-
-    <!-- TYPERIGHT VIDEO AD -->
-    <div style="background:#1a0a2e;border-bottom:7px solid var(--ink);padding:50px 24px;position:relative;overflow:hidden;">
-      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(109,40,217,0.15) 1.8px,transparent 1.8px);background-size:16px 16px;"></div>
-      <div style="position:relative;z-index:1;max-width:860px;margin:0 auto;text-align:center;">
-        <div class="panel-label" style="margin-bottom:16px;">DUMB DEMOS IT ⚡ 8 SECONDS</div>
-        <video autoplay muted loop playsinline preload="metadata" style="width:100%;display:block;border:7px solid var(--ink);box-shadow:12px 12px 0 var(--purple);background:#000;">
-          <source src="typeright-ad.mp4" type="video/mp4">
-        </video>
-      </div>
-    </div>
-
-    <!-- THUMBTYPE -->
-    <div class="panel-thumbtype-wrap" style="display:grid;grid-template-columns:1fr 2fr;border-bottom:7px solid var(--ink);">
-      <div style="background:#0a1a0a;border-right:7px solid var(--ink);display:flex;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,0,0.08) 1.8px,transparent 1.8px);background-size:16px 16px;"></div>
-        <div style="position:relative;z-index:1;text-align:center;">
-          <div style="font-size:80px;animation:thumbBounce 2s ease-in-out infinite;">👍</div>
-          <div style="font-size:13px;letter-spacing:3px;color:rgba(255,255,255,.4);margin-top:12px;">YOUR THUMB<br>KNOWS BEST</div>
-        </div>
-      </div>
-      <div style="background:#0d1a0d;padding:50px 50px;display:flex;flex-direction:column;gap:22px;position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,0,0.06) 1.8px,transparent 1.8px);background-size:16px 16px;"></div>
-        <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:22px;">
-          <div class="panel-label">APP 02 — NOW ON ANDROID</div>
-          <div class="panel-title" style="color:var(--white);text-shadow:5px 5px 0 rgba(0,100,0,.5);">THUMBTYPE</div>
-          <p class="panel-desc">A keyboard engineered around your thumb. Offline voice input, AI built in, spell check, personal dictionary, notepad, QR scanner — everything works without internet. Your phone, your data.</p>
-          <div>
-            <div class="panel-tag-label" style="margin-bottom:10px;">WHAT'S INSIDE</div>
-            <div class="panel-tags">
-              <span class="panel-tag">VOICE INPUT</span>
-              <span class="panel-tag">OFFLINE AI</span>
-              <span class="panel-tag">SPELL CHECK</span>
-              <span class="panel-tag">NOTEPAD</span>
-              <span class="panel-tag">QR SCANNER</span>
-              <span class="panel-tag">PERSONAL DICT</span>
-            </div>
-          </div>
-          <a href="https://play.google.com/store/apps/details?id=com.sy5temnext.thumbtype" target="_blank" rel="noopener" class="play-btn">▶ GET IT ON GOOGLE PLAY</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- MORE APPS TEASER -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:7px solid var(--ink);">
-      <div style="background:#1a1a0a;border-right:5px solid var(--ink);padding:40px 36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,215,0,0.06) 1.8px,transparent 1.8px);background-size:14px 14px;"></div>
-        <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;">
-          <div class="mini-eyebrow">IN THE LAB</div>
-          <div class="mini-title">APP #3</div>
-          <div class="mini-body">Something is being built. Something weird. Something you'll use every single day.</div>
-          <div class="mini-hype yellow" id="labCount1">🔥 THE DONKEY IS COOKING</div>
-        </div>
-      </div>
-      <div style="background:#0a0a1a;padding:40px 36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,180,255,0.06) 1.8px,transparent 1.8px);background-size:14px 14px;"></div>
-        <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;">
-          <div class="mini-eyebrow">ALWAYS</div>
-          <div class="mini-title">NO BS</div>
-          <div class="mini-body">No dark patterns. No fake urgency. No subscriptions unless they're earned. Dumb Donkey builds things that earn their place on your phone.</div>
-          <div class="mini-hype blue">🫏 THAT'S THE DEAL</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+  </section>
 
   <!-- ABOUT -->
-  <div class="about-row" id="about">
-    <div class="panel-about-img">
-      <img src="about-scene.png" alt="Dumb Donkey building apps">
-      <div class="caption-box">CHAPTER 1: THE DONKEY BUILDS</div>
+  <section class="sect wrap" id="about">
+    <div class="sect-head reveal">
+      <div class="ghost">03</div>
+      <div class="chapter">CHAPTER 03 — THE STUDIO</div>
+      <div class="sect-title">THE DONKEY BUILDS</div>
+      <div class="scanline"></div>
     </div>
-    <div class="panel-about-text">
-      <div class="about-h" id="aboutH">ONE DONKEY.<br>BIG IDEAS.<br>NO RULES.</div>
-      <p class="about-p" id="aboutP">Every app we build starts with a <strong>problem that annoyed us</strong>. No roadmaps, no committees, no compromises. Just one stubborn donkey building things that should've existed already.<br><br>We don't chase trends. We make apps we'd actually want to use.</p>
-      <a href="mailto:hello@dumbdonkey.fyi" class="about-contact">✉ SAY HELLO</a>
-    </div>
-  </div>
-
-  <!-- BOTTOM MINI PANELS -->
-  <div class="bottom-row">
-    <div class="mini-panel mini-panel-1 reveal" id="mp1">
-      <div class="mini-eyebrow">FIND US</div>
-      <div class="mini-title">FOLLOW US</div>
-      <div class="mini-body">New apps, updates, and donkey nonsense dropping regularly. We're on X and TikTok.</div>
-      <div style="display:flex;gap:12px;margin-top:4px;">
-        <a href="https://x.com/dumbdonkeystudi" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--white);text-decoration:none;font-size:14px;letter-spacing:1px;padding:10px 16px;border:4px solid var(--yellow);box-shadow:4px 4px 0 var(--yellow);">𝕏 TWITTER</a>
-        <a href="https://www.tiktok.com/@dumbdonkeystudio" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:var(--red);color:var(--white);text-decoration:none;font-size:14px;letter-spacing:1px;padding:10px 16px;border:4px solid var(--ink);box-shadow:4px 4px 0 var(--ink);">TikTok</a>
+    <div class="about-grid">
+      <div class="cover reveal" style="animation:none;opacity:1;">
+        <div class="art"><img src="about-scene.png" alt="Dumb codes late into the night"></div>
+        <div class="cap">LATE SHIFT — EVERY NIGHT</div>
+      </div>
+      <div class="reveal">
+        <div class="about-h">ONE DONKEY.<br>BIG IDEAS.<br><em>NO RULES.</em></div>
+        <p class="about-p">Every app we build starts with a <strong>problem that annoyed us</strong>. No roadmaps, no committees, no compromises. Just one stubborn donkey building things that should've existed already.<br><br>We don't chase trends. We make apps we'd actually want to use.</p>
+        <a href="mailto:hello@dumbdonkey.fyi" class="say">✉ SAY HELLO</a>
       </div>
     </div>
-    <div class="mini-panel mini-panel-2 reveal" id="mp2" style="transition-delay:.12s;">
-      <div class="mini-eyebrow">IN THE LAB</div>
-      <div class="mini-title">APP #3</div>
-      <div class="mini-body">Three ideas on the board. One is already half built. Stay close.</div>
-      <div class="mini-hype blue" id="labCount2">⚡ DROPPING WHEN IT'S READY</div>
+
+    <!-- MINI PANELS -->
+    <div class="minis">
+      <div class="mini reveal">
+        <div class="mini-eyebrow">FIND US</div>
+        <div class="mini-title">FOLLOW US</div>
+        <div class="mini-body">New apps, updates, and donkey nonsense dropping regularly. We're on X and TikTok.</div>
+        <div class="soc">
+          <a href="https://x.com/dumbdonkeystudi" target="_blank" rel="noopener">𝕏 TWITTER</a>
+          <a href="https://www.tiktok.com/@dumbdonkeystudio" target="_blank" rel="noopener">TIKTOK</a>
+        </div>
+      </div>
+      <div class="mini reveal" style="transition-delay:.12s;">
+        <div class="mini-eyebrow">IN THE LAB</div>
+        <div class="mini-title">APP #3</div>
+        <div class="mini-body">Three ideas on the board. One is already half built. Stay close.</div>
+        <div class="mini-hype" id="labCount"><b>●</b> THE DONKEY IS COOKING</div>
+      </div>
+      <div class="mini reveal" style="transition-delay:.24s;">
+        <div class="mini-eyebrow">ALWAYS</div>
+        <div class="mini-title">NO BS</div>
+        <div class="mini-body">We don't do dark patterns. We don't do fake urgency. We build things that earn their place on your phone.</div>
+        <div class="mini-hype"><b>●</b> THAT'S THE DEAL</div>
+      </div>
     </div>
-    <div class="mini-panel mini-panel-3 reveal" id="mp3" style="transition-delay:.24s;">
-      <div class="mini-eyebrow">ALWAYS</div>
-      <div class="mini-title">NO BS</div>
-      <div class="mini-body">We don't do dark patterns. We don't do fake urgency. We build things that earn their place on your phone.</div>
-      <div class="mini-hype yellow">🫏 THAT'S THE DEAL</div>
-    </div>
-  </div>
+  </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-brand">DUMB DONKEY<small>© 2026 — BUILT DIFFERENT.</small></div>
-    <div class="footer-links">
-      <a href="#about">About</a>
-      <a href="mailto:hello@dumbdonkey.fyi">Contact</a>
-      <a href="https://twitter.com/dumbdonkeyfyi" target="_blank" rel="noopener">X / Twitter</a>
-      <a href="https://www.tiktok.com/@dumbthedonkey" target="_blank" rel="noopener">TikTok</a>
-      <a href="https://www.instagram.com/dumbdonkeyfyi" target="_blank" rel="noopener">Instagram</a>
-      <a href="/typeright/">TypeRight Guides</a>
+    <div class="f-brand">DUMB DONKEY<small>© 2026 — BUILT DIFFERENT.</small></div>
+    <div class="f-links">
+      <a href="#about">ABOUT</a>
+      <a href="mailto:hello@dumbdonkey.fyi">CONTACT</a>
+      <a href="https://twitter.com/dumbdonkeyfyi" target="_blank" rel="noopener">X / TWITTER</a>
+      <a href="https://www.tiktok.com/@dumbthedonkey" target="_blank" rel="noopener">TIKTOK</a>
+      <a href="https://www.instagram.com/dumbdonkeyfyi" target="_blank" rel="noopener">INSTAGRAM</a>
+      <a href="/typeright/">TYPERIGHT GUIDES</a>
     </div>
-    <div class="footer-copy">dumbdonkey.fyi</div>
   </footer>
 
-</div>
-
 <script>
-  // ── SCROLL REVEAL ──────────────────────────────────────────────────────────
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); } });
-  }, {threshold:0.12});
-  ['aboutH','aboutP','mp1','mp2','mp3'].forEach(id => {
-    const el = document.getElementById(id);
-    if(el) obs.observe(el);
-  });
+  // make sure the ad video actually plays everywhere
+  const adv = document.querySelector('video');
+  const kick = () => { if (adv.paused) adv.play().catch(()=>{}); };
+  adv.addEventListener('canplay', kick);
+  document.addEventListener('visibilitychange', kick);
+  setInterval(kick, 3000);
 
-  // ── RANDOM KEY GLOW ────────────────────────────────────────────────────────
-  const keys = document.querySelectorAll('.k');
-  setInterval(() => {
-    keys.forEach(k => { k.style.background=''; k.style.boxShadow=''; });
-    const pick = keys[Math.floor(Math.random()*keys.length)];
-    pick.style.background='#00b4ff';
-    pick.style.boxShadow='0 0 10px rgba(0,180,255,1)';
-    setTimeout(()=>{ pick.style.background=''; pick.style.boxShadow=''; }, 350);
-  }, 500);
+  // typewriter kicker
+  const msg = "DUMB DONKEY STUDIO · EST. 2026";
+  const typed = document.getElementById('typed');
+  let ti = 0;
+  (function typeIt(){
+    if (ti <= msg.length) { typed.textContent = msg.slice(0, ti); ti++; setTimeout(typeIt, 55); }
+  })();
 
-  // ── PARALLAX HERO ──────────────────────────────────────────────────────────
-  const heroImg = document.querySelector('.hero-img');
-  if(heroImg) {
-    window.addEventListener('scroll', () => {
-      const pct = Math.min(window.scrollY / window.innerHeight, 1);
-      heroImg.style.objectPosition = '50% ' + (50 + pct * 28) + '%';
-    }, {passive: true});
-  }
+  // scroll reveal
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); }
+  }), {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // ── CURSOR TRAIL ───────────────────────────────────────────────────────────
-  const sparkWords = ['★','POW!','ZAP!','BAM!','✦','⚡','★'];
-  const sparkColors = ['#FFD700','#e81c1c','#00b4ff','#ffffff','#FFD700'];
-  let lastSpark = 0;
-  document.addEventListener('mousemove', e => {
-    const now = Date.now();
-    if(now - lastSpark < 90) return;
-    lastSpark = now;
-    const el = document.createElement('div');
-    el.className = 'cursor-spark';
-    el.textContent = sparkWords[Math.floor(Math.random() * sparkWords.length)];
-    el.style.cssText += 'left:' + e.clientX + 'px;top:' + e.clientY + 'px;font-size:' + (10 + Math.random()*11) + 'px;color:' + sparkColors[Math.floor(Math.random()*sparkColors.length)] + ';opacity:1;transition:opacity .65s ease,transform .65s ease;';
-    document.body.appendChild(el);
-    requestAnimationFrame(() => {
-      el.style.opacity = '0';
-      el.style.transform = 'translate(-50%, calc(-50% - ' + (28 + Math.random()*28) + 'px)) rotate(' + (-18 + Math.random()*36) + 'deg)';
+  // lab counter — days since 2026-07-01
+  const days = Math.floor((Date.now() - new Date('2026-07-01').getTime()) / 86400000);
+  if (days > 0) document.getElementById('labCount').innerHTML = '<b>●</b> ' + days + ' DAYS IN THE LAB';
+
+  // cursor embers (desktop only, throttled)
+  let lastEmber = 0;
+  if (matchMedia('(pointer:fine)').matches) {
+    addEventListener('mousemove', e => {
+      const now = performance.now();
+      if (now - lastEmber < 90) return;
+      lastEmber = now;
+      const d = document.createElement('div');
+      d.className = 'ember';
+      d.style.left = (e.clientX + (Math.random()*10-5)) + 'px';
+      d.style.top = (e.clientY + (Math.random()*10-5)) + 'px';
+      document.body.appendChild(d);
+      setTimeout(() => d.remove(), 1000);
     });
-    setTimeout(() => el.remove(), 700);
-  });
-
-  // ── FLOATING BACKGROUND ACTION WORDS ──────────────────────────────────────
-  const floatWords = ['BAM!','ZAP!','POW!','WOW!','BOOM!','KA-POW!','★','⚡','NICE!','WILD!'];
-  const floatColors = ['#FFD700','#e81c1c','#00b4ff'];
-  function spawnFloat() {
-    const el = document.createElement('div');
-    el.className = 'float-word';
-    el.textContent = floatWords[Math.floor(Math.random() * floatWords.length)];
-    el.style.left = (8 + Math.random() * 82) + '%';
-    el.style.bottom = '-55px';
-    el.style.fontSize = (16 + Math.random() * 22) + 'px';
-    el.style.color = floatColors[Math.floor(Math.random() * floatColors.length)];
-    el.style.opacity = '0';
-    el.style.transition = 'none';
-    document.body.appendChild(el);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      el.style.transition = 'bottom 4.2s ease-out, opacity 0.6s ease';
-      el.style.bottom = (42 + Math.random() * 38) + 'vh';
-      el.style.opacity = '0.11';
-      setTimeout(() => {
-        el.style.transition = 'opacity 1.2s ease';
-        el.style.opacity = '0';
-      }, 3000);
-    }));
-    setTimeout(() => el.remove(), 4600);
   }
-  setTimeout(spawnFloat, 600);
-  setInterval(spawnFloat, 2200);
-
-  // ── LAB DAYS COUNTER ──────────────────────────────────────────────────────
-  const labDays = Math.floor((Date.now() - new Date('2026-07-01').getTime()) / 86400000);
-  ['labCount1','labCount2'].forEach(id => {
-    const el = document.getElementById(id);
-    if(el) el.textContent = '🔥 ' + labDays + ' DAYS IN THE LAB';
-  });
 </script>
 </body>
 </html>
