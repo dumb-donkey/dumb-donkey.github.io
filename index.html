@@ -149,6 +149,27 @@
     .f-links a{color:var(--faint);text-decoration:none;font-size:10px;letter-spacing:2px;transition:color .3s;}
     .f-links a:hover{color:var(--red);}
 
+    /* SCROLL PROGRESS */
+    .progress{position:fixed;top:0;left:0;height:2px;background:var(--red);z-index:1001;width:0;box-shadow:0 0 8px rgba(193,18,31,.7);}
+
+    /* COMIC READER */
+    .reader{max-width:540px;margin:0 auto;}
+    .reader-frame{border:1px solid var(--line);background:#000;position:relative;overflow:hidden;perspective:900px;}
+    .reader-frame img{width:100%;display:block;filter:saturate(.85) contrast(1.05);transition:opacity .3s ease,transform .45s cubic-bezier(.2,.7,.3,1);transform-origin:left center;backface-visibility:hidden;}
+    .reader-frame img.turning{opacity:0;transform:rotateY(-16deg) scale(.97);}
+    .reader-frame .page-tag{position:absolute;top:12px;right:12px;background:var(--bg);border:1px solid var(--line);font-family:'Special Elite',monospace;font-size:9px;letter-spacing:2px;color:var(--dim);padding:5px 10px;z-index:2;}
+    .reader-bar{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
+    .rbtn{font-family:'Bebas Neue';font-size:22px;line-height:1;color:var(--ink);background:none;border:1px solid var(--line);width:46px;height:46px;cursor:pointer;transition:border-color .3s,color .3s,background .3s;}
+    .rbtn:hover{border-color:var(--red);color:var(--red);}
+    .rbtn:active{background:var(--red);color:var(--ink);}
+    .rcount{font-family:'Special Elite',monospace;font-size:11px;letter-spacing:3px;color:var(--faint);}
+    .rcount b{color:var(--red);font-weight:400;}
+    .rdots{display:flex;gap:7px;justify-content:center;margin-top:14px;}
+    .rdots span{width:5px;height:5px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s,transform .3s;}
+    .rdots span.on{background:var(--red);transform:scale(1.5);}
+    .reader-note{text-align:center;font-family:'Special Elite',monospace;font-size:10px;letter-spacing:2px;color:var(--faint);margin-top:20px;}
+    .reader-note b{color:var(--red);font-weight:400;}
+
     /* SCROLL REVEAL */
     .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1);}
     .reveal.vis{opacity:1;transform:none;}
@@ -169,6 +190,7 @@
 </head>
 <body>
   <div class="grain"></div>
+  <div class="progress" id="progress"></div>
 
   <nav>
     <a class="brand" href="#"><img src="logo.png" alt="Dumb Donkey"><span>DUMB DONKEY</span></a>
@@ -281,11 +303,34 @@
     </div>
   </section>
 
+  <!-- THE FUNNY PAGES -->
+  <section class="sect wrap" id="comics">
+    <div class="sect-head reveal">
+      <div class="ghost">03</div>
+      <div class="chapter">CHAPTER 03 — FRESH OFF THE PRESS</div>
+      <div class="sect-title">THE FUNNY PAGES</div>
+      <div class="scanline"></div>
+    </div>
+    <div class="reader reveal">
+      <div class="reader-frame">
+        <div class="page-tag" id="pageTag">PLATE Nº 1</div>
+        <img id="comicPage" src="comics/page1.jpg" alt="Dumb Donkey comic page">
+      </div>
+      <div class="reader-bar">
+        <button class="rbtn" id="prevPage" aria-label="Previous page">‹</button>
+        <div class="rcount">PAGE <b id="pageNow">1</b> / <span id="pageTotal">8</span></div>
+        <button class="rbtn" id="nextPage" aria-label="Next page">›</button>
+      </div>
+      <div class="rdots" id="pageDots"></div>
+      <div class="reader-note">FROM THE DAILY STRIPS — NEW PAGES DROP EVERY DAY ON <b>X</b> · <b>TIKTOK</b> · <b>INSTAGRAM</b></div>
+    </div>
+  </section>
+
   <!-- ABOUT -->
   <section class="sect wrap" id="about">
     <div class="sect-head reveal">
-      <div class="ghost">03</div>
-      <div class="chapter">CHAPTER 03 — THE STUDIO</div>
+      <div class="ghost">04</div>
+      <div class="chapter">CHAPTER 04 — THE STUDIO</div>
       <div class="sect-title">THE DONKEY BUILDS</div>
       <div class="scanline"></div>
     </div>
@@ -365,6 +410,62 @@
   // lab counter — days since 2026-07-01
   const days = Math.floor((Date.now() - new Date('2026-07-01').getTime()) / 86400000);
   if (days > 0) document.getElementById('labCount').innerHTML = '<b>●</b> ' + days + ' DAYS IN THE LAB';
+
+  // scroll progress + ghost numeral parallax
+  const bar = document.getElementById('progress');
+  const ghosts = document.querySelectorAll('.ghost');
+  addEventListener('scroll', () => {
+    bar.style.width = (scrollY / (document.body.scrollHeight - innerHeight) * 100) + '%';
+    ghosts.forEach(g => {
+      const r = g.getBoundingClientRect();
+      g.style.transform = 'translateY(' + ((r.top - innerHeight/2) * 0.12) + 'px)';
+    });
+  }, {passive:true});
+
+  // comic reader
+  const PAGES = 8;
+  const img = document.getElementById('comicPage');
+  const dots = document.getElementById('pageDots');
+  let pg = 0, autoTimer;
+  for (let i = 0; i < PAGES; i++) {
+    const d = document.createElement('span');
+    if (i === 0) d.className = 'on';
+    d.addEventListener('click', () => go(i, true));
+    dots.appendChild(d);
+  }
+  function go(n, manual) {
+    pg = (n + PAGES) % PAGES;
+    img.classList.add('turning');
+    setTimeout(() => {
+      img.src = 'comics/page' + (pg + 1) + '.jpg';
+      img.onload = () => img.classList.remove('turning');
+      document.getElementById('pageNow').textContent = pg + 1;
+      document.getElementById('pageTag').textContent = 'PLATE Nº ' + (pg + 1);
+      [...dots.children].forEach((d, i) => d.className = i === pg ? 'on' : '');
+      const pre = new Image(); pre.src = 'comics/page' + ((pg + 1) % PAGES + 1) + '.jpg';
+    }, 300);
+    if (manual) restartAuto();
+  }
+  document.getElementById('prevPage').addEventListener('click', () => go(pg - 1, true));
+  document.getElementById('nextPage').addEventListener('click', () => go(pg + 1, true));
+  // auto-advance only while the reader is on screen
+  let readerVisible = false;
+  new IntersectionObserver(es => { readerVisible = es[0].isIntersecting; }, {threshold:.3})
+    .observe(document.querySelector('.reader'));
+  function restartAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => { if (readerVisible && !document.hidden) go(pg + 1); }, 5000);
+  }
+  restartAuto();
+  // swipe
+  let sx = null;
+  img.addEventListener('touchstart', e => sx = e.touches[0].clientX, {passive:true});
+  img.addEventListener('touchend', e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) go(pg + (dx < 0 ? 1 : -1), true);
+    sx = null;
+  }, {passive:true});
 
   // cursor embers (desktop only, throttled)
   let lastEmber = 0;
