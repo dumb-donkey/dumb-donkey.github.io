@@ -16,24 +16,20 @@
   body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     background:radial-gradient(1300px 700px at 80% -15%,#132443 0,var(--bg) 55%);
-    color:var(--text); min-height:100vh; padding:24px 26px 60px; -webkit-font-smoothing:antialiased;
+    color:var(--text); min-height:100vh; padding:24px 26px 80px; -webkit-font-smoothing:antialiased;
   }
+  body.has-dock{padding-bottom:70px}
   a{color:inherit;text-decoration:none}
   .panel{background:linear-gradient(180deg,rgba(20,29,46,.9),rgba(12,18,32,.9));border:1px solid var(--line);border-radius:16px}
 
-  /* top */
   .top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:18px}
-  .greet{font-size:25px;font-weight:700}
-  .greet span{color:var(--accent)}
+  .greet{font-size:25px;font-weight:700}.greet span{color:var(--accent)}
   .sub{color:var(--dim);font-size:13px;margin-top:3px}
   .clockbox{display:flex;align-items:center;gap:22px}
   .time{font-size:42px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .date{color:var(--dim);font-size:13px;margin-top:6px;text-align:right}
-  .wx{text-align:right;min-width:96px}
-  .wx .t{font-size:26px;font-weight:700}
-  .wx .d{color:var(--dim);font-size:12px;margin-top:2px}
+  .wx{text-align:right;min-width:96px}.wx .t{font-size:26px;font-weight:700}.wx .d{color:var(--dim);font-size:12px;margin-top:2px}
 
-  /* strip of stat cards */
   .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
   .card{padding:16px 18px}
   .card .lab{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim);font-weight:700;display:flex;align-items:center;gap:7px}
@@ -45,28 +41,23 @@
   .timer-btns button{flex:1;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:7px;cursor:pointer;font-size:12px;font-weight:600}
   .timer-btns button:hover{border-color:var(--accent)}
 
-  /* command bar */
   .cmd{position:relative;margin-bottom:8px}
   .cmd input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);padding:16px 18px 16px 50px;border-radius:14px;font-size:16px;outline:none;transition:.15s}
   .cmd input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,169,255,.15)}
   .cmd svg{position:absolute;left:17px;top:50%;transform:translateY(-50%);opacity:.5}
   .cmd .action-hint{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--dim);background:var(--panel2);border:1px solid var(--line);padding:4px 9px;border-radius:7px;display:none}
   .cmd .action-hint.on{display:block}
-  .kbd{color:var(--accent)}
 
-  /* main layout */
   .main{display:grid;grid-template-columns:1fr 330px;gap:16px;margin-top:16px;align-items:start}
   @media(max-width:900px){.main{grid-template-columns:1fr}.strip{grid-template-columns:1fr}}
 
-  /* zones */
   .cat{margin-bottom:26px}
   .cat-head{display:flex;align-items:center;gap:10px;margin-bottom:13px}
   .cat-head h2{font-size:14px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim)}
   .cat-head .dot{width:8px;height:8px;border-radius:50%;background:var(--accent2)}
   .cat-head .count{color:var(--dim);font-size:12px;font-weight:600}
   .cat-head .edit-cat{margin-left:auto;color:var(--dim);cursor:pointer;font-size:12px;opacity:0;transition:.15s}
-  .cat:hover .edit-cat{opacity:1}
-  .cat-head .edit-cat:hover{color:var(--accent)}
+  .cat:hover .edit-cat{opacity:1}.cat-head .edit-cat:hover{color:var(--accent)}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px}
   .tile{position:relative;background:var(--tile);border:1px solid var(--line);border-radius:13px;padding:15px;display:flex;align-items:center;gap:13px;cursor:pointer;transition:.15s;overflow:hidden}
   .tile:hover{background:var(--tile-h);border-color:var(--accent);transform:translateY(-2px)}
@@ -77,46 +68,36 @@
   .tile .name{font-weight:600;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .tile .url{color:var(--dim);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
   .tile .kill{position:absolute;top:7px;right:9px;color:var(--dim);opacity:0;font-size:15px;transition:.15s}
-  .tile:hover .kill{opacity:.55}
-  .tile .kill:hover{opacity:1;color:var(--danger)}
+  .tile:hover .kill{opacity:.55}.tile .kill:hover{opacity:1;color:var(--danger)}
   .tile.add{border-style:dashed;justify-content:center;color:var(--dim);font-weight:600}
   .tile.add:hover{color:var(--accent)}
 
-  /* side widgets */
   .side{display:flex;flex-direction:column;gap:16px}
   .w{padding:16px}
   .w h4{font-size:12px;letter-spacing:1.3px;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-  .w h4 .a{margin-left:auto;color:var(--dim);cursor:pointer;font-weight:700;font-size:15px}
-  .w h4 .a:hover{color:var(--accent)}
-  /* todo */
+  .w h4 .a{margin-left:auto;color:var(--dim);cursor:pointer;font-weight:700;font-size:15px}.w h4 .a:hover{color:var(--accent)}
   .todo{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid rgba(29,42,62,.5)}
   .todo:last-child{border-bottom:none}
   .todo .chk{width:18px;height:18px;border:2px solid var(--line);border-radius:5px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px}
   .todo.done .chk{background:var(--ok);border-color:var(--ok);color:#06210f}
   .todo.done .txt{color:var(--dim);text-decoration:line-through}
   .todo .txt{flex:1;font-size:13.5px}
-  .todo .x{color:var(--dim);cursor:pointer;opacity:0;font-size:13px}
-  .todo:hover .x{opacity:.6}
-  .todo .x:hover{opacity:1;color:var(--danger)}
+  .todo .x{color:var(--dim);cursor:pointer;opacity:0;font-size:13px}.todo:hover .x{opacity:.6}.todo .x:hover{opacity:1;color:var(--danger)}
   .todo-add{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 11px;font-size:13px;outline:none;margin-top:10px}
   .todo-add:focus{border-color:var(--accent)}
   .muted{color:var(--dim);font-size:12.5px;padding:6px 0}
-  /* notes */
   .notes{width:100%;min-height:120px;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.6;resize:vertical;outline:none;font-family:inherit}
   .notes:focus{border-color:var(--accent)}
-  /* feed */
   .feed a{display:block;padding:9px 0;border-bottom:1px solid rgba(29,42,62,.5);font-size:13px;line-height:1.4}
-  .feed a:last-child{border-bottom:none}
-  .feed a:hover{color:var(--accent)}
+  .feed a:last-child{border-bottom:none}.feed a:hover{color:var(--accent)}
   .feed .meta{color:var(--dim);font-size:11px;margin-top:3px}
 
-  /* buttons + modals */
   .btn{background:var(--panel);border:1px solid var(--line);color:var(--text);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;transition:.15s}
   .btn:hover{background:var(--tile-h);border-color:var(--accent)}
   .btn.primary{background:linear-gradient(90deg,var(--accent),#2f74ff);border:none;color:#fff}
   .btn.ghost{background:transparent}
   .toolbar{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}
-  .overlay{position:fixed;inset:0;background:rgba(4,7,12,.74);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+  .overlay{position:fixed;inset:0;background:rgba(4,7,12,.74);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
   .overlay.on{display:flex}
   .modal{width:100%;max-width:450px;padding:26px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
   .modal h3{font-size:18px;margin-bottom:20px}
@@ -132,51 +113,53 @@
   .icon-pick span.sel{border-color:var(--accent);background:var(--tile-h)}
   footer{text-align:center;color:var(--dim);font-size:12px;margin-top:34px}
   ::placeholder{color:#4a5a72}
+
+  /* ---- in-app windows ---- */
+  .appwin{position:fixed;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.6);display:flex;flex-direction:column;overflow:hidden;min-width:320px;min-height:220px;z-index:100;resize:both}
+  .appwin .titlebar{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(180deg,#16223a,#111a2c);border-bottom:1px solid var(--line);cursor:move;user-select:none;flex-shrink:0}
+  .appwin .titlebar .ti{width:20px;height:20px;border-radius:5px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .appwin .titlebar .ti img{width:18px;height:18px;border-radius:4px}
+  .appwin .titlebar .tt{font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+  .appwin .wbtns{display:flex;gap:6px;flex-shrink:0}
+  .appwin .wbtns button{width:26px;height:26px;border:1px solid var(--line);background:var(--panel2);color:var(--dim);border-radius:7px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .appwin .wbtns button:hover{color:var(--text);border-color:var(--accent)}
+  .appwin .wbtns button.cl:hover{color:#fff;background:var(--danger);border-color:var(--danger)}
+  .appwin .wbody{flex:1;position:relative;background:#0a0f18;min-height:0}
+  .appwin .wbody iframe{width:100%;height:100%;border:0;display:block}
+  .appwin .spin{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:13px}
+  .appwin .wfoot{flex-shrink:0;display:flex;align-items:center;gap:10px;padding:8px 12px;background:#0c1424;border-top:1px solid var(--line);font-size:11.5px;color:var(--dim)}
+  .appwin .wfoot .msg{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .appwin .wfoot button{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:7px;padding:5px 10px;font-size:11.5px;font-weight:600;cursor:pointer;flex-shrink:0}
+  .appwin .wfoot button:hover{border-color:var(--accent);color:var(--accent)}
+  body.dragging .appwin iframe{pointer-events:none}
+
+  #dock{position:fixed;left:0;right:0;bottom:0;height:56px;background:rgba(10,15,26,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:none;align-items:center;gap:8px;padding:0 14px;z-index:150;overflow-x:auto}
+  #dock.on{display:flex}
+  #dock .chip{display:flex;align-items:center;gap:8px;background:var(--tile);border:1px solid var(--line);border-radius:9px;padding:7px 11px;cursor:pointer;flex-shrink:0;max-width:190px}
+  #dock .chip:hover{border-color:var(--accent);background:var(--tile-h)}
+  #dock .chip.live{border-color:var(--accent2)}
+  #dock .chip img{width:18px;height:18px;border-radius:4px}
+  #dock .chip .cn{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #dock .chip .cx{color:var(--dim);font-size:12px}#dock .chip .cx:hover{color:var(--danger)}
+  #dock .label{color:var(--dim);font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-right:4px}
 </style>
 </head>
 <body>
 
-<!-- TOP -->
 <div class="top">
-  <div>
-    <div class="greet" id="greet">Command Center</div>
-    <div class="sub" id="sub">Everything you need, one screen.</div>
-  </div>
+  <div><div class="greet" id="greet">Command Center</div><div class="sub" id="sub">Everything you need, one screen.</div></div>
   <div class="clockbox">
     <div class="wx" id="wx"><div class="t">—</div><div class="d">weather</div></div>
-    <div>
-      <div class="time" id="time">--:--</div>
-      <div class="date" id="fulldate"></div>
-    </div>
+    <div><div class="time" id="time">--:--</div><div class="date" id="fulldate"></div></div>
   </div>
 </div>
 
-<!-- STAT STRIP -->
 <div class="strip">
-  <div class="card panel">
-    <div class="lab"><span class="dot" style="width:7px;height:7px;border-radius:50%;background:var(--accent2);display:inline-block"></span> Shift progress</div>
-    <div class="big" id="shiftPct">—</div>
-    <div class="small" id="shiftMsg">Set your hours in ⚙︎</div>
-    <div class="bar-track"><div class="bar-fill" id="shiftBar" style="width:0%"></div></div>
-  </div>
-  <div class="card panel">
-    <div class="lab"><span class="dot" style="width:7px;height:7px;border-radius:50%;background:var(--warn);display:inline-block"></span> Day progress</div>
-    <div class="big" id="dayPct">—</div>
-    <div class="small" id="dayMsg"></div>
-    <div class="bar-track"><div class="bar-fill" id="dayBar" style="width:0%;background:linear-gradient(90deg,var(--warn),#ff7e6b)"></div></div>
-  </div>
-  <div class="card panel">
-    <div class="lab"><span class="dot" style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block"></span> Focus timer</div>
-    <div class="big" id="focus">25:00</div>
-    <div class="small" id="focusMsg">Beat the clock on one task</div>
-    <div class="timer-btns">
-      <button id="focusToggle" onclick="toggleFocus()">Start</button>
-      <button onclick="resetFocus()">Reset</button>
-    </div>
-  </div>
+  <div class="card panel"><div class="lab">Shift progress</div><div class="big" id="shiftPct">—</div><div class="small" id="shiftMsg">Set your hours in ⚙︎</div><div class="bar-track"><div class="bar-fill" id="shiftBar" style="width:0%"></div></div></div>
+  <div class="card panel"><div class="lab">Day progress</div><div class="big" id="dayPct">—</div><div class="small" id="dayMsg"></div><div class="bar-track"><div class="bar-fill" id="dayBar" style="width:0%;background:linear-gradient(90deg,var(--warn),#ff7e6b)"></div></div></div>
+  <div class="card panel"><div class="lab">Focus timer</div><div class="big" id="focus">25:00</div><div class="small" id="focusMsg">Beat the clock on one task</div><div class="timer-btns"><button id="focusToggle" onclick="toggleFocus()">Start</button><button onclick="resetFocus()">Reset</button></div></div>
 </div>
 
-<!-- COMMAND BAR -->
 <div class="cmd">
   <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
   <input id="search" type="text" placeholder="Search tools, or type a ticket # / web address and hit Enter…" autocomplete="off">
@@ -189,35 +172,26 @@
   <button class="btn ghost" onclick="openSettings()">⚙︎ Settings</button>
 </div>
 
-<!-- MAIN -->
 <div class="main">
   <div id="board"></div>
-
   <div class="side">
-    <div class="w panel">
-      <h4>✓ To-do <span class="a" title="Clear finished" onclick="clearDoneTodos()">clear</span></h4>
-      <div id="todoList"></div>
-      <input class="todo-add" id="todoAdd" placeholder="+ add a task, press Enter">
-    </div>
-    <div class="w panel">
-      <h4>📝 Scratchpad</h4>
-      <textarea class="notes" id="notes" placeholder="Jot anything… saves as you type."></textarea>
-    </div>
-    <div class="w panel">
-      <h4>📡 Live feed <span class="a" title="Refresh" onclick="loadFeed()">↻</span></h4>
-      <div class="feed" id="feed"><div class="muted">Loading…</div></div>
-    </div>
+    <div class="w panel"><h4>✓ To-do <span class="a" title="Clear finished" onclick="clearDoneTodos()">clear</span></h4><div id="todoList"></div><input class="todo-add" id="todoAdd" placeholder="+ add a task, press Enter"></div>
+    <div class="w panel"><h4>📝 Scratchpad</h4><textarea class="notes" id="notes" placeholder="Jot anything… saves as you type."></textarea></div>
+    <div class="w panel"><h4>📡 Live feed <span class="a" title="Refresh" onclick="loadFeed()">↻</span></h4><div class="feed" id="feed"><div class="muted">Loading…</div></div></div>
   </div>
 </div>
 
 <footer>Saved right here in this browser — nothing private leaves your machine. ⚙︎ → Backup to keep a copy.</footer>
 
+<!-- in-app windows + dock -->
+<div id="windows"></div>
+<div id="dock"><span class="label">Open</span></div>
+
 <!-- LINK MODAL -->
 <div class="overlay" id="linkModal"><div class="modal panel">
   <h3 id="linkModalTitle">Add link</h3>
   <div class="fld"><label>Name</label><input id="lName" placeholder="e.g. ServiceNow"></div>
-  <div class="fld"><label>Web address</label><input id="lUrl" placeholder="e.g. servicenow.mycompany.com">
-    <div class="hint">Just paste it. I add https:// and grab the real logo for you.</div></div>
+  <div class="fld"><label>Web address</label><input id="lUrl" placeholder="e.g. servicenow.mycompany.com"><div class="hint">Just paste it. I add https:// and grab the real logo for you.</div></div>
   <div class="fld"><label>Group</label><select id="lCat"></select></div>
   <div class="fld"><label>Backup icon (if no logo found)</label><div class="icon-pick" id="iconPick"></div></div>
   <div class="modal-actions"><button class="btn ghost" onclick="closeModals()">Cancel</button><button class="btn primary" onclick="saveLink()">Save</button></div>
@@ -227,84 +201,64 @@
 <div class="overlay" id="catModal"><div class="modal panel">
   <h3 id="catModalTitle">Add group</h3>
   <div class="fld"><label>Group name</label><input id="cName" placeholder="e.g. Daily Tools"></div>
-  <div class="modal-actions">
-    <button class="btn ghost" id="catDelBtn" onclick="deleteCat()" style="margin-right:auto;color:var(--danger)">Delete group</button>
-    <button class="btn ghost" onclick="closeModals()">Cancel</button>
-    <button class="btn primary" onclick="saveCat()">Save</button>
-  </div>
+  <div class="modal-actions"><button class="btn ghost" id="catDelBtn" onclick="deleteCat()" style="margin-right:auto;color:var(--danger)">Delete group</button><button class="btn ghost" onclick="closeModals()">Cancel</button><button class="btn primary" onclick="saveCat()">Save</button></div>
 </div></div>
 
 <!-- SETTINGS MODAL -->
 <div class="overlay" id="setModal"><div class="modal panel">
   <h3>Settings</h3>
   <div class="fld"><label>Your name (for the greeting)</label><input id="sName" placeholder="e.g. Zeno"></div>
-  <div class="fld"><label>Your city (for weather)</label><input id="sCity" placeholder="e.g. Los Angeles">
-    <div class="hint">Leave blank to let the browser use your location.</div></div>
-  <div class="row">
-    <div class="fld"><label>Shift starts</label><input id="sStart" type="time" value="09:00"></div>
-    <div class="fld"><label>Shift ends</label><input id="sEnd" type="time" value="17:00"></div>
-  </div>
-  <div class="fld"><label>Ticket link (for the command bar)</label><input id="sSN" placeholder="https://mycompany.service-now.com/nav_to.do?uri=/incident.do?sysparm_query=number={q}">
-    <div class="hint">Put {q} where the ticket number goes. Then typing a ticket # + Enter opens it.</div></div>
+  <div class="fld"><label>Your city (for weather)</label><input id="sCity" placeholder="e.g. Los Angeles"><div class="hint">Leave blank to let the browser use your location.</div></div>
+  <div class="row"><div class="fld"><label>Shift starts</label><input id="sStart" type="time" value="09:00"></div><div class="fld"><label>Shift ends</label><input id="sEnd" type="time" value="17:00"></div></div>
+  <div class="fld"><label>When I click a tool, open it as…</label><select id="sMode"><option value="window">A window inside the dashboard (with a dock)</option><option value="tab">A normal new browser tab</option></select><div class="hint">Some sites (logins, ServiceNow) block windows — they'll offer a “pop out” button.</div></div>
+  <div class="fld"><label>Ticket link (for the command bar)</label><input id="sSN" placeholder="https://mycompany.service-now.com/nav_to.do?uri=/incident.do?sysparm_query=number={q}"><div class="hint">Put {q} where the ticket number goes.</div></div>
   <div class="modal-actions" style="justify-content:space-between">
-    <div style="display:flex;gap:9px">
-      <button class="btn" onclick="exportData()">⬇ Backup</button>
-      <button class="btn" onclick="document.getElementById('importFile').click()">⬆ Restore</button>
-      <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)">
-    </div>
+    <div style="display:flex;gap:9px"><button class="btn" onclick="exportData()">⬇ Backup</button><button class="btn" onclick="document.getElementById('importFile').click()">⬆ Restore</button><input type="file" id="importFile" accept="application/json" style="display:none" onchange="importData(event)"></div>
     <button class="btn primary" onclick="saveSettings()">Save</button>
   </div>
 </div></div>
 
 <script>
-/* ---------- data ---------- */
 const ICONS=["🎫","🔐","🛠️","📊","📁","📧","📅","💬","☁️","🌐","🖥️","📈","🧰","🔎","📝","⚙️","🚀","🏢","👥","💡"];
 function cid(){return Math.random().toString(36).slice(2,9);}
 const SEED={
-  name:"", city:"", shiftStart:"09:00", shiftEnd:"17:00", snUrl:"",
-  todos:[{id:cid(),text:"Add your real tools to the board",done:false}],
-  note:"",
+  name:"",city:"",shiftStart:"09:00",shiftEnd:"17:00",snUrl:"",openMode:"window",
+  todos:[{id:cid(),text:"Add your real tools to the board",done:false}],note:"",
   cats:[
     {id:cid(),name:"Daily Tools",links:[
       {id:cid(),name:"ServiceNow",url:"https://servicenow.com",icon:"🎫"},
       {id:cid(),name:"Company Login",url:"https://login.microsoftonline.com",icon:"🔐"},
       {id:cid(),name:"Email",url:"https://outlook.office.com",icon:"📧"},
     ]},
-    {id:cid(),name:"References",links:[
-      {id:cid(),name:"Knowledge Base",url:"https://example.com",icon:"📁"},
-    ]},
+    {id:cid(),name:"References",links:[{id:cid(),name:"Knowledge Base",url:"https://en.wikipedia.org",icon:"📁"}]},
   ]
 };
-let data=load(), editingLink=null, editingCat=null, selIcon=ICONS[0];
-function load(){try{const r=localStorage.getItem("commandCenterV2");if(r)return migrate(JSON.parse(r));const old=localStorage.getItem("commandCenter");if(old){const o=JSON.parse(old);return Object.assign(JSON.parse(JSON.stringify(SEED)),o);}}catch(e){}return JSON.parse(JSON.stringify(SEED));}
+let data=load(),editingLink=null,editingCat=null,selIcon=ICONS[0];
+function load(){try{const r=localStorage.getItem("commandCenterV2");if(r)return migrate(JSON.parse(r));const old=localStorage.getItem("commandCenter");if(old)return Object.assign(JSON.parse(JSON.stringify(SEED)),JSON.parse(old));}catch(e){}return JSON.parse(JSON.stringify(SEED));}
 function migrate(d){for(const k in SEED)if(!(k in d))d[k]=JSON.parse(JSON.stringify(SEED[k]));return d;}
 function save(){localStorage.setItem("commandCenterV2",JSON.stringify(data));}
 
-/* ---------- board / links ---------- */
 function host(u){try{return new URL(u).hostname.replace(/^www\./,'');}catch(e){return u;}}
 function esc(s){return(s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function iconHTML(l){
-  const h=host(l.url);
-  const fav=`https://www.google.com/s2/favicons?domain=${encodeURIComponent(h)}&sz=64`;
-  return `<img src="${fav}" alt="" onerror="this.replaceWith(document.createTextNode('${l.icon||'🌐'}'))">`;
-}
+function favUrl(u){return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host(u))}&sz=64`;}
+function iconHTML(l){return `<img src="${favUrl(l.url)}" alt="" onerror="this.replaceWith(document.createTextNode('${l.icon||'🌐'}'))">`;}
+
+/* ---------- board ---------- */
 let topMatch=null;
 function render(){
   const q=document.getElementById("search").value.trim().toLowerCase();
-  const board=document.getElementById("board");board.innerHTML="";
-  let shown=0; topMatch=null;
+  const board=document.getElementById("board");board.innerHTML="";let shown=0;topMatch=null;
   data.cats.forEach(cat=>{
     const links=cat.links.filter(l=>!q||l.name.toLowerCase().includes(q)||l.url.toLowerCase().includes(q));
     if(q&&links.length===0)return;
     const sec=document.createElement("div");sec.className="cat";
     sec.innerHTML=`<div class="cat-head"><span class="dot"></span><h2>${esc(cat.name)}</h2><span class="count">${cat.links.length}</span><span class="edit-cat" onclick="openCatEdit('${cat.id}')">edit group</span></div><div class="grid"></div>`;
-    board.appendChild(sec);
-    const grid=sec.querySelector(".grid");
+    board.appendChild(sec);const grid=sec.querySelector(".grid");
     links.forEach(l=>{
-      shown++; if(q&&!topMatch)topMatch=l;
-      const t=document.createElement("a");t.className="tile"+(q&&topMatch===l?" hot":"");
-      t.href=l.url;t.target="_blank";t.rel="noopener";
+      shown++;if(q&&!topMatch)topMatch=l;
+      const t=document.createElement("a");t.className="tile"+(q&&topMatch===l?" hot":"");t.href=l.url;t.target="_blank";t.rel="noopener";
       t.innerHTML=`<div class="ico">${iconHTML(l)}</div><div class="meta"><div class="name">${esc(l.name)}</div><div class="url">${esc(host(l.url))}</div></div><span class="kill" title="Remove" onclick="event.preventDefault();event.stopPropagation();removeLink('${cat.id}','${l.id}')">✕</span>`;
+      t.addEventListener("click",e=>{if(e.ctrlKey||e.metaKey||e.button===1)return;e.preventDefault();openLink(l);});
       grid.appendChild(t);
     });
     if(!q){const a=document.createElement("div");a.className="tile add";a.textContent="+ Add link";a.onclick=()=>openAdd(cat.id);grid.appendChild(a);}
@@ -313,132 +267,151 @@ function render(){
   updateHint();
 }
 function removeLink(catId,linkId){const cat=data.cats.find(c=>c.id===catId);const link=cat.links.find(l=>l.id===linkId);if(!confirm(`Remove “${link.name}”?`))return;cat.links=cat.links.filter(l=>l.id!==linkId);save();render();}
+function openLink(l){if(data.openMode==="tab")window.open(l.url,"_blank","noopener");else openWin(l);}
 
-/* command bar smart Enter */
+/* command bar */
 function looksTicket(q){return /^(inc|ritm|chg|task|req|prb|sctask)\s*0*\d+$/i.test(q)||/^\d{4,}$/.test(q);}
 function looksUrl(q){return /^[a-z0-9.-]+\.[a-z]{2,}(\/\S*)?$/i.test(q)&&!q.includes(" ");}
-function updateHint(){
-  const q=document.getElementById("search").value.trim();const h=document.getElementById("hint");
-  if(!q){h.classList.remove("on");return;}
-  let msg="";
-  if(looksTicket(q)&&data.snUrl)msg=`Enter ⏎ open ticket ${q.toUpperCase()}`;
-  else if(topMatch)msg=`Enter ⏎ open ${topMatch.name}`;
-  else if(looksUrl(q))msg=`Enter ⏎ go to ${q}`;
-  else msg=`Enter ⏎ search the web`;
-  h.textContent=msg;h.classList.add("on");
-}
-function runCommand(){
-  const q=document.getElementById("search").value.trim();if(!q)return;
-  let url;
-  if(looksTicket(q)&&data.snUrl)url=data.snUrl.replace("{q}",encodeURIComponent(q.toUpperCase().replace(/\s+/g,"")));
-  else if(topMatch)url=topMatch.url;
-  else if(looksUrl(q))url=/^https?:\/\//i.test(q)?q:"https://"+q;
-  else url="https://www.google.com/search?q="+encodeURIComponent(q);
-  window.open(url,"_blank","noopener");
+function updateHint(){const q=document.getElementById("search").value.trim();const h=document.getElementById("hint");if(!q){h.classList.remove("on");return;}let m="";if(looksTicket(q)&&data.snUrl)m=`Enter ⏎ open ticket ${q.toUpperCase()}`;else if(topMatch)m=`Enter ⏎ open ${topMatch.name}`;else if(looksUrl(q))m=`Enter ⏎ go to ${q}`;else m=`Enter ⏎ search the web`;h.textContent=m;h.classList.add("on");}
+function runCommand(){const q=document.getElementById("search").value.trim();if(!q)return;
+  if(looksTicket(q)&&data.snUrl){const u=data.snUrl.replace("{q}",encodeURIComponent(q.toUpperCase().replace(/\s+/g,"")));openLink({name:"Ticket "+q.toUpperCase(),url:u});return;}
+  if(topMatch){openLink(topMatch);return;}
+  if(looksUrl(q)){openLink({name:q,url:/^https?:\/\//i.test(q)?q:"https://"+q});return;}
+  window.open("https://www.google.com/search?q="+encodeURIComponent(q),"_blank","noopener");
 }
 
-/* ---------- link modal ---------- */
+/* ---------- in-app windows ---------- */
+let zTop=100, winCount=0;
+const wins={}; // id -> {el, link, minimized}
+function openWin(l){
+  const id="win"+(++winCount);
+  const vw=window.innerWidth,vh=window.innerHeight;
+  const w=Math.min(940,vw-60),h=Math.min(620,vh-120);
+  const off=(Object.keys(wins).length%6)*30;
+  const x=Math.max(20,(vw-w)/2-60+off),y=Math.max(20,(vh-h)/2-40+off);
+  const el=document.createElement("div");el.className="appwin";el.id=id;
+  el.style.left=x+"px";el.style.top=y+"px";el.style.width=w+"px";el.style.height=h+"px";el.style.zIndex=(++zTop);
+  el.innerHTML=`
+    <div class="titlebar">
+      <div class="ti"><img src="${favUrl(l.url)}" onerror="this.replaceWith(document.createTextNode('🌐'))"></div>
+      <div class="tt">${esc(l.name)}</div>
+      <div class="wbtns">
+        <button title="Open in browser tab" onclick="popOut('${id}')">↗</button>
+        <button title="Minimize" onclick="minWin('${id}')">—</button>
+        <button class="cl" title="Close" onclick="closeWin('${id}')">✕</button>
+      </div>
+    </div>
+    <div class="wbody">
+      <div class="spin">Opening ${esc(l.name)}…</div>
+      <iframe src="${l.url}" referrerpolicy="no-referrer"></iframe>
+    </div>
+    <div class="wfoot">
+      <span class="msg">🔒 Blank? This site blocks previews — pop it out to a tab.</span>
+      <button onclick="popOut('${id}')">Open in tab ↗</button>
+    </div>`;
+  document.getElementById("windows").appendChild(el);
+  wins[id]={el,link:l,minimized:false};
+  const iframe=el.querySelector("iframe"),spin=el.querySelector(".spin");
+  iframe.addEventListener("load",()=>{spin.style.display="none";});
+  setTimeout(()=>{spin.style.display="none";},6000);
+  el.addEventListener("mousedown",()=>{el.style.zIndex=(++zTop);});
+  makeDraggable(el,el.querySelector(".titlebar"));
+  renderDock();
+  return id;
+}
+function makeDraggable(el,handle){
+  let sx,sy,ox,oy,drag=false;
+  handle.addEventListener("mousedown",e=>{if(e.target.closest("button"))return;drag=true;sx=e.clientX;sy=e.clientY;const r=el.getBoundingClientRect();ox=r.left;oy=r.top;document.body.classList.add("dragging");e.preventDefault();});
+  window.addEventListener("mousemove",e=>{if(!drag)return;let nx=ox+(e.clientX-sx),ny=oy+(e.clientY-sy);nx=Math.max(0,Math.min(window.innerWidth-80,nx));ny=Math.max(0,Math.min(window.innerHeight-40,ny));el.style.left=nx+"px";el.style.top=ny+"px";});
+  window.addEventListener("mouseup",()=>{drag=false;document.body.classList.remove("dragging");});
+}
+function minWin(id){wins[id].minimized=true;wins[id].el.style.display="none";renderDock();}
+function restoreWin(id){wins[id].minimized=false;wins[id].el.style.display="flex";wins[id].el.style.zIndex=(++zTop);renderDock();}
+function closeWin(id){wins[id].el.remove();delete wins[id];renderDock();}
+function popOut(id){window.open(wins[id].link.url,"_blank","noopener");}
+function renderDock(){
+  const dock=document.getElementById("dock");
+  const ids=Object.keys(wins);
+  dock.querySelectorAll(".chip").forEach(c=>c.remove());
+  if(ids.length===0){dock.classList.remove("on");document.body.classList.remove("has-dock");return;}
+  dock.classList.add("on");document.body.classList.add("has-dock");
+  ids.forEach(id=>{const w=wins[id];const chip=document.createElement("div");chip.className="chip"+(w.minimized?"":" live");
+    chip.innerHTML=`<img src="${favUrl(w.link.url)}" onerror="this.style.display='none'"><span class="cn">${esc(w.link.name)}</span><span class="cx" title="Close" onclick="event.stopPropagation();closeWin('${id}')">✕</span>`;
+    chip.addEventListener("click",()=>{w.minimized?restoreWin(id):(w.el.style.zIndex=(++zTop));});
+    dock.appendChild(chip);});
+}
+
+/* ---------- modals: link ---------- */
 function buildIconPick(){const box=document.getElementById("iconPick");box.innerHTML="";ICONS.forEach(ic=>{const s=document.createElement("span");s.textContent=ic;if(ic===selIcon)s.className="sel";s.onclick=()=>{selIcon=ic;buildIconPick();};box.appendChild(s);});}
 function fillCatSelect(){document.getElementById("lCat").innerHTML=data.cats.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join("");}
 function openAdd(catId){editingLink=null;document.getElementById("linkModalTitle").textContent="Add link";document.getElementById("lName").value="";document.getElementById("lUrl").value="";selIcon=ICONS[0];fillCatSelect();buildIconPick();if(catId)document.getElementById("lCat").value=catId;show("linkModal");document.getElementById("lName").focus();}
 function openLinkEdit(catId,linkId){const link=data.cats.find(c=>c.id===catId).links.find(l=>l.id===linkId);editingLink={catId,linkId};document.getElementById("linkModalTitle").textContent="Edit link";document.getElementById("lName").value=link.name;document.getElementById("lUrl").value=link.url;selIcon=link.icon||ICONS[0];fillCatSelect();buildIconPick();document.getElementById("lCat").value=catId;show("linkModal");}
 function saveLink(){const name=document.getElementById("lName").value.trim();let url=document.getElementById("lUrl").value.trim();const catId=document.getElementById("lCat").value;if(!name||!url){alert("Give it a name and a link.");return;}if(!/^https?:\/\//i.test(url))url="https://"+url;
-  if(editingLink){const oldCat=data.cats.find(c=>c.id===editingLink.catId);const idx=oldCat.links.findIndex(l=>l.id===editingLink.linkId);const link=oldCat.links[idx];link.name=name;link.url=url;link.icon=selIcon;if(editingLink.catId!==catId){oldCat.links.splice(idx,1);data.cats.find(c=>c.id===catId).links.push(link);}}
-  else data.cats.find(c=>c.id===catId).links.push({id:cid(),name,url,icon:selIcon});
-  save();closeModals();render();}
+  if(editingLink){const oc=data.cats.find(c=>c.id===editingLink.catId);const idx=oc.links.findIndex(l=>l.id===editingLink.linkId);const link=oc.links[idx];link.name=name;link.url=url;link.icon=selIcon;if(editingLink.catId!==catId){oc.links.splice(idx,1);data.cats.find(c=>c.id===catId).links.push(link);}}
+  else data.cats.find(c=>c.id===catId).links.push({id:cid(),name,url,icon:selIcon});save();closeModals();render();}
 
-/* ---------- category modal ---------- */
+/* modals: category */
 function openCatAdd(){editingCat=null;document.getElementById("catModalTitle").textContent="Add group";document.getElementById("cName").value="";document.getElementById("catDelBtn").style.display="none";show("catModal");document.getElementById("cName").focus();}
 function openCatEdit(catId){editingCat=catId;const cat=data.cats.find(c=>c.id===catId);document.getElementById("catModalTitle").textContent="Edit group";document.getElementById("cName").value=cat.name;document.getElementById("catDelBtn").style.display=data.cats.length>1?"block":"none";show("catModal");document.getElementById("cName").focus();}
 function saveCat(){const name=document.getElementById("cName").value.trim();if(!name){alert("Give the group a name.");return;}if(editingCat)data.cats.find(c=>c.id===editingCat).name=name;else data.cats.push({id:cid(),name,links:[]});save();closeModals();render();}
 function deleteCat(){const cat=data.cats.find(c=>c.id===editingCat);if(!confirm(`Delete group “${cat.name}” and its ${cat.links.length} link(s)?`))return;data.cats=data.cats.filter(c=>c.id!==editingCat);save();closeModals();render();}
 
-/* ---------- to-do ---------- */
-function renderTodos(){const box=document.getElementById("todoList");box.innerHTML="";if(!data.todos.length){box.innerHTML='<div class="muted">Nothing yet — add a task below.</div>';return;}
-  data.todos.forEach(t=>{const row=document.createElement("div");row.className="todo"+(t.done?" done":"");row.innerHTML=`<div class="chk" onclick="toggleTodo('${t.id}')">${t.done?'✓':''}</div><div class="txt">${esc(t.text)}</div><span class="x" onclick="delTodo('${t.id}')">✕</span>`;box.appendChild(row);});}
+/* to-do */
+function renderTodos(){const box=document.getElementById("todoList");box.innerHTML="";if(!data.todos.length){box.innerHTML='<div class="muted">Nothing yet — add a task below.</div>';return;}data.todos.forEach(t=>{const row=document.createElement("div");row.className="todo"+(t.done?" done":"");row.innerHTML=`<div class="chk" onclick="toggleTodo('${t.id}')">${t.done?'✓':''}</div><div class="txt">${esc(t.text)}</div><span class="x" onclick="delTodo('${t.id}')">✕</span>`;box.appendChild(row);});}
 function toggleTodo(id){const t=data.todos.find(t=>t.id===id);t.done=!t.done;save();renderTodos();}
 function delTodo(id){data.todos=data.todos.filter(t=>t.id!==id);save();renderTodos();}
 function clearDoneTodos(){data.todos=data.todos.filter(t=>!t.done);save();renderTodos();}
 document.getElementById("todoAdd").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.value.trim()){data.todos.push({id:cid(),text:e.target.value.trim(),done:false});e.target.value="";save();renderTodos();}});
 
-/* ---------- notes ---------- */
+/* notes */
 const notesEl=document.getElementById("notes");
 notesEl.addEventListener("input",()=>{data.note=notesEl.value;save();});
 
-/* ---------- settings ---------- */
-function openSettings(){document.getElementById("sName").value=data.name||"";document.getElementById("sCity").value=data.city||"";document.getElementById("sStart").value=data.shiftStart||"09:00";document.getElementById("sEnd").value=data.shiftEnd||"17:00";document.getElementById("sSN").value=data.snUrl||"";show("setModal");}
-function saveSettings(){data.name=document.getElementById("sName").value.trim();data.city=document.getElementById("sCity").value.trim();data.shiftStart=document.getElementById("sStart").value;data.shiftEnd=document.getElementById("sEnd").value;data.snUrl=document.getElementById("sSN").value.trim();save();closeModals();greet();loadWeather();tickStats();updateHint();}
+/* settings */
+function openSettings(){document.getElementById("sName").value=data.name||"";document.getElementById("sCity").value=data.city||"";document.getElementById("sStart").value=data.shiftStart||"09:00";document.getElementById("sEnd").value=data.shiftEnd||"17:00";document.getElementById("sSN").value=data.snUrl||"";document.getElementById("sMode").value=data.openMode||"window";show("setModal");}
+function saveSettings(){data.name=document.getElementById("sName").value.trim();data.city=document.getElementById("sCity").value.trim();data.shiftStart=document.getElementById("sStart").value;data.shiftEnd=document.getElementById("sEnd").value;data.snUrl=document.getElementById("sSN").value.trim();data.openMode=document.getElementById("sMode").value;save();closeModals();greet();loadWeather();tickStats();updateHint();}
 function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="command-center-backup.json";a.click();}
 function importData(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{data=migrate(JSON.parse(r.result));save();closeModals();bootUI();alert("Restored.");}catch(err){alert("That file didn't look right.");}};r.readAsText(f);}
 
-/* ---------- modals ---------- */
+/* modals helper */
 function show(id){closeModals();document.getElementById(id).classList.add("on");}
 function closeModals(){document.querySelectorAll(".overlay").forEach(o=>o.classList.remove("on"));}
 document.querySelectorAll(".overlay").forEach(o=>o.addEventListener("click",e=>{if(e.target===o)closeModals();}));
 
-/* ---------- clock, greeting, stats ---------- */
+/* clock/stats */
 function tick(){const d=new Date();let h=d.getHours();const m=String(d.getMinutes()).padStart(2,"0");const ap=h>=12?"PM":"AM";const h12=((h+11)%12)+1;document.getElementById("time").textContent=`${h12}:${m} ${ap}`;document.getElementById("fulldate").textContent=d.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});}
 function greet(){const h=new Date().getHours();const part=h<12?"Good morning":h<18?"Good afternoon":"Good evening";const nm=data.name?`, <span>${esc(data.name)}</span>`:"";document.getElementById("greet").innerHTML=`${part}${nm}`;}
 function toMin(t){if(!t)return null;const[a,b]=t.split(":").map(Number);return a*60+b;}
-function tickStats(){
-  const now=new Date();const cur=now.getHours()*60+now.getMinutes();
-  const s=toMin(data.shiftStart),e=toMin(data.shiftEnd);
-  if(s!=null&&e!=null&&e>s){
-    let pct=Math.max(0,Math.min(100,(cur-s)/(e-s)*100));
-    document.getElementById("shiftBar").style.width=pct+"%";
-    document.getElementById("shiftPct").textContent=Math.round(pct)+"%";
-    if(cur<s)document.getElementById("shiftMsg").textContent="Shift hasn't started";
-    else if(cur>=e)document.getElementById("shiftMsg").textContent="Shift's done — go home 🎉";
-    else{const left=e-cur;document.getElementById("shiftMsg").textContent=`${Math.floor(left/60)}h ${left%60}m left`;}
-  }
-  // day progress (whole 24h)
-  let dpct=cur/(24*60)*100;document.getElementById("dayBar").style.width=dpct+"%";document.getElementById("dayPct").textContent=Math.round(dpct)+"%";
-  const wl=(24*60-cur);document.getElementById("dayMsg").textContent=`${Math.floor(wl/60)}h ${wl%60}m until midnight`;
-}
+function tickStats(){const now=new Date();const cur=now.getHours()*60+now.getMinutes();const s=toMin(data.shiftStart),e=toMin(data.shiftEnd);
+  if(s!=null&&e!=null&&e>s){let pct=Math.max(0,Math.min(100,(cur-s)/(e-s)*100));document.getElementById("shiftBar").style.width=pct+"%";document.getElementById("shiftPct").textContent=Math.round(pct)+"%";if(cur<s)document.getElementById("shiftMsg").textContent="Shift hasn't started";else if(cur>=e)document.getElementById("shiftMsg").textContent="Shift's done — go home 🎉";else{const left=e-cur;document.getElementById("shiftMsg").textContent=`${Math.floor(left/60)}h ${left%60}m left`;}}
+  let dpct=cur/(24*60)*100;document.getElementById("dayBar").style.width=dpct+"%";document.getElementById("dayPct").textContent=Math.round(dpct)+"%";const wl=(24*60-cur);document.getElementById("dayMsg").textContent=`${Math.floor(wl/60)}h ${wl%60}m until midnight`;}
 
-/* ---------- focus timer ---------- */
+/* focus */
 let focusSec=25*60,focusOn=false,focusInt=null;
 function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
 function paintFocus(){document.getElementById("focus").textContent=fmt(focusSec);}
-function toggleFocus(){focusOn=!focusOn;document.getElementById("focusToggle").textContent=focusOn?"Pause":"Start";document.getElementById("focusMsg").textContent=focusOn?"Focusing…":"Paused";if(focusOn){focusInt=setInterval(()=>{if(focusSec>0){focusSec--;paintFocus();}else{clearInterval(focusInt);focusOn=false;document.getElementById("focusToggle").textContent="Start";document.getElementById("focusMsg").textContent="Time! Take a break ☕";try{new Audio("data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ==").play();}catch(e){}}},1000);}else clearInterval(focusInt);}
+function toggleFocus(){focusOn=!focusOn;document.getElementById("focusToggle").textContent=focusOn?"Pause":"Start";document.getElementById("focusMsg").textContent=focusOn?"Focusing…":"Paused";if(focusOn){focusInt=setInterval(()=>{if(focusSec>0){focusSec--;paintFocus();}else{clearInterval(focusInt);focusOn=false;document.getElementById("focusToggle").textContent="Start";document.getElementById("focusMsg").textContent="Time! Take a break ☕";}},1000);}else clearInterval(focusInt);}
 function resetFocus(){clearInterval(focusInt);focusOn=false;focusSec=25*60;paintFocus();document.getElementById("focusToggle").textContent="Start";document.getElementById("focusMsg").textContent="Beat the clock on one task";}
 
-/* ---------- weather (open-meteo, no key) ---------- */
+/* weather */
 const WX={0:["☀️","Clear"],1:["🌤️","Mostly clear"],2:["⛅","Partly cloudy"],3:["☁️","Cloudy"],45:["🌫️","Fog"],48:["🌫️","Fog"],51:["🌦️","Drizzle"],53:["🌦️","Drizzle"],55:["🌦️","Drizzle"],61:["🌧️","Rain"],63:["🌧️","Rain"],65:["🌧️","Heavy rain"],71:["🌨️","Snow"],73:["🌨️","Snow"],75:["❄️","Heavy snow"],80:["🌦️","Showers"],81:["🌦️","Showers"],82:["⛈️","Storms"],95:["⛈️","Thunder"],96:["⛈️","Thunder"],99:["⛈️","Thunder"]};
-function paintWx(temp,code){const[ic,txt]=WX[code]||["🌡️",""];document.getElementById("wx").innerHTML=`<div class="t">${ic} ${Math.round(temp)}°</div><div class="d">${txt}</div>`;}
+function paintWx(t,c){const[ic,tx]=WX[c]||["🌡️",""];document.getElementById("wx").innerHTML=`<div class="t">${ic} ${Math.round(t)}°</div><div class="d">${tx}</div>`;}
 async function fetchWx(lat,lon){try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&temperature_unit=fahrenheit`);const j=await r.json();paintWx(j.current.temperature_2m,j.current.weather_code);}catch(e){document.getElementById("wx").innerHTML='<div class="d">weather offline</div>';}}
-async function loadWeather(){
-  if(data.city){try{const g=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(data.city)}&count=1`);const gj=await g.json();if(gj.results&&gj.results[0]){fetchWx(gj.results[0].latitude,gj.results[0].longitude);return;}}catch(e){}}
-  if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>fetchWx(p.coords.latitude,p.coords.longitude),()=>{document.getElementById("wx").innerHTML='<div class="d">set city in ⚙︎</div>';},{timeout:6000});
-  else document.getElementById("wx").innerHTML='<div class="d">set city in ⚙︎</div>';
-}
+async function loadWeather(){if(data.city){try{const g=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(data.city)}&count=1`);const gj=await g.json();if(gj.results&&gj.results[0]){fetchWx(gj.results[0].latitude,gj.results[0].longitude);return;}}catch(e){}}if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>fetchWx(p.coords.latitude,p.coords.longitude),()=>{document.getElementById("wx").innerHTML='<div class="d">set city in ⚙︎</div>';},{timeout:6000});else document.getElementById("wx").innerHTML='<div class="d">set city in ⚙︎</div>';}
 
-/* ---------- live feed (Hacker News — reliable, swappable later) ---------- */
-async function loadFeed(){
-  const box=document.getElementById("feed");box.innerHTML='<div class="muted">Loading…</div>';
-  try{
-    const ids=await(await fetch("https://hacker-news.firebaseio.com/v0/topstories.json")).json();
-    const items=await Promise.all(ids.slice(0,6).map(id=>fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(r=>r.json())));
-    box.innerHTML=items.map(it=>`<a href="${esc(it.url||('https://news.ycombinator.com/item?id='+it.id))}" target="_blank" rel="noopener">${esc(it.title)}<div class="meta">▲ ${it.score} · ${it.descendants||0} comments</div></a>`).join("");
-  }catch(e){box.innerHTML='<div class="muted">Feed offline right now.</div>';}
-}
+/* feed */
+async function loadFeed(){const box=document.getElementById("feed");box.innerHTML='<div class="muted">Loading…</div>';try{const ids=await(await fetch("https://hacker-news.firebaseio.com/v0/topstories.json")).json();const items=await Promise.all(ids.slice(0,6).map(id=>fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(r=>r.json())));box.innerHTML=items.map(it=>`<a href="${esc(it.url||('https://news.ycombinator.com/item?id='+it.id))}" target="_blank" rel="noopener">${esc(it.title)}<div class="meta">▲ ${it.score} · ${it.descendants||0} comments</div></a>`).join("");}catch(e){box.innerHTML='<div class="muted">Feed offline right now.</div>';}}
 
-/* ---------- keyboard ---------- */
+/* keyboard */
 const searchEl=document.getElementById("search");
 searchEl.addEventListener("input",render);
-searchEl.addEventListener("keydown",e=>{if(e.key==="Enter"){runCommand();}});
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape"){const open=[...document.querySelectorAll(".overlay")].some(o=>o.classList.contains("on"));if(open)closeModals();else{searchEl.value="";render();}}
-  if(e.key==="/"&&document.activeElement.tagName!=="INPUT"&&document.activeElement.tagName!=="TEXTAREA"){e.preventDefault();searchEl.focus();}
-});
+searchEl.addEventListener("keydown",e=>{if(e.key==="Enter")runCommand();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){const open=[...document.querySelectorAll(".overlay")].some(o=>o.classList.contains("on"));if(open){closeModals();return;}const ids=Object.keys(wins);if(ids.length){const last=ids[ids.length-1];if(!wins[last].minimized){minWin(last);return;}}searchEl.value="";render();}if(e.key==="/"&&document.activeElement.tagName!=="INPUT"&&document.activeElement.tagName!=="TEXTAREA"){e.preventDefault();searchEl.focus();}});
 document.getElementById("board").addEventListener("contextmenu",e=>{const tile=e.target.closest(".tile");if(tile&&!tile.classList.contains("add")){e.preventDefault();for(const c of data.cats)for(const l of c.links)if(tile.querySelector(".name")&&tile.querySelector(".name").textContent===l.name){openLinkEdit(c.id,l.id);return;}}});
 
-/* ---------- boot ---------- */
+/* boot */
 function bootUI(){notesEl.value=data.note||"";greet();tick();render();renderTodos();paintFocus();tickStats();loadWeather();loadFeed();}
-bootUI();
-setInterval(tick,1000);
-setInterval(tickStats,30000);
-setInterval(loadFeed,300000);
+bootUI();setInterval(tick,1000);setInterval(tickStats,30000);setInterval(loadFeed,300000);
 </script>
 </body>
 </html>
